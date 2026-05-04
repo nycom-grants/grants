@@ -1,16 +1,6 @@
 {
   "grants": [
     {
-      "id": "AGM-WFD26",
-      "agency": "AGM01",
-      "title": "Ag and Food Systems Workforce Development Grant",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "04/28/2026 3:00PM EDT",
-      "link": "https://agriculture.ny.gov/rfp-0328-new-york-state-agriculture-and-food-systems-workforce-development-grant-program",
-      "source": "NYS"
-    },
-    {
       "id": "FPIG20",
       "agency": "AGM01",
       "title": "Round 20 Farmland Protection Implementation Grants",
@@ -71,13 +61,13 @@
       "source": "NYS"
     },
     {
-      "id": "EVT0000003",
-      "agency": "DMV01",
-      "title": "2027 Highway Traffic Safety Grant",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "05/01/2026 11:59PM EDT",
-      "link": "https://https//trafficsafety.ny.gov/highway-safety-grant-program",
+      "id": "CLSPLH2026",
+      "agency": "DOH01",
+      "title": "RFA #20781 Legal Services for People with HIV/AIDS",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "06/11/2026 4:00PM EDT",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
       "source": "NYS"
     },
     {
@@ -179,8 +169,18 @@
       "dueDate": "06/05/2026 4:00PM EDT",
       "link": "https://dol.ny.gov/funding-opportunities",
       "source": "NYS"
+    },
+    {
+      "id": "MH253026",
+      "agency": "OMH01",
+      "title": "Healthy Steps April 2026 Expansion",
+      "status": "Available",
+      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit, Tribal Organization",
+      "dueDate": "07/02/2026 1:00PM EDT",
+      "link": "https://omh.ny.gov/omhweb/rfp/",
+      "source": "NYS"
     }
   ],
-  "fetched": "2026-04-27T10:30:38.477Z",
+  "fetched": "2026-05-04T10:27:02.734Z",
   "count": 18
 }
