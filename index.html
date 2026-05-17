@@ -918,10 +918,7 @@ function renderAgencyCard(g) {
   };
   const sourceStyle = sourceColors[g.source] || 'background:var(--text-mid);color:#fff;';
   let dl = '';
-  const hasRealDate = g.dueDate && /\d{4}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i.test(g.dueDate);
-  if (hasRealDate) {
-    const dlCls = g.dueDate.toLowerCase().includes('closed') ? 'style="color:var(--red);"' : '';
-    dl = `<span class="deadline-row" ${dlCls}>⏱ ${esc(g.dueDate.slice(0,80))}</span>`;
+  if (g.dueDate) dl = `<span class="deadline-row urgent">⏱ Due: ${esc(g.dueDate)}</span>`;
   }
   return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}">
     <div class="card-top">
