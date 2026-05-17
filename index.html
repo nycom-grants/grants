@@ -244,8 +244,8 @@
     <div class="nav-tab active" onclick="switchTab('browse',this)">Browse</div>
     <div class="nav-tab" onclick="switchTab('split',this)">Split view</div>
   </nav>
-  <input class="topbar-search" id="keyword-input" type="text" placeholder="Search grants… (e.g. housing, parks, transit)">
   <div class="topbar-right">
+    <input class="topbar-search" id="keyword-input" type="text" placeholder="Search grants… (e.g. housing, parks, transit)">
     <span class="result-summary" id="result-summary">Loading…</span>
   </div>
 </header>
@@ -254,9 +254,6 @@
 <div id="tab-browse">
   <div class="layout">
     <aside class="sidebar">
-      <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius);padding:7px 10px;margin-bottom:14px;font-size:11px;color:var(--blue-dark);line-height:1.4;">
-       <strong>Federal grants only.</strong> Filters below only apply to Grants.gov results. NYS/Agency and manually added grants are shown as-is.
-      </div>
       <div class="filter-group">
         <h4>Category</h4>
         <select class="select-filter" id="filter-category">
@@ -492,7 +489,7 @@ const CAT = {
 function switchTab(tab, el) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  ['browse','split','pipeline','applied','reports'].forEach(t =>
+  ['browse','split'].forEach(t =>
     document.getElementById('tab-'+t).style.display = t===tab ? '' : 'none'
   );
   document.getElementById('keyword-input').style.display = tab==='browse' ? '' : 'none';
