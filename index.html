@@ -800,7 +800,7 @@ function renderGrants() {
 
   // NYS grants section
   if (hasNYS) {
-    html += `<div style="grid-column:1/-1;padding:6px 0 4px;border-bottom:1.5px solid var(--border);${hasManual?'margin-top:8px;':''}margin-bottom:2px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">📍 New York State Grants <span style="font-weight:400;color:var(--text-faint);">(${state.nysGrants.length} opportunities)</span> <a href="https://grantsmanagement.ny.gov/search-funding-sfs" target="_blank" style="font-weight:400;color:var(--nys);text-decoration:underline;margin-left:8px;">Browse all on NYS SFS ↗</a></div>`;
+    html += `<div style="grid-column:1/-1;padding:6px 0 4px;border-bottom:1.5px solid var(--border);${hasManual?'margin-top:8px;':''}margin-bottom:2px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">📍 New York State Grants <span style="font-weight:400;color:var(--text-faint);">(${state.nysGrants.length} opportunities · SFS Grants)</span> <a href="https://grantsmanagement.ny.gov/search-funding-sfs" target="_blank" style="font-weight:400;color:var(--nys);text-decoration:underline;margin-left:8px;">Browse all on NYS SFS ↗</a></div>`;
     html += state.nysGrants.map(g => renderNYSCard(g)).join('');
   }
 
