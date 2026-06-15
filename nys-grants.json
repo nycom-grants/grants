@@ -111,17 +111,6 @@
       "source": "NYS"
     },
     {
-      "id": "CLSPLH2026",
-      "agency": "DOH01",
-      "title": "RFA #20781 Legal Services for People with HIV/AIDS",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "06/11/2026 4:00PM EDT",
-      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "DWFRFA2028",
       "agency": "DOH01",
       "title": "Drinking Water Fluoridation RFA",
@@ -133,12 +122,23 @@
       "source": "NYS"
     },
     {
-      "id": "NIA12027",
+      "id": "MSWP12026",
       "agency": "DOH01",
-      "title": "RFA 20733 New Investigators in SCI",
+      "title": "RFA#20770 Migrant and Seasonal Wrk Prg Component 1",
       "status": "Available",
       "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "06/10/2026 4:00PM EDT",
+      "dueDate": "07/22/2026 4:00PM EDT",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Health Services",
+      "source": "NYS"
+    },
+    {
+      "id": "MSWP22026",
+      "agency": "DOH01",
+      "title": "RFA#20770 Migrant and Seasonal Wrk Prg Component 2",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "07/22/2026 4:00PM EDT",
       "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
       "serviceArea": "Health Services",
       "source": "NYS"
@@ -155,6 +155,17 @@
       "source": "NYS"
     },
     {
+      "id": "RCHI26",
+      "agency": "DOH01",
+      "title": "Rural Community Health Integration2026",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "07/09/2026 4:00PM EDT",
+      "link": "https://www.health.ny.gov/facilities/transforming_rural_healthcare/",
+      "serviceArea": "Health Services",
+      "source": "NYS"
+    },
+    {
       "id": "GCEW-EV",
       "agency": "DOL01",
       "title": "NYSDOL OJET GCEW-EV",
@@ -162,17 +173,6 @@
       "eligibility": "For Profit, Governmental Entity, Not-For-Profit",
       "dueDate": "12/03/2026 4:00PM EST",
       "link": "https://dol.ny.gov/funding-opportunities",
-      "serviceArea": "Workforce Development",
-      "source": "NYS"
-    },
-    {
-      "id": "OSH TE",
-      "agency": "DOL01",
-      "title": "2026-2027 OSH TE",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Not-For-Profit",
-      "dueDate": "06/15/2026 4:00PM EDT",
-      "link": "https://dol.ny.gov/hazard-abatement-board",
       "serviceArea": "Workforce Development",
       "source": "NYS"
     },
@@ -243,6 +243,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-06-08T18:19:11.034Z",
+  "fetched": "2026-06-15T20:41:30.265Z",
   "count": 22
 }
