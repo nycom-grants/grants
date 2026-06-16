@@ -577,7 +577,6 @@ function renderFedCard(g) {
   else { const d=daysUntil(g.closeDate); const cls=d<=14&&d>=0?'urgent':''; dl=`<span class="deadline-row ${cls}">⏱ ${d<0?'Closed '+g.closeDate:d===0?'Closes today':d===1?'Closes tomorrow':'Closes in '+d+' days · '+g.closeDate}</span>`; }
   return `<div class="grant-card" onclick="openModal('${esc(String(g.id))}')">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag tag-federal">${esc((g.agencyCode||'FEDERAL').split('-')[0])}</span><span class="tag ${sc}">${esc(g.oppStatus||'')}</span></div>
-    <button class="card-heart ${saved?'saved':''}" onclick="event.stopPropagation();toggleSave('${esc(String(g.id))}',this)">${saved?'♥':'♡'}</button></div>
     <div class="card-title">${esc(cleanTitle(g.title||'Untitled'))}</div>
     <div class="card-agency">${esc((g.agencyName||g.agencyCode||'').slice(0,60))}</div>
     <div class="card-mid">${g.fundingCategories?`<span class="card-category">${esc(CAT[g.fundingCategories]||g.fundingCategories)}</span>`:'<span></span>'}</div>
@@ -783,7 +782,6 @@ function renderManualCard(g) {
         <span class="tag tag-manual">Manual</span>
         <span class="tag ${sc}">${esc(statusLabel)}</span>
       </div>
-      <button class="card-heart ${saved?'saved':''}" onclick="event.stopPropagation();toggleSave('${esc(g.id)}',this)">${saved?'♥':'♡'}</button>
     </div>
     <div class="card-title">${esc(g.title)}</div>
     <div class="card-agency">${esc(g.agency||'—')}</div>
@@ -811,7 +809,6 @@ function renderCard(g) {
   else { const d=daysUntil(g.closeDate); const cls=d<0?'':d<=14?'urgent':''; dl=`<span class="deadline-row ${cls}">⏱ ${d<0?'Closed '+g.closeDate:d===0?'Closes today':d===1?'Closes tomorrow':'Closes in '+d+' days · '+g.closeDate}</span>`; }
   return `<div class="grant-card" onclick="openModal('${esc(String(g.id))}')">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag tag-federal">${esc((g.agencyCode||'FEDERAL').split('-')[0])}</span><span class="tag ${sc}">${esc(g.oppStatus||'')}</span></div>
-    <button class="card-heart ${saved?'saved':''}" onclick="event.stopPropagation();toggleSave('${esc(String(g.id))}',this)">${saved?'♥':'♡'}</button></div>
     <div class="card-title">${esc(cleanTitle(g.title||'Untitled'))}</div>
     <div class="card-agency">${esc((g.agencyName||g.agencyCode||'').slice(0,60))}</div>
     <div class="card-mid">${g.fundingCategories?`<span class="card-category">${esc(CAT[g.fundingCategories]||g.fundingCategories)}</span>`:'<span></span>'}</div>
