@@ -132,57 +132,6 @@ function isJunk(title) {
   return NAV_JUNK.some(j => t === j || t.startsWith(j));
 }
 
-// ── LOAD OVERRIDES ────────────────────────────────────────────
-// Reads agency-overrides.json and returns a map of { id: { field: value, ... } }.
-// The scraper applies these AFTER scraping, so manual edits are never overwritten.
-// Fields you can override: dueDate, status, title, agency, link, description, notes.
-// The special field "pin: true" prevents the scraper from ever marking a grant Closed.
-function loadOverrides() {
-  const overridesPath = path.join(process.cwd(), 'agency-overrides.json');
-  if (!fs.existsSync(overridesPath)) {
-    console.log('No agency-overrides.json found — skipping overrides.');
-    return {};
-  }
-  try {
-    const data = JSON.parse(fs.readFileSync(overridesPath, 'utf8'));
-    const overrides = data.overrides || {};
-    console.log('Loaded ' + Object.keys(overrides).length + ' overrides from agency-overrides.json');
-    return overrides;
-  } catch(e) {
-    console.log('Could not read agency-overrides.json: ' + e.message);
-    return {};
-  }
-}
-
-// Apply overrides to a grant object.
-// - All fields in the override are merged in.
-// - "pin: true" means the scraper's status is ignored and the override status is always used.
-// - If no status override exists and pin is not set, scraped status wins (live detection still works).
-function applyOverride(grant, overrides) {
-  const override = overrides[grant.id];
-  if (!override) return grant;
-
-  const merged = { ...grant };
-
-  // Apply every override field except 'pin' (internal flag)
-  for (const [key, val] of Object.entries(override)) {
-    if (key === 'pin') continue;
-    merged[key] = val;
-  }
-
-  // If pinned and no status override, keep the scraped status
-  // (pin just means dueDate etc won't be blanked by re-scrape)
-  if (override.pin && !override.status) {
-    merged.status = grant.status;
-  }
-
-  console.log('  OVERRIDE applied: [' + grant.id + ']' +
-    (override.dueDate ? ' dueDate=' + override.dueDate : '') +
-    (override.status  ? ' status=' + override.status   : ''));
-
-  return merged;
-}
-
 // ── EFC ──────────────────────────────────────────────────────
 async function scrapeEFC() {
   console.log('Scraping EFC...');
@@ -231,7 +180,7 @@ async function scrapeEFC() {
       const dueLower = dueDate.toLowerCase();
       const efcStatus = (dueLower.includes('closed') || dueLower.includes('not available') || dueLower.includes('not accepting')) ? 'Closed' : 'Available';
       // Only keep dueDate if it contains an actual date value
-      const hasDate = /\d{1,2}[\/.\-]\d{1,2}|(january|february|march|april|may|june|july|august|september|october|november|december)/i.test(dueDate);
+      const hasDate = /\d{1,2}[\/.\-]\d{1,2}|(january|february|march|april|may|june|july|august|september|october|november|december)/i.test(dueDate);
       grants.push({
         id: 'efc-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30),
         title, agency: 'NYS Environmental Facilities Corporation',
@@ -242,6 +191,21 @@ async function scrapeEFC() {
         source: 'EFC',
       });
     }
+    // WIIA deadline lives on its own page (efc.ny.gov/wiia), not the /apply table.
+    // Add it here so the Puppeteer check pass can visit that page and extract the date.
+    if (!seen.has('Water Infrastructure Improvement and Intermunicipal Grants')) {
+      grants.push({
+        id: 'efc-water-infrastructure-improvement-an',
+        title: 'Water Infrastructure Improvement and Intermunicipal Grants',
+        agency: 'NYS Environmental Facilities Corporation',
+        status: 'Available',
+        dueDate: '',
+        description: 'Competitive grants to help municipalities undertake critical wastewater and drinking water infrastructure projects.',
+        link: 'https://efc.ny.gov/wiia',
+        source: 'EFC',
+      });
+    }
+
     console.log('  EFC: ' + grants.length + ' grants');
     return grants;
   } catch(e) {
@@ -515,21 +479,31 @@ async function scrapeDEC() {
     seenTitles.add(key);
     return true;
   });
+  const efcDeduped = dedupe(efc);
   const parksDeduped = dedupe(parks);
   const hcrDeduped = dedupe(hcr);
   const decDeduped = dedupe(dec);
   // Add dasny titles to seen so NY PLAYS from parks doesn't duplicate DASNY's
   dasny.forEach(g => seenTitles.add(g.title.toLowerCase().trim()));
 
-  // Check status of Parks and HCR grants using Puppeteer (JS-rendered pages)
-  const needsCheck = [...parksDeduped, ...hcrDeduped].filter(g => g.link && g.link.startsWith('http'));
-  console.log('\nChecking status of ' + needsCheck.length + ' Parks/HCR grants...');
+  // Check status of EFC, Parks, and HCR grants using Puppeteer (JS-rendered pages).
+  // EFC grants with dedicated pages (like WIIA) have their deadlines there, not on /apply.
+  // Skip the generic /apply page itself since it won't have per-grant deadline info.
+  const efcNeedsCheck = efcDeduped.filter(g => g.link && g.link.startsWith('http') && g.link !== 'https://efc.ny.gov/apply');
+  const needsCheck = [...efcNeedsCheck, ...parksDeduped, ...hcrDeduped].filter(g => g.link && g.link.startsWith('http'));
+  console.log('\nChecking status of ' + needsCheck.length + ' EFC/Parks/HCR grants...');
   const statusMap = {};
   for (const g of needsCheck) {
     const result = await checkGrantStatus(page, g.link);
     statusMap[g.id] = result;
     if (result.status === 'Closed') console.log('  CLOSED: [' + g.source + '] ' + g.title);
   }
+  const efcChecked = efcDeduped.map(g => {
+    const checked = statusMap[g.id] || {};
+    const raw = g.status === 'Closed' && checked.status !== 'Open'
+      ? 'Closed' : checked.status || g.status;
+    return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
+  });
   const parksChecked = parksDeduped.map(g => {
     const checked = statusMap[g.id] || {};
     // Only override a known-closed status if Puppeteer explicitly found it open
@@ -546,15 +520,7 @@ async function scrapeDEC() {
 
   await browser.close();
 
-  // ── APPLY OVERRIDES ──────────────────────────────────────────
-  // Load agency-overrides.json and merge into scraped data by grant ID.
-  // Overrides are applied last so they always win over scraped values.
-  // The only exception: if a grant has "pin: true" in its override AND no
-  // explicit status override, the live-detected status is preserved.
-  const overrides = loadOverrides();
-  const scraped = [...efc, ...parksChecked, ...hcrChecked, ...dasny, ...decDeduped]
-    .map(g => applyOverride(g, overrides));
-
+  const scraped = [...efcChecked, ...parksChecked, ...hcrChecked, ...dasny, ...decDeduped];
   console.log('\nTotal agency grants: ' + scraped.length);
   scraped.forEach(g => console.log(' [' + g.source + '] ' + g.title + (g.dueDate ? ' · ' + g.dueDate : '')));
 
@@ -571,7 +537,7 @@ async function scrapeDEC() {
   const allGrants = [...scraped, ...manualGrants];
   const output = {
     grants: allGrants, fetched: new Date().toISOString(), count: allGrants.length,
-    sources: { efc: efc.length, parks: parks.length, hcr: hcr.length, dasny: dasny.length, dec: dec.length },
+    sources: { efc: efcChecked.length, parks: parks.length, hcr: hcr.length, dasny: dasny.length, dec: dec.length },
   };
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
   console.log('Saved to agency-grants.json');
