@@ -588,9 +588,10 @@ async function fetchFedGrants() {
     const r = await fetch(GRANTS_API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
-    let g = d.oppHits || d.data?.oppHits || [];
-    fed.grants = g; fed.totalHits = d.hitCount||d.data?.hitCount||0; fed.loading = false;
-    renderFedGrants();
+  let g = d.oppHits || d.data?.oppHits || [];
+      g = filterLocal(g);
+      fed.grants = g; fed.totalHits = g.length; fed.loading = false;
+      renderFedGrants();
   } catch(e) {
     fed.loading = false;
     document.getElementById('fed-grants-grid').innerHTML = `<div class="error-state"><div style="font-size:24px;">⚠️</div><div class="error-msg">Could not connect to Grants.gov API.<br><small>${esc(e.message)}</small></div><button class="retry-btn" onclick="fetchFedGrants()">Retry</button></div>`;
