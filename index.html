@@ -828,7 +828,7 @@ function renderAgencyCard(g) {
   let dl = '';
   if (g.dueDate) {
     const dueLower = g.dueDate.toLowerCase();
-    if (dueLower.includes('rolling')) { dl = `<span class="deadline-row rolling">⟳ Rolling / no fixed deadline</span>`; }
+    if (dueLower.includes('rolling')) { dl = `<span class="deadline-row rolling">⟳ Rolling / Open</span>`; }
     else {
       const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
       const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
@@ -840,6 +840,8 @@ function renderAgencyCard(g) {
         dl = `<span class="deadline-row ${cls}">⏱ ${esc(label)}</span>`;
       } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
     }
+  } else {
+    dl = `<span class="deadline-row rolling">⟳ Rolling / Open</span>`;
   }
   return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${sourceStyle}">${esc(g.source||'Agency')}</span><span class="tag ${sc}">${esc(isClosed?'Closed':g.status||'Available')}</span></div></div>
@@ -869,6 +871,7 @@ function renderNYSCard(g) {
       dl = `<span class="deadline-row ${cls}">⏱ ${esc(label)}</span>`;
     } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
   } else if (g.award) { dl = `<span class="deadline-row rolling">◈ ${esc(g.award)}</span>`; }
+  else { dl = `<span class="deadline-row" style="color:var(--text-faint);">— See program page</span>`; }
   const hasId = g.id && !String(g.id).startsWith('nys-');
   const viewHref = g.link || g.url || 'https://grantsmanagement.ny.gov/search-funding-sfs';
   const agencyBadge = NYS_AGENCY_LABELS[g.agency] || g.agency || 'NYS';
