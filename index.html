@@ -543,7 +543,9 @@ function applyFilters() {
   if (document.getElementById('s-forecasted').checked) state.statuses.push('forecasted');
   if (document.getElementById('s-closed').checked) state.statuses.push('closed');
   if (!state.statuses.length) state.statuses = ['posted'];
-  state.page=0; fetchGrants();
+  state.page = 0;
+  renderGrants(); // re-render NYS/agency immediately from cached data
+  fetchGrants();  // also refresh federal (used if federal grants are shown on this tab)
 }
 
 // ── MANUAL GRANTS ─────────────────────────────────────────────
@@ -713,12 +715,24 @@ function renderGrants() {
 
   const agencyVisible = (state.agencyGrants||[]).filter(g => {
     const s = (g.status||'').toLowerCase();
-    if (s.includes('closed')) return false;
-    if (g.dueDate) { const d = new Date(g.dueDate); if (!isNaN(d.getTime()) && d < now) return false; }
+    const isClosed = s.includes('closed') || s.includes('unavailable');
+    if (isClosed && !state.statuses.includes('closed')) return false;
+    if (!isClosed && !state.statuses.includes('posted')) return false;
+    if (!isClosed && g.dueDate) { const d = new Date(g.dueDate); if (!isNaN(d.getTime()) && d < now && !state.statuses.includes('closed')) return false; }
     return true;
   }).map(g => ({ ...g, _type: 'agency' }));
 
-  const nysVisible = filteredNYS.map(g => ({ ...g, _type: 'nys' }));
+  const nysVisible = filteredNYS.filter(g => {
+    const s = (g.status||'').toLowerCase();
+    // Apply status checkbox filters
+    const isOpen = s.includes('available') || s.includes('open');
+    const isAdvertised = s.includes('advertised');
+    const isClosed = s.includes('closed');
+    if (isClosed && !state.statuses.includes('closed')) return false;
+    if (isAdvertised && !state.statuses.includes('posted')) return false;
+    if (isOpen && !state.statuses.includes('posted')) return false;
+    return true;
+  }).map(g => ({ ...g, _type: 'nys' }));
 
   // Score a grant: higher = better candidate to keep when deduplicating.
   // A real external link scores +2, a dueDate scores +1.
@@ -745,6 +759,27 @@ function renderGrants() {
   });
 
   const combined = [...seen.values()];
+
+  // Sort combined list according to state.sort
+  function parseCombinedDate(g) {
+    const raw = g.dueDate || g.closeDate || '';
+    if (!raw) return null;
+    const cleaned = raw.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
+    const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
+    const d = new Date(normalized);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  const [sortField, sortDir] = state.sort.split('|');
+  if (sortField === 'closeDate') {
+    combined.sort((a, b) => {
+      const da = parseCombinedDate(a), db = parseCombinedDate(b);
+      if (!da && !db) return 0;
+      if (!da) return 1;
+      if (!db) return -1;
+      return sortDir === 'asc' ? da - db : db - da;
+    });
+  }
+  // openDate|desc / openDate|asc — keep insertion order (agency first, then SFS) as proxy
   const hasNYSorAgency = combined.length > 0;
 
   if (hasNYSorAgency) {
