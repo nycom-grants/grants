@@ -172,7 +172,30 @@
   .btn-save { padding: 8px 20px; background: var(--manual); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer; }
   .btn-save:hover { background: #4c1d95; }
 
-  /* ── CFA BANNER ── */
+  /* ── INFO TOOLTIP ── */
+  .info-btn { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; transition: background 0.15s; font-family: 'Inter', sans-serif; }
+  .info-btn:hover { background: rgba(255,255,255,0.22); }
+  .info-tooltip { display: none; position: absolute; top: calc(100% + 10px); right: 0; width: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; box-shadow: 0 4px 20px rgba(15,23,42,0.15); z-index: 300; }
+  .info-btn:focus .info-tooltip, .info-btn.open .info-tooltip { display: block; }
+  .info-tooltip-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+  .info-tooltip-section { margin-bottom: 10px; }
+  .info-tooltip-section:last-child { margin-bottom: 0; }
+  .info-tooltip-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-faint); margin-bottom: 4px; font-family: 'Inter', sans-serif; }
+  .info-tooltip p { font-size: 11.5px; color: var(--text-mid); line-height: 1.6; }
+
+  /* ── OTHER RESOURCES TAB ── */
+  .resources-page { max-width: 860px; margin: 0 auto; padding: 28px 24px 48px; }
+  .resources-page h1 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .resources-page .resources-sub { font-size: 13px; color: var(--text-faint); margin-bottom: 28px; }
+  .resources-section { margin-bottom: 28px; }
+  .resources-section-title { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); font-family: 'Inter', sans-serif; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .resource-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; text-decoration: none; display: flex; flex-direction: column; gap: 4px; transition: border-color 0.15s, box-shadow 0.15s; }
+  .resource-card:hover { border-color: var(--blue-mid); box-shadow: 0 2px 8px rgba(29,78,216,0.08); }
+  .resource-card-name { font-size: 13px; font-weight: 500; color: var(--text); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .resource-card-name span { color: var(--text-faint); font-size: 11px; font-weight: 400; }
+  .resource-card-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+
   .cfa-banner { grid-column: 1 / -1; background: var(--surface); border: 1.5px solid #bfdbfe; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 6px; }
   .cfa-banner-header { background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); padding: 13px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
   .cfa-banner-badge { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 600; color: #fff; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
@@ -212,9 +235,28 @@
   <nav class="nav-tabs">
     <div class="nav-tab active" onclick="switchTab('browse',this)">State Grants</div>
     <div class="nav-tab" onclick="switchTab('federal',this)">Federal Grants</div>
+    <div class="nav-tab" onclick="switchTab('resources',this)">Other Resources</div>
   </nav>
   <div class="topbar-right">
     <input class="topbar-search" id="keyword-input" type="text" placeholder="Search federal grants…" style="display:none;">
+    <div class="info-btn" id="info-btn" onclick="toggleInfoTooltip()" tabindex="0" aria-label="About this dashboard">
+      i
+      <div class="info-tooltip" id="info-tooltip">
+        <div class="info-tooltip-title">About this dashboard</div>
+        <div class="info-tooltip-section">
+          <div class="info-tooltip-label">Data sources</div>
+          <p>Federal grants are pulled live from <strong>Grants.gov</strong> filtered to city/township eligibility. State grants come from the <strong>NYS SFS portal</strong> and agency websites including EFC, Parks, HCR, DEC, and DASNY, refreshed nightly.</p>
+        </div>
+        <div class="info-tooltip-section">
+          <div class="info-tooltip-label">Using the dashboard</div>
+          <p>Use the <strong>ID · copy</strong> button on NYS SFS cards to copy the grant ID, then paste it into the SFS search page to find the full listing. Links and deadlines may be outdated — always verify on the agency's website before applying.</p>
+        </div>
+        <div class="info-tooltip-section">
+          <div class="info-tooltip-label">Updates</div>
+          <p>Scrapers run nightly via GitHub Actions. The CFA banner tracks the annual Consolidated Funding Application cycle and auto-hides after all deadlines pass.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -306,6 +348,102 @@
         <button onclick="loadMoreFed()">Load more</button>
       </div>
     </main>
+  </div>
+</div>
+
+<!-- ══ OTHER RESOURCES TAB ══ -->
+<div id="tab-resources" style="display:none;">
+  <div class="resources-page">
+    <h1>Other Resources</h1>
+    <p class="resources-sub">Direct links to grant portals, funding programs, and technical assistance resources for NYS municipalities.</p>
+
+    <div class="resources-section">
+      <div class="resources-section-title">Grant Portals</div>
+      <div class="resources-grid">
+        <a class="resource-card" href="https://grantsgateway.ny.gov" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYS Grants Gateway <span>↗</span></div>
+          <div class="resource-card-desc">New York State's centralized system for nonprofits and municipalities to register, apply for, and manage state grants.</div>
+        </a>
+        <a class="resource-card" href="https://www.nyscr.ny.gov" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYS Contract Reporter <span>↗</span></div>
+          <div class="resource-card-desc">Official source for NYS government procurement and grant opportunities, including advertised-only programs not listed in SFS.</div>
+        </a>
+        <a class="resource-card" href="https://grantsmanagement.ny.gov/search-funding-sfs" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYS SFS Grant Search <span>↗</span></div>
+          <div class="resource-card-desc">Search the Statewide Financial System directly for all currently advertised state grant opportunities.</div>
+        </a>
+        <a class="resource-card" href="https://grants.gov" target="_blank" rel="noopener">
+          <div class="resource-card-name">Grants.gov <span>↗</span></div>
+          <div class="resource-card-desc">The federal government's central database of grant opportunities across all agencies. Required for most federal grant applications.</div>
+        </a>
+        <a class="resource-card" href="https://apps.cio.ny.gov/apps/cfa" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYS CFA Portal <span>↗</span></div>
+          <div class="resource-card-desc">New York State's Consolidated Funding Application — one application for grants across 8 state agencies. Opens annually each spring.</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="resources-section">
+      <div class="resources-section-title">Federal Programs</div>
+      <div class="resources-grid">
+        <a class="resource-card" href="https://www.rd.usda.gov/programs-services/all-programs/community-facilities-programs" target="_blank" rel="noopener">
+          <div class="resource-card-name">USDA Rural Development <span>↗</span></div>
+          <div class="resource-card-desc">Community Facilities grants and loans for rural municipalities for essential public services including water, healthcare, and public safety infrastructure.</div>
+        </a>
+        <a class="resource-card" href="https://www.eda.gov/grants" target="_blank" rel="noopener">
+          <div class="resource-card-name">EDA — Economic Development Administration <span>↗</span></div>
+          <div class="resource-card-desc">Federal grants for economic development, workforce, and infrastructure projects. Includes Public Works and Planning programs.</div>
+        </a>
+        <a class="resource-card" href="https://www.hud.gov/program_offices/comm_planning/cdbg" target="_blank" rel="noopener">
+          <div class="resource-card-name">HUD Community Development <span>↗</span></div>
+          <div class="resource-card-desc">Community Development Block Grant (CDBG) entitlement and state-administered programs for low- and moderate-income community projects.</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="resources-section">
+      <div class="resources-section-title">Regional & Special Programs</div>
+      <div class="resources-grid">
+        <a class="resource-card" href="https://www.arc.gov/funding-opportunities" target="_blank" rel="noopener">
+          <div class="resource-card-name">Appalachian Regional Commission (ARC) <span>↗</span></div>
+          <div class="resource-card-desc">Federal-state partnership funding economic, infrastructure, and community development in Appalachian counties of New York and 12 other states.</div>
+        </a>
+        <a class="resource-card" href="https://www.nbrc.gov/funding" target="_blank" rel="noopener">
+          <div class="resource-card-name">Northern Border Regional Commission <span>↗</span></div>
+          <div class="resource-card-desc">Federal-state economic development grants for distressed communities in northern New York and three other border states.</div>
+        </a>
+        <a class="resource-card" href="https://services.nypa.gov/Services/Incentives/Grant-Services-and-Programs" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYPA Grant Services & Programs <span>↗</span></div>
+          <div class="resource-card-desc">New York Power Authority programs providing energy efficiency grants and incentives to municipal and public sector customers.</div>
+        </a>
+        <a class="resource-card" href="https://tughill.org/what-we-do/grants" target="_blank" rel="noopener">
+          <div class="resource-card-name">Tug Hill Commission <span>↗</span></div>
+          <div class="resource-card-desc">Grants and technical assistance for municipalities and organizations in the Tug Hill region of northern New York.</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="resources-section">
+      <div class="resources-section-title">Technical Assistance & Grant Writing</div>
+      <div class="resources-grid">
+        <a class="resource-card" href="https://www.nycom.org" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYCOM Resources <span>↗</span></div>
+          <div class="resource-card-desc">New York Conference of Mayors resources, training, and advocacy for member municipalities across New York State.</div>
+        </a>
+        <a class="resource-card" href="https://www.osc.ny.gov/local-government" target="_blank" rel="noopener">
+          <div class="resource-card-name">NYS Comptroller — Local Government <span>↗</span></div>
+          <div class="resource-card-desc">Guidance, fiscal stress monitoring, and resources for local governments including grants management best practices.</div>
+        </a>
+        <a class="resource-card" href="https://www.rcap.org" target="_blank" rel="noopener">
+          <div class="resource-card-name">RCAP — Rural Community Assistance Partnership <span>↗</span></div>
+          <div class="resource-card-desc">Free and low-cost technical assistance for small and rural communities on water, wastewater, and grant applications.</div>
+        </a>
+        <a class="resource-card" href="https://efc.ny.gov" target="_blank" rel="noopener">
+          <div class="resource-card-name">Environmental Finance Center (EFC) <span>↗</span></div>
+          <div class="resource-card-desc">Technical and financial assistance helping NYS municipalities access environmental funding for water, wastewater, and green infrastructure projects.</div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -411,7 +549,7 @@ const NYS_AGENCY_NAMES = {
 function switchTab(tab, el) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  ['browse','federal'].forEach(t =>
+  ['browse','federal','resources'].forEach(t =>
     document.getElementById('tab-'+t).style.display = t===tab ? '' : 'none'
   );
   const searchEl = document.getElementById('keyword-input');
@@ -1005,6 +1143,15 @@ async function fetchAgencyGrants(){
   try{const r=await fetch('./agency-grants.json?_='+Date.now());if(!r.ok)return;const d=await r.json();state.agencyGrants=d.grants||[];renderGrants();}
   catch(e){console.log('Agency grants not available:',e.message);}
 }
+
+function toggleInfoTooltip() {
+  const btn = document.getElementById('info-btn');
+  btn.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const btn = document.getElementById('info-btn');
+  if (btn && !btn.contains(e.target)) btn.classList.remove('open');
+});
 
 document.getElementById('keyword-input').addEventListener('keydown',e=>{
   if(e.key==='Enter') applyFedFilters();
