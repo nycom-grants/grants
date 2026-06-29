@@ -712,8 +712,7 @@ function renderFedCard(g) {
   let dl = '';
   if (!g.closeDate) dl = `<span class="deadline-row rolling">⟳ Rolling / no fixed deadline</span>`;
   else { const d=daysUntil(g.closeDate); const cls=d<=14&&d>=0?'urgent':''; dl=`<span class="deadline-row ${cls}">⏱ ${d<0?'Closed '+g.closeDate:d===0?'Closes today':d===1?'Closes tomorrow':'Closes in '+d+' days · '+g.closeDate}</span>`; }
-  return `<div class="grant-card" onclick="openModal('${esc(String(g.id))}')" data-title="${esc(cleanTitle(g.title||''))}" data-agency="${esc((g.agencyName||g.agencyCode||'').slice(0,60))}" data-status="${esc(g.oppStatus||'')}">
-    <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag tag-federal">${esc((g.agencyCode||'FEDERAL').split('-')[0])}</span><span class="tag ${sc}">${esc(g.oppStatus||'')}</span></div></div>
+  return `<div class="grant-card" onclick="openModal('${esc(String(g.id))}')" data-title="${esc(cleanTitle(g.title||''))}" data-agency="${esc((g.agencyName||g.agencyCode||'').slice(0,60))}" data-status="${esc(g.oppStatus||'')}" data-closedate="${esc(g.closeDate||'')}" data-award="${esc(fmtAward(g))}" data-category="${esc(CAT[g.fundingCategories]||g.fundingCategories||'')}">    <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag tag-federal">${esc((g.agencyCode||'FEDERAL').split('-')[0])}</span><span class="tag ${sc}">${esc(g.oppStatus||'')}</span></div></div>
     <div class="card-title">${esc(cleanTitle(g.title||'Untitled'))}</div>
     <div class="card-agency">${esc((g.agencyName||g.agencyCode||'').slice(0,60))}</div>
     <div class="card-mid">${g.fundingCategories?`<span class="card-category">${esc(CAT[g.fundingCategories]||g.fundingCategories)}</span>`:'<span></span>'}</div>
@@ -1139,19 +1138,30 @@ async function openModal(id) {
               <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
             </div>`;
         } catch(e) {
-            const el=document.querySelector(`[onclick*="openModal('${id}')"]`);
-            const title=el?.dataset.title||'Grant Details';
-            const agency=el?.dataset.agency||'';
-            const status=el?.dataset.status||'';
-            const sc=status==='posted'?'tag-posted':status==='forecasted'?'tag-forecasted':'tag-closed';
-            mc.innerHTML=`
-              <div class="modal-tag-row"><span class="tag tag-federal">FEDERAL</span>${status?`<span class="tag ${sc}">${esc(status)}</span>`:''}</div>
-              <div class="modal-title">${esc(title)}</div>
-              <div class="modal-agency">${esc(agency)} · ID ${esc(String(id))}</div>
-              <div class="modal-actions">
-                <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
-              </div>`;
-          }
+    const el=document.querySelector(`[onclick*="openModal('${id}')"]`);
+    const title=el?.dataset.title||'Grant Details';
+    const agency=el?.dataset.agency||'';
+    const status=el?.dataset.status||'';
+    const closeDate=el?.dataset.closedate||'';
+    const award=el?.dataset.award||'';
+    const category=el?.dataset.category||'';
+    const sc=status==='posted'?'tag-posted':status==='forecasted'?'tag-forecasted':'tag-closed';
+    let dl='';
+    if(closeDate){const d=daysUntil(closeDate);const cls=d<=14&&d>=0?'urgent':'';dl=d<0?'Closed · '+closeDate:d===0?'Closes today':d===1?'Closes tomorrow':'Closes in '+d+' days · '+closeDate;}
+    else{dl='Rolling / no fixed deadline';}
+    mc.innerHTML=`
+      <div class="modal-tag-row"><span class="tag tag-federal">FEDERAL</span>${status?`<span class="tag ${sc}">${esc(status)}</span>`:''}</div>
+      <div class="modal-title">${esc(title)}</div>
+      <div class="modal-agency">${esc(agency)} · ID ${esc(String(id))}</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--text-mid);">
+        <span>⏱ ${esc(dl)}</span>
+        ${award?`<span style="color:var(--text-faint);">·</span><span>💰 ${esc(award)}</span>`:''}
+        ${category?`<span style="color:var(--text-faint);">·</span><span>📁 ${esc(category)}</span>`:''}
+      </div>
+      <div class="modal-actions">
+        <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
+      </div>`;
+  }
 }
 function closeModal(e) { if (e.target===document.getElementById('modal-overlay')) closeModalDirect(); }
 function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); }
