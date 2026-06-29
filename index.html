@@ -1136,10 +1136,9 @@ async function openModal(id) {
       </div>
       ${desc?`<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Description</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;max-height:160px;overflow-y:auto;">${esc(desc).replace(/\n/g,'<br>')}</div></div>`:''}
       <div class="modal-actions">
-        <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
-        <button class="btn-outline" onclick="toggleSaveModal('${esc(String(id))}')">${state.saved.has(String(id))?'♥ Saved':'♡ Save to shortlist'}</button>
-      </div>`;
-} catch(e) {
+              <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
+            </div>`;
+        } catch(e) {
     const g=state.grants.find(x=>String(x.id)===String(id))||{};
     const desc=g.description||g.synopsis||'';
     mc.innerHTML=`
