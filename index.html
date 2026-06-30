@@ -448,39 +448,63 @@
 
 <!-- ══ HOW TO USE TAB ══ -->
 <div id="tab-howto" style="display:none;">
-  <div class="resources-page">
-    <h1>How to Use This Dashboard</h1>
-    <p class="resources-sub">A guide to finding and exploring grant opportunities for New York State municipalities.</p>
+  <!-- Hero strip -->
+  <div style="background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 100%);padding:32px 24px 28px;">
+    <div style="max-width:860px;margin:0 auto;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-bottom:8px;">NYCOM Municipal Grants Dashboard</div>
+      <h1 style="font-size:26px;font-weight:600;color:#fff;margin-bottom:8px;line-height:1.3;">How to Use This Dashboard</h1>
+      <p style="font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;max-width:600px;">A guide to finding and exploring grant opportunities for New York State municipalities.</p>
+    </div>
+  </div>
 
-    <div class="resources-section">
-      <div class="resources-section-title">Navigating the Dashboard</div>
-      <div class="resources-grid" style="grid-template-columns:1fr;">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <p style="font-size:13px;color:var(--text-mid);line-height:1.7;">The dashboard has three main tabs accessible from the top navigation bar:</p>
-          <ul style="margin-top:10px;padding-left:18px;display:flex;flex-direction:column;gap:8px;">
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;"><strong>State Grants</strong> — Grant opportunities from New York State agencies and the NYS Statewide Financial System (SFS), refreshed nightly. Also includes the CFA banner with deadline information for the Consolidated Funding Application.</li>
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;"><strong>Federal Grants</strong> — Live results from Grants.gov filtered to opportunities eligible for city and township governments. Updated each time you visit the tab.</li>
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;"><strong>Other Resources</strong> — A curated directory of grant portals, federal and state agency programs, regional funding sources, and technical assistance resources for NYS municipalities. Use this tab to find programs not covered by the State or Federal tabs, explore agency-specific grant pages, or find technical assistance for the application process.</li>
-          </ul>
+  <div style="max-width:860px;margin:0 auto;padding:32px 24px 56px;">
+
+    <!-- Navigating the Dashboard -->
+    <div style="margin-bottom:36px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border);">
+        <div style="width:28px;height:28px;border-radius:6px;background:var(--blue-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🗂</div>
+        <h2 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">Navigating the Dashboard</h2>
+      </div>
+      <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:14px;">The dashboard has four tabs accessible from the top navigation bar:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue-dark);border-radius:var(--radius-lg);padding:14px 18px;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">📍 State Grants</div>
+          <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Grant opportunities from New York State agencies and the NYS Statewide Financial System (SFS), refreshed nightly. Also includes the CFA banner with deadline information for the Consolidated Funding Application.</p>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:var(--radius-lg);padding:14px 18px;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">🇺🇸 Federal Grants</div>
+          <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Live results from Grants.gov filtered to opportunities eligible for city and township governments. Updated each time you visit the tab.</p>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #0891b2;border-radius:var(--radius-lg);padding:14px 18px;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">🔗 Other Resources</div>
+          <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">A curated directory of grant portals, federal and state agency programs, regional funding sources, and technical assistance resources for NYS municipalities. Use this tab to find programs not covered by the State or Federal tabs, explore agency-specific grant pages, or find technical assistance for the application process.</p>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #7c3aed;border-radius:var(--radius-lg);padding:14px 18px;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">📖 How to Use</div>
+          <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">This page — a guide to navigating and getting the most out of the dashboard.</p>
         </div>
       </div>
     </div>
 
-    <div class="resources-section">
-      <div class="resources-section-title">Using the Filters</div>
-      <div class="resources-grid">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">State Grants filters</div>
-          <ul style="padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+    <!-- Using the Filters -->
+    <div style="margin-bottom:36px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border);">
+        <div style="width:28px;height:28px;border-radius:6px;background:#0891b2;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">⚙️</div>
+        <h2 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">Using the Filters</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);">📍 State Grants filters</div>
+          <ul style="padding-left:16px;display:flex;flex-direction:column;gap:7px;">
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use the <strong>Agency</strong> dropdown to narrow results to a specific funding agency — for example, NYS Department of Environmental Conservation or NYS Homes &amp; Community Renewal.</li>
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use the <strong>Status</strong> checkboxes to show open opportunities, closed ones, or both.</li>
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use <strong>Sort</strong> to order results by deadline or posting date.</li>
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Press <strong>Apply filters</strong> to update the results.</li>
           </ul>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Federal Grants filters</div>
-          <ul style="padding-left:18px;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);">🇺🇸 Federal Grants filters</div>
+          <ul style="padding-left:16px;display:flex;flex-direction:column;gap:7px;">
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use the <strong>Category</strong> dropdown to filter by funding topic (e.g. Environment, Transportation, Housing).</li>
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use the <strong>Status</strong> checkboxes to include posted, forecasted, or closed opportunities.</li>
             <li style="font-size:12px;color:var(--text-mid);line-height:1.6;">Use the <strong>search bar</strong> at the top of the page to search by keyword.</li>
@@ -490,47 +514,62 @@
       </div>
     </div>
 
-    <div class="resources-section">
-      <div class="resources-section-title">NYS SFS Grants — Using the ID Copy Button</div>
-      <div class="resources-grid" style="grid-template-columns:1fr;">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <p style="font-size:13px;color:var(--text-mid);line-height:1.7;">Some state grant cards show an <strong>ID · copy</strong> button at the bottom. These grants come from the NYS SFS portal. Where available, the <strong>View ↗</strong> button will link directly to the opportunity posting. For grants that don't have a direct link, copy the ID and paste it into the SFS search portal to find the full listing.</p>
-          <p style="margin-top:10px;font-size:13px;color:var(--text-mid);line-height:1.7;">To view the full listing for one of these grants:</p>
-          <ol style="margin-top:8px;padding-left:18px;display:flex;flex-direction:column;gap:6px;">
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;">Click the <strong>copy</strong> button on the grant card to copy the grant ID to your clipboard.</li>
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;">Click <strong>View ↗</strong> to open the NYS SFS grant search portal.</li>
-            <li style="font-size:13px;color:var(--text-mid);line-height:1.6;">Paste the ID into the search field on the SFS portal to find the full listing.</li>
-          </ol>
+    <!-- NYS SFS ID Copy -->
+    <div style="margin-bottom:36px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border);">
+        <div style="width:28px;height:28px;border-radius:6px;background:#0f5132;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🔑</div>
+        <h2 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">NYS SFS Grants — ID Copy Button</h2>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;">
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.7;margin-bottom:14px;">Some state grant cards show an <strong>ID · copy</strong> button at the bottom. These grants come from the NYS SFS portal. Where available, the <strong>View ↗</strong> button will link directly to the opportunity posting. For grants that don't have a direct link, copy the ID and paste it into the SFS search portal to find the full listing.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--blue-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;">1</div>
+            <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Click the <strong>copy</strong> button on the grant card to copy the grant ID to your clipboard.</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--blue-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;">2</div>
+            <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Click <strong>View ↗</strong> to open the NYS SFS grant search portal.</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--blue-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;">3</div>
+            <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Paste the ID into the search field on the SFS portal to find the full listing.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="resources-section">
-      <div class="resources-section-title">Data Sources &amp; Update Frequency</div>
-      <div class="resources-grid">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">State Grants</div>
+    <!-- Data Sources -->
+    <div style="margin-bottom:36px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--border);">
+        <div style="width:28px;height:28px;border-radius:6px;background:#92400e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📡</div>
+        <h2 style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">Data Sources &amp; Update Frequency</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">📍 State Grants</div>
           <p style="font-size:12px;color:var(--text-mid);line-height:1.6;">State grant data is collected nightly from the <strong>NYS SFS portal</strong> and directly from agency websites including EFC, NYS Parks, HCR, DEC, and DASNY. Results are typically refreshed by early morning each day. If a source website is temporarily unavailable, the dashboard will display data from the most recent successful update.</p>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;">
-          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;">Federal Grants</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;">
+          <div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">🇺🇸 Federal Grants</div>
           <p style="font-size:12px;color:var(--text-mid);line-height:1.6;">Federal grant data is pulled <strong>live from Grants.gov</strong> each time you visit the Federal Grants tab. Results reflect what is currently listed on Grants.gov filtered to city and township eligibility. An internet connection is required to load federal grants.</p>
         </div>
       </div>
     </div>
 
-    <div class="resources-section">
-      <div class="resources-section-title">A Note on Accuracy</div>
-      <div class="resources-grid" style="grid-template-columns:1fr;">
-        <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius-lg);padding:16px 20px;">
-          <p style="font-size:13px;color:var(--blue-dark);line-height:1.7;">This dashboard is intended as a discovery tool to help municipalities identify potential grant opportunities — it is <strong>not a comprehensive listing</strong> of every available grant. Deadlines, eligibility requirements, and program details may change after data is collected. Always verify information directly on the relevant agency or program website before applying. When in doubt, contact the funding agency directly.</p>
-        </div>
+    <!-- Accuracy note -->
+    <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius-lg);padding:18px 20px;display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:20px;flex-shrink:0;">⚠️</div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--blue-dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">A note on accuracy</div>
+        <p style="font-size:12.5px;color:var(--blue-dark);line-height:1.7;">This dashboard is intended as a discovery tool to help municipalities identify potential grant opportunities — it is <strong>not a comprehensive listing</strong> of every available grant. Deadlines, eligibility requirements, and program details may change after data is collected. Always verify information directly on the relevant agency or program website before applying. When in doubt, contact the funding agency directly.</p>
       </div>
     </div>
 
   </div>
 </div>
 
+<!-- GRANT DETAIL MODAL -->
 <!-- GRANT DETAIL MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal"><button class="modal-close" onclick="closeModalDirect()">×</button><div id="modal-content"></div></div>
