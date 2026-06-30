@@ -1102,7 +1102,7 @@ function renderGrants() {
 </div>
 <div style="grid-column:1/-1;padding:8px 0 4px;font-size:11.5px;color:var(--text-mid);font-family:'Inter',sans-serif;display:flex;align-items:center;gap:6px;">
   <span class="tag" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">SFS Only</span>
-  <span>= no direct announcement link available — copy the <strong>ID</strong> first, then click <strong>View ↗</strong> to open the SFS portal and paste it into the search field to find the listing.</span>
+  <span>= no direct announcement link available — copy the <strong>ID</strong> first, then click <strong>View ↗</strong> to open the SFS portal and paste it into the EVENT ID field and click search to find the listing.</span>
 </div>`;
     html += combined.map(g => g._type === 'agency' ? renderAgencyCard(g) : renderNYSCard(g)).join('');
   }
