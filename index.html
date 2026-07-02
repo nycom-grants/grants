@@ -188,8 +188,8 @@
   .cfa-deadline-pill { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
   .cfa-deadline-pill.normal { background: rgba(255,255,255,0.18); color: #fff; border: 1px solid rgba(255,255,255,0.28); }
   .cfa-deadline-pill.urgent { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
-  .cfa-toggle { color: rgba(255,255,255,0.85); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; padding: 0 4px; }
-  .cfa-banner.collapsed .cfa-toggle { transform: rotate(-90deg); }
+  .cfa-toggle-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; flex-shrink: 0; font-family: 'Inter', sans-serif; transition: background 0.15s; }
+  .cfa-toggle-btn:hover { background: rgba(255,255,255,0.25); }
   .cfa-banner-body { padding: 14px 18px 18px; }
   .cfa-banner.collapsed .cfa-banner-body { display: none; }
   .cfa-description { font-size: 12px; color: var(--text-mid); line-height: 1.6; margin-bottom: 12px; }
@@ -949,7 +949,7 @@ const CFA_PROGRAMS = [
   { title: 'Regional Council Capital Funds', agency: 'Empire State Development', dueDate: CFA_DEADLINE, desc: 'Capital grants for economic development projects that create or retain jobs. Cities, towns, and villages must be Pro-Housing certified.', link: 'https://esd.ny.gov/regional-council-capital-fund-program' },
   { title: 'NY Main Street Program', agency: 'NYS Homes & Community Renewal', dueDate: CFA_DEADLINE, desc: 'Grants for Main Street and downtown revitalization. Municipalities must be Pro-Housing certified.', link: 'https://hcr.ny.gov/ny-main-street' },
   { title: 'Local Waterfront Revitalization Program', agency: 'NYS Department of State', dueDate: CFA_DEADLINE, desc: 'Planning and capital grants for villages, towns, and cities located along coasts or designated inland waterways.', link: 'https://dos.ny.gov/local-waterfront-revitalization-program' },
-  { title: 'Smart Growth Community Planning', agency: 'NYS Department of State', dueDate: CFA_DEADLINE, desc: 'Reimbursement grants for towns, counties, villages, and cities for climate resilience, housing, and community planning.', link: 'https://dos.ny.gov/nys-smart-growth-program' },
+  { title: 'Smart Growth Community Planning', agency: 'NYS Department of State', dueDate: CFA_DEADLINE, desc: 'Reimbursement grants for towns, counties, villages, and cities for climate resilience, housing, and community planning.', link: 'https://dos.ny.gov/nys-smart-growth-community-planning' },
   { title: 'Brownfield Opportunity Areas (BOA)', agency: 'NYS Department of State', dueDate: CFA_DEADLINE, desc: 'Planning grants for municipalities and community organizations to assess and plan brownfield redevelopment.', link: 'https://dos.ny.gov/brownfield-redevelopment' },
   { title: 'EPF — Parks, Preservation & Heritage', agency: 'NYS Office of Parks', dueDate: CFA_DEADLINE, desc: 'Environmental Protection Fund grants for municipal parks, historic preservation, and heritage programs.', link: 'https://parks.ny.gov/grants/environmental-protection-fund' },
   { title: 'Canalway Grant Program', agency: 'NYS Canal Corporation', dueDate: CFA_DEADLINE, desc: 'Capital grants for canal-related projects for municipalities along the NYS Canal System.', link: 'https://www.canals.ny.gov/Doing-Business/Grants/Canalway-Grant-Program' },
@@ -992,12 +992,12 @@ function renderCFABanner() {
       <div class="cfa-program-footer"><span class="cfa-program-deadline ${dlClass}">${esc(deadlineText)}</span><span class="cfa-program-link">View ↗</span></div>
     </a>`;
   }).join('');
-  return `<div class="cfa-banner" id="cfa-banner">
+  return `<div class="cfa-banner collapsed" id="cfa-banner">
     <div class="cfa-banner-header" onclick="toggleCFA()">
       <span class="cfa-banner-badge">📋 CFA ${esc(CFA_YEAR)}</span>
       <span class="cfa-banner-title">NYS Consolidated Funding Application<span>· ${CFA_PROGRAMS.length} programs, one application</span></span>
       <span class="cfa-deadline-pill ${pillClass}">${esc(deadlineLabel)}</span>
-      <span class="cfa-toggle">▾</span>
+      <button class="cfa-toggle-btn" id="cfa-toggle-btn" onclick="event.stopPropagation(); toggleCFA()">Click here for more info</button>
     </div>
     <div class="cfa-banner-body">
       <p class="cfa-description">The <strong>Consolidated Funding Application (CFA)</strong> is New York State's single-entry portal for accessing grants across 8 state agencies through one application. Most programs share the <strong>July 31, ${esc(CFA_YEAR)}</strong> deadline — BCCC (NYSERDA) closes August 14. Click any program below to learn more, or go directly to the portal to apply.</p>
@@ -1007,7 +1007,13 @@ function renderCFABanner() {
     </div>
   </div>`;
 }
-function toggleCFA() { document.getElementById('cfa-banner')?.classList.toggle('collapsed'); }
+function toggleCFA() {
+  const banner = document.getElementById('cfa-banner');
+  if (!banner) return;
+  banner.classList.toggle('collapsed');
+  const btn = document.getElementById('cfa-toggle-btn');
+  if (btn) btn.textContent = banner.classList.contains('collapsed') ? 'Click here for more info' : 'Hide info';
+}
 
 // ── RENDER GRANTS ─────────────────────────────────────────────
 function renderGrants() {
