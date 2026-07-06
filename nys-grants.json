@@ -23,6 +23,17 @@
       "source": "NYS"
     },
     {
+      "id": "CDD-CEI-26",
+      "agency": "DDP01",
+      "title": "Customized Employment Initiative 2026",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "08/07/2026 11:59PM EDT",
+      "link": "https://cdd.ny.gov/funding",
+      "serviceArea": "Workforce Development",
+      "source": "NYS"
+    },
+    {
       "id": "GRO 26",
       "agency": "DEC01",
       "title": "Growing Reforestation Opportunities",
@@ -177,17 +188,6 @@
       "source": "NYS"
     },
     {
-      "id": "MH253026",
-      "agency": "OMH01",
-      "title": "Healthy Steps April 2026 Expansion",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit, Tribal Organization",
-      "dueDate": "07/02/2026 1:00PM EDT",
-      "link": "https://omh.ny.gov/omhweb/rfp/",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "MH253027",
       "agency": "OMH01",
       "title": "Collaborative Care Tech, Training, and Support",
@@ -243,6 +243,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-06-29T12:47:13.044Z",
+  "fetched": "2026-07-06T12:18:54.458Z",
   "count": 22
 }
