@@ -125,7 +125,7 @@
       "title": "NYS HOME Program",
       "agency": "NYS Homes & Community Renewal",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "September 17, 2026",
       "description": "Funding for affordable housing development, down payment assistance, and rehabilitation for municipalities and nonprofits.",
       "link": "https://hcr.ny.gov/nys-home-program",
       "source": "HCR"
@@ -361,7 +361,7 @@
       "source": "DEC"
     }
   ],
-  "fetched": "2026-07-06T12:44:21.972Z",
+  "fetched": "2026-07-13T17:23:56.580Z",
   "count": 37,
   "sources": {
     "efc": 2,
