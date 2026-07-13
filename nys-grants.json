@@ -12,6 +12,17 @@
       "source": "NYS"
     },
     {
+      "id": "EVT0000009",
+      "agency": "DCJ01",
+      "title": "2026-2027 Law Enforcement Technology (LETech) RFA",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity",
+      "dueDate": "09/02/2026 12:00PM EDT",
+      "link": "https://criminaljustice.ny.gov/ofpa/index.htm",
+      "serviceArea": "Government Supports, Justice Services, Public Safety Supports",
+      "source": "NYS"
+    },
+    {
       "id": "SV26",
       "agency": "DCJ01",
       "title": "2026 STOP VAWA Formula Grant Program",
@@ -177,17 +188,6 @@
       "source": "NYS"
     },
     {
-      "id": "EVT0000011",
-      "agency": "OAS01",
-      "title": "ATL - 26001 Prevention & Mitigation of HAG",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "07/08/2026 4:00PM EDT",
-      "link": "https://www.nyscr.ny.gov/Ads/Details/2134502?crumbs=%5B%7B%22Url%22%3A%22%2FAds%2FMyAds%3FGovernmentId%3D999%5Cu0026AssigneeId%3D3ca703cd-dc80-4f61-a912-39a95b93448b%5Cu0026Status%3DOpen%22,%22Title%22%3A%22My%20Open%20Ads%22%7D%5D",
-      "serviceArea": "Government Supports, Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "MH253027",
       "agency": "OMH01",
       "title": "Collaborative Care Tech, Training, and Support",
@@ -243,6 +243,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-07-06T12:18:54.458Z",
+  "fetched": "2026-07-13T17:04:49.483Z",
   "count": 22
 }
