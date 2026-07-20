@@ -155,28 +155,6 @@
       "source": "NYS"
     },
     {
-      "id": "PACC2026",
-      "agency": "DOH01",
-      "title": "RFA #20766 PrEP Aware Campaign Collaborative",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "07/14/2026 4:00PM EDT",
-      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
-      "id": "RCHI26",
-      "agency": "DOH01",
-      "title": "Rural Community Health Integration2026",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "07/14/2026 4:00PM EDT",
-      "link": "https://www.health.ny.gov/facilities/transforming_rural_healthcare/",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "GCEW-EV",
       "agency": "DOL01",
       "title": "NYSDOL OJET GCEW-EV",
@@ -210,28 +188,6 @@
       "source": "NYS"
     },
     {
-      "id": "ZBGAOS26",
-      "agency": "PRK01",
-      "title": "ZBGA OPERATIONAL SUPPORT FY2026-2029",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "07/17/2026 4:00PM EDT",
-      "link": "https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program",
-      "serviceArea": "Education Supports, Environmental Supports",
-      "source": "NYS"
-    },
-    {
-      "id": "EVT0000008",
-      "agency": "TDA01",
-      "title": "New York State Supportive Housing Program 2026",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "07/15/2026 3:00PM EDT",
-      "link": "https://otda.ny.gov/contracts/2026/NYSSHP/",
-      "serviceArea": "Family Supports, Government Supports, Housing and Shelter Services",
-      "source": "NYS"
-    },
-    {
       "id": "VENTURE_VI",
       "agency": "TDA01",
       "title": "Venture VI Program for SNAP Participants",
@@ -243,6 +199,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-07-13T17:04:49.483Z",
-  "count": 22
+  "fetched": "2026-07-20T15:36:10.970Z",
+  "count": 18
 }
