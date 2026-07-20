@@ -4,7 +4,7 @@
       "id": "efc-water-infrastructure-improveme",
       "title": "Water Infrastructure Improvement and Intermunicipal Grants",
       "agency": "NYS Environmental Facilities Corporation",
-      "status": "Closed",
+      "status": "Available",
       "dueDate": "",
       "description": "Competitive grants that empower municipalities to undertake water quality projects crucial to safeguarding public health, protecting the environment, bolstering climate readiness, and promoting economic development.",
       "link": "https://efc.ny.gov/wiia",
@@ -24,8 +24,8 @@
       "id": "parks-environmental-protection-fund",
       "title": "Environmental Protection Fund",
       "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Available",
-      "dueDate": "July 31, 2026",
+      "status": "Closed",
+      "dueDate": "",
       "link": "https://parks.ny.gov/grants/environmental-protection-fund",
       "source": "NYS Parks"
     },
@@ -125,7 +125,7 @@
       "title": "NYS HOME Program",
       "agency": "NYS Homes & Community Renewal",
       "status": "Available",
-      "dueDate": "September 17, 2026",
+      "dueDate": "",
       "description": "Funding for affordable housing development, down payment assistance, and rehabilitation for municipalities and nonprofits.",
       "link": "https://hcr.ny.gov/nys-home-program",
       "source": "HCR"
@@ -144,7 +144,7 @@
       "id": "hcr-vacant-rental-program--vrp-",
       "title": "Vacant Rental Program (VRP)",
       "agency": "NYS Homes & Community Renewal",
-      "status": "Closed",
+      "status": "Available",
       "dueDate": "",
       "description": "Grants to rehabilitate vacant and unusable housing units into quality affordable rental units.",
       "link": "https://hcr.ny.gov/vrp",
@@ -361,7 +361,7 @@
       "source": "DEC"
     }
   ],
-  "fetched": "2026-07-13T17:23:56.580Z",
+  "fetched": "2026-07-20T15:34:15.477Z",
   "count": 37,
   "sources": {
     "efc": 2,
