@@ -133,28 +133,6 @@
       "source": "NYS"
     },
     {
-      "id": "MSWP12026",
-      "agency": "DOH01",
-      "title": "RFA#20770 Migrant and Seasonal Wrk Prg Component 1",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "07/22/2026 4:00PM EDT",
-      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
-      "id": "MSWP22026",
-      "agency": "DOH01",
-      "title": "RFA#20770 Migrant and Seasonal Wrk Prg Component 2",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "07/22/2026 4:00PM EDT",
-      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
-      "serviceArea": "Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "GCEW-EV",
       "agency": "DOL01",
       "title": "NYSDOL OJET GCEW-EV",
@@ -163,17 +141,6 @@
       "dueDate": "12/03/2026 4:00PM EST",
       "link": "https://dol.ny.gov/funding-opportunities",
       "serviceArea": "Workforce Development",
-      "source": "NYS"
-    },
-    {
-      "id": "MH253027",
-      "agency": "OMH01",
-      "title": "Collaborative Care Tech, Training, and Support",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Not-For-Profit",
-      "dueDate": "07/21/2026 2:00PM EDT",
-      "link": "https://omh.ny.gov/omhweb/rfp/",
-      "serviceArea": "Health Services",
       "source": "NYS"
     },
     {
@@ -199,6 +166,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-07-20T15:36:10.970Z",
-  "count": 18
+  "fetched": "2026-07-27T16:40:20.704Z",
+  "count": 15
 }
