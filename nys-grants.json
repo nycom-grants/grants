@@ -1,6 +1,17 @@
 {
   "grants": [
     {
+      "id": "AGM-DPO27",
+      "agency": "AGM01",
+      "title": "Dairy Promotion or Research Program 2027",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit",
+      "dueDate": "09/18/2026 4:00PM EDT",
+      "link": "https://agriculture.ny.gov/funding-opportunities",
+      "serviceArea": "Agricultural Supports, Education Supports, Environmental Supports, Health Services",
+      "source": "NYS"
+    },
+    {
       "id": "FPIG20",
       "agency": "AGM01",
       "title": "Round 20 Farmland Protection Implementation Grants",
@@ -20,17 +31,6 @@
       "dueDate": "09/02/2026 12:00PM EDT",
       "link": "https://criminaljustice.ny.gov/ofpa/index.htm",
       "serviceArea": "Government Supports, Justice Services, Public Safety Supports",
-      "source": "NYS"
-    },
-    {
-      "id": "SV26",
-      "agency": "DCJ01",
-      "title": "2026 STOP VAWA Formula Grant Program",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "07/29/2026 12:00PM EDT",
-      "link": "https://criminaljustice.ny.gov/ofpa/index.htm",
-      "serviceArea": "Family Supports, Government Supports, Justice Services, Public Safety Supports",
       "source": "NYS"
     },
     {
@@ -64,6 +64,17 @@
       "dueDate": "09/15/2026 3:00PM EDT",
       "link": "https://dec.ny.gov/environmental-protection/water/water-quality/harmful-algal-blooms",
       "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "MWRC 2026",
+      "agency": "DEC01",
+      "title": "Municipal Waste Reduction Recycling Coordination",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Tribal Organization",
+      "dueDate": "10/30/2026 3:00PM EDT",
+      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants",
+      "serviceArea": "Environmental Supports, Government Supports",
       "source": "NYS"
     },
     {
@@ -111,17 +122,6 @@
       "source": "NYS"
     },
     {
-      "id": "CFA2026",
-      "agency": "DED01",
-      "title": "2026 Consolidated Funding Application (CFA)",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity",
-      "dueDate": "07/31/2026 4:00PM EDT",
-      "link": "https://www.governor.ny.gov/news/governor-hochul-announces-launch-2026-regional-economic-development-council-initiative",
-      "serviceArea": "https://www.governor.ny.gov/news/governor-hochul-announces-launch-2026-regional-economic-development-council-initiative",
-      "source": "NYS"
-    },
-    {
       "id": "DWFRFA2028",
       "agency": "DOH01",
       "title": "Drinking Water Fluoridation RFA",
@@ -166,6 +166,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-07-27T16:40:20.704Z",
+  "fetched": "2026-08-03T17:02:13.631Z",
   "count": 15
 }
