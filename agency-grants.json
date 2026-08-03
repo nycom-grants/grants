@@ -1,16 +1,6 @@
 {
   "grants": [
     {
-      "id": "efc-water-infrastructure-improveme",
-      "title": "Water Infrastructure Improvement and Intermunicipal Grants",
-      "agency": "NYS Environmental Facilities Corporation",
-      "status": "Available",
-      "dueDate": "",
-      "description": "Competitive grants that empower municipalities to undertake water quality projects crucial to safeguarding public health, protecting the environment, bolstering climate readiness, and promoting economic development.",
-      "link": "https://efc.ny.gov/wiia",
-      "source": "EFC"
-    },
-    {
       "id": "efc-clean-vessel-assistance-progra",
       "title": "Clean Vessel Assistance Program",
       "agency": "NYS Environmental Facilities Corporation",
@@ -204,7 +194,7 @@
       "id": "dec-water-quality-improvement-project--wqip-",
       "title": "Water Quality Improvement Project (WQIP) Program",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Available",
+      "status": "Closed",
       "dueDate": "July 31, 2026",
       "eligibility": "MUNI, NFP, OT",
       "link": "https://dec.ny.gov/get-involved/grant-applications/wqip-program",
@@ -224,7 +214,7 @@
       "id": "dec-non-agricultural-nonpoint-source-plannin",
       "title": "Non-Agricultural Nonpoint Source Planning and MS4 Mapping Grant",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Available",
+      "status": "Closed",
       "dueDate": "July 31, 2026",
       "eligibility": "MUNI, OT",
       "link": "https://dec.ny.gov/get-involved/grant-applications/non-agricultural-nonpoint-source-planning-ms4-mapping-grant",
@@ -361,10 +351,10 @@
       "source": "DEC"
     }
   ],
-  "fetched": "2026-07-27T16:51:02.117Z",
-  "count": 37,
+  "fetched": "2026-08-03T17:18:14.368Z",
+  "count": 36,
   "sources": {
-    "efc": 2,
+    "efc": 1,
     "parks": 10,
     "hcr": 4,
     "dasny": 0,
