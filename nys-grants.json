@@ -34,24 +34,13 @@
       "source": "NYS"
     },
     {
-      "id": "CDD-CEI-26",
-      "agency": "DDP01",
-      "title": "Customized Employment Initiative 2026",
+      "id": "CORE 2026",
+      "agency": "DEC01",
+      "title": "CoRe 2026",
       "status": "Available",
       "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "08/07/2026 11:59PM EDT",
-      "link": "https://cdd.ny.gov/funding",
-      "serviceArea": "Workforce Development",
-      "source": "NYS"
-    },
-    {
-      "id": "GRO 26",
-      "agency": "DEC01",
-      "title": "Growing Reforestation Opportunities",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit, Tribal Organization",
-      "dueDate": "08/05/2026 2:00PM EDT",
-      "link": "https://dec.ny.gov/",
+      "dueDate": "11/04/2026 2:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
       "serviceArea": "Environmental Supports",
       "source": "NYS"
     },
@@ -89,28 +78,6 @@
       "source": "NYS"
     },
     {
-      "id": "TMBR 26",
-      "agency": "DEC01",
-      "title": "Tree Market Boost & Revitalization Program 2026",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit, Tribal Organization",
-      "dueDate": "08/05/2026 2:00PM EDT",
-      "link": "https://dec.ny.gov/",
-      "serviceArea": "Environmental Supports",
-      "source": "NYS"
-    },
-    {
-      "id": "TND 26",
-      "agency": "DEC01",
-      "title": "25 Million Trees Nursery Discount Program",
-      "status": "Available",
-      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit, Tribal Organization",
-      "dueDate": "08/05/2026 2:00PM EDT",
-      "link": "https://dec.ny.gov/",
-      "serviceArea": "Environmental Supports",
-      "source": "NYS"
-    },
-    {
       "id": "UCF 2026",
       "agency": "DEC01",
       "title": "Urban and Community Forestry Program 2026",
@@ -119,6 +86,17 @@
       "dueDate": "08/12/2026 2:00PM EDT",
       "link": "https://dec.ny.gov/nature/forests-trees/urban-and-community-forestry",
       "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "ACTCCA2028",
+      "agency": "DOH01",
+      "title": "Assets Coming Together for Youth, Center for Commu",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "08/26/2026 4:00PM EDT",
+      "link": "https://https//www.health.ny.gov/funding/",
+      "serviceArea": "https://https://www.health.ny.gov/funding/",
       "source": "NYS"
     },
     {
@@ -166,6 +144,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-08-03T17:02:13.631Z",
-  "count": 15
+  "fetched": "2026-08-10T09:45:08.613Z",
+  "count": 13
 }
