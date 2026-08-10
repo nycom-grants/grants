@@ -201,21 +201,11 @@
       "source": "DEC"
     },
     {
-      "id": "dec-nys-dec-efc-wastewater-infrastructure-en",
-      "title": "NYS DEC/EFC Wastewater Infrastructure Engineering Planning Grant (EPG)",
+      "id": "dec-non-agricultural-nonpoint-source-and-ms4",
+      "title": "Non-Agricultural Nonpoint Source and MS4 Planning Grant (NPG)",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Closed",
       "dueDate": "",
-      "eligibility": "MUNI",
-      "link": "https://efc.ny.gov/EPG/",
-      "source": "DEC"
-    },
-    {
-      "id": "dec-non-agricultural-nonpoint-source-plannin",
-      "title": "Non-Agricultural Nonpoint Source Planning and MS4 Mapping Grant",
-      "agency": "NYS Department of Environmental Conservation",
-      "status": "Closed",
-      "dueDate": "July 31, 2026",
       "eligibility": "MUNI, OT",
       "link": "https://dec.ny.gov/get-involved/grant-applications/non-agricultural-nonpoint-source-planning-ms4-mapping-grant",
       "source": "DEC"
@@ -351,13 +341,13 @@
       "source": "DEC"
     }
   ],
-  "fetched": "2026-08-03T17:18:14.368Z",
-  "count": 36,
+  "fetched": "2026-08-10T10:14:04.077Z",
+  "count": 35,
   "sources": {
     "efc": 1,
     "parks": 10,
     "hcr": 4,
     "dasny": 0,
-    "dec": 21
+    "dec": 20
   }
 }
