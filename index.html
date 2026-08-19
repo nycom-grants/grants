@@ -1164,7 +1164,8 @@ function renderAgencyCard(g) {
         dl = `<span class="deadline-row ${cls}">⏱ ${esc(label)}</span>`;
       } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
     }
-  } else { dl = `<span class="deadline-row rolling">⟳ Rolling / Open</span>`; }
+  } else if (isClosed) { dl = `<span class="deadline-row">⏱ Closed · no fixed deadline listed</span>`; }
+  else { dl = `<span class="deadline-row rolling">⟳ Rolling / no fixed deadline — check listing</span>`; }
   return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${sourceStyle}">${esc(g.source||'Agency')}</span><span class="tag ${sc}">${esc(isClosed?'Closed':g.status||'Available')}</span></div></div>
     <div class="card-title">${esc(g.title)}</div>
