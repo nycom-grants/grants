@@ -2,7 +2,7 @@ name: Scrape Agency Grants
 
 on:
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: '0 9 * * 1,4'  # Monday & Thursday at 9am UTC, 1 hour after NYS
   workflow_dispatch:
 
 permissions:
