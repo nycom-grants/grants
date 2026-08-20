@@ -214,89 +214,6 @@ async function scrapeEFC() {
   }
 }
 
-// ── NYS PARKS ────────────────────────────────────────────────
-// Hardcoded to known open programs — Parks pages require heavy JS rendering
-// and their closed language varies too much for reliable keyword detection.
-// Status is still verified via Puppeteer on each run.
-async function scrapeParks() {
-  console.log('Scraping NYS Parks...');
-  const known = [
-    { title: 'Environmental Protection Fund', link: 'https://parks.ny.gov/grants/environmental-protection-fund' },
-    { title: 'Municipal Parks and Recreation Grant', link: 'https://parks.ny.gov/grants/municipal-parks-recreation-grant' },
-    { title: 'Recreational Trails Program', link: 'https://parks.ny.gov/grants/recreational-trails-program' },
-    { title: 'African American Heritage Grant', link: 'https://parks.ny.gov/grants/african-american-heritage-grant' },
-    { title: 'LWCF Outdoor Recreation Legacy Partnership Program', link: 'https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program' },
-    { title: 'Boating Infrastructure Grant Program', link: 'https://parks.ny.gov/grants/boating-infrastructure-grant-program' },
-    { title: 'Maritime Heritage Subgrant Program', link: 'https://parks.ny.gov/grants/maritime-heritage-subgrant-program' },
-    { title: 'ZBGA Capital Grant Program', link: 'https://parks.ny.gov/grants/zbga-capital-grant-program' },
-    { title: 'ZBGA Operational Support Grant Program', link: 'https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program' },
-    { title: 'Snowmobile Trail Grant Program', link: 'https://parks.ny.gov/activities/snowmobiling/snowmobile-grant-program' },
-    // NY PLAYS is listed under DASNY with deadline — skip here to avoid duplicate
-  ];
-
-  // Programs confirmed closed — Puppeteer will override to Available if they reopen
-  const knownClosed = new Set([
-    'https://parks.ny.gov/grants/environmental-protection-fund',
-    'https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program',
-    'https://parks.ny.gov/grants/boating-infrastructure-grant-program',
-    'https://parks.ny.gov/grants/zbga-capital-grant-program',
-    'https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program',
-    'https://parks.ny.gov/grants/african-american-heritage-grant',
-    'https://parks.ny.gov/grants/maritime-heritage-subgrant-program',
-  ]);
-
-  return known.map(k => ({
-    id: 'parks-' + k.title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 40),
-    title: k.title,
-    agency: 'NYS Office of Parks, Recreation & Historic Preservation',
-    status: knownClosed.has(k.link) ? 'Closed' : 'Available',
-    dueDate: '',
-    link: k.link,
-    source: 'NYS Parks',
-  }));
-}
-
-// ── HCR ──────────────────────────────────────────────────────
-// Scrapes municipal-facing HCR programs only (not individual grant-partners page)
-async function scrapeHCR() {
-  console.log('Scraping HCR...');
-  // These are the known active municipal/nonprofit programs from HCR
-  // The grant-partners page is for individuals only and is not appropriate here
-  const known = [
-    {
-      title: 'Community Development Block Grant (CDBG)',
-      link: 'https://hcr.ny.gov/community-development-block-grant',
-      description: 'Federal funding for cities, towns, villages and counties to assist low- and moderate-income communities.',
-    },
-    {
-      title: 'NYS HOME Program',
-      link: 'https://hcr.ny.gov/nys-home-program',
-      description: 'Funding for affordable housing development, down payment assistance, and rehabilitation for municipalities and nonprofits.',
-    },
-    {
-      title: 'Pro-Housing Community Program',
-      link: 'https://hcr.ny.gov/pro-housing-community-program',
-      description: 'Certified localities gain exclusive access to up to $750 million in discretionary State funding.',
-    },
-    {
-      title: 'Vacant Rental Program (VRP)',
-      link: 'https://hcr.ny.gov/vrp',
-      description: 'Grants to rehabilitate vacant and unusable housing units into quality affordable rental units.',
-    },
-  ];
-
-  return known.map(k => ({
-    id: 'hcr-' + k.title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30),
-    title: k.title,
-    agency: 'NYS Homes & Community Renewal',
-    status: 'Available',
-    dueDate: '',
-    description: k.description,
-    link: k.link,
-    source: 'HCR',
-  }));
-}
-
 // ── DASNY ─────────────────────────────────────────────────────
 async function scrapeDASNY(page) {
   console.log('Scraping DASNY...');
@@ -467,8 +384,14 @@ async function scrapeDEC() {
   await page.setViewport({ width: 1280, height: 900 });
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
 
-  // Run static scrapers (EFC, Parks, HCR, DEC use https.get; DASNY uses browser)
-  const [efc, parks, hcr, dec] = await Promise.all([scrapeEFC(), scrapeParks(), scrapeHCR(), scrapeDEC()]);
+  // NYS Parks and HCR are NOT scraped. Both sites sit behind Cloudflare's
+  // bot challenge on GitHub Actions runners, so any automated attempt either
+  // gets nothing or silently returns a generic "Available" for everything —
+  // exactly the kind of confidently-wrong data we don't want to show
+  // municipal officials. Parks and HCR grants are maintained entirely by
+  // hand as manual: true entries in agency-grants.json (see below) — the
+  // same mechanism already used for one-off manual additions.
+  const [efc, dec] = await Promise.all([scrapeEFC(), scrapeDEC()]);
   const dasny = await scrapeDASNY(page);
 
   // Deduplicate across all sources by title
@@ -480,20 +403,17 @@ async function scrapeDEC() {
     return true;
   });
   const efcDeduped = dedupe(efc);
-  const parksDeduped = dedupe(parks);
-  const hcrDeduped = dedupe(hcr);
   const decDeduped = dedupe(dec);
-  // Add dasny titles to seen so NY PLAYS from parks doesn't duplicate DASNY's
+  // Add dasny titles to seen so NY PLAYS/BRICKS/SWIMS don't duplicate DASNY's
   dasny.forEach(g => seenTitles.add(g.title.toLowerCase().trim()));
 
-  // Check status of EFC, Parks, and HCR grants using Puppeteer (JS-rendered pages).
+  // Check status of EFC grants using Puppeteer (JS-rendered pages).
   // EFC grants with dedicated pages (like WIIA) have their deadlines there, not on /apply.
   // Skip the generic /apply page itself since it won't have per-grant deadline info.
   const efcNeedsCheck = efcDeduped.filter(g => g.link && g.link.startsWith('http') && g.link !== 'https://efc.ny.gov/apply');
-  const needsCheck = [...efcNeedsCheck, ...parksDeduped, ...hcrDeduped].filter(g => g.link && g.link.startsWith('http'));
-  console.log('\nChecking status of ' + needsCheck.length + ' EFC/Parks/HCR grants...');
+  console.log('\nChecking status of ' + efcNeedsCheck.length + ' EFC grants...');
   const statusMap = {};
-  for (const g of needsCheck) {
+  for (const g of efcNeedsCheck) {
     const result = await checkGrantStatus(page, g.link);
     statusMap[g.id] = result;
     if (result.status === 'Closed') console.log('  CLOSED: [' + g.source + '] ' + g.title);
@@ -504,23 +424,10 @@ async function scrapeDEC() {
       ? 'Closed' : checked.status || g.status;
     return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
   });
-  const parksChecked = parksDeduped.map(g => {
-    const checked = statusMap[g.id] || {};
-    // Only override a known-closed status if Puppeteer explicitly found it open
-    const raw = g.status === 'Closed' && checked.status !== 'Open'
-      ? 'Closed' : checked.status || g.status;
-    return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
-  });
-  const hcrChecked = hcrDeduped.map(g => {
-    const checked = statusMap[g.id] || {};
-    const raw = g.status === 'Closed' && checked.status !== 'Open'
-      ? 'Closed' : checked.status || g.status;
-    return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
-  });
 
   await browser.close();
 
-  const scraped = [...efcChecked, ...parksChecked, ...hcrChecked, ...dasny, ...decDeduped];
+  const scraped = [...efcChecked, ...dasny, ...decDeduped];
   console.log('\nTotal agency grants: ' + scraped.length);
   scraped.forEach(g => console.log(' [' + g.source + '] ' + g.title + (g.dueDate ? ' · ' + g.dueDate : '')));
 
@@ -530,14 +437,22 @@ async function scrapeDEC() {
     try {
       const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
       manualGrants = (existing.grants || []).filter(g => g.manual === true);
-      console.log('Preserving ' + manualGrants.length + ' manual entries');
+      console.log('Preserving ' + manualGrants.length + ' manual entries (includes NYS Parks & HCR)');
     } catch(e) { console.log('Could not read existing file:', e.message); }
   }
 
   const allGrants = [...scraped, ...manualGrants];
   const output = {
     grants: allGrants, fetched: new Date().toISOString(), count: allGrants.length,
-    sources: { efc: efcChecked.length, parks: parks.length, hcr: hcr.length, dasny: dasny.length, dec: dec.length },
+    sources: { efc: efcChecked.length, dasny: dasny.length, dec: dec.length, manual: manualGrants.length },
+    // Plain metadata field, not part of "grants" — purely so it's obvious when
+    // scanning the raw file in GitHub where hand-maintained entries start.
+    // Lives outside the array on purpose: nothing reads or renders this key,
+    // so it needs zero filtering in index.html and can't ever show up on the
+    // dashboard by accident.
+    _manualEntriesNote: manualGrants.length
+      ? `Grants ${allGrants.length - manualGrants.length + 1}-${allGrants.length} in the array above (marked "manual": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped.`
+      : 'No manual entries currently present.',
   };
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
   console.log('Saved to agency-grants.json');
