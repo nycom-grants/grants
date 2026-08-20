@@ -1152,7 +1152,7 @@ function renderAgencyCard(g) {
   let dl = '';
   if (g.dueDate) {
     const dueLower = g.dueDate.toLowerCase();
-    if (dueLower.includes('rolling')) { dl = `<span class="deadline-row rolling">⟳ Rolling / Open</span>`; }
+    if (dueLower.includes('rolling')) { dl = `<span class="deadline-row rolling">⟳ Rolling — check with agency for funding availability</span>`; }
     else {
       const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
       const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
@@ -1165,7 +1165,7 @@ function renderAgencyCard(g) {
       } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
     }
   } else if (isClosed) { dl = `<span class="deadline-row">⏱ Closed · no fixed deadline listed</span>`; }
-  else { dl = `<span class="deadline-row rolling">⟳ Rolling / no fixed deadline — check listing</span>`; }
+  else { dl = `<span class="deadline-row rolling">⟳ No deadline listed — check with agency</span>`; }
   return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${sourceStyle}">${esc(g.source||'Agency')}</span><span class="tag ${sc}">${esc(isClosed?'Closed':g.status||'Available')}</span></div></div>
     <div class="card-title">${esc(g.title)}</div>
