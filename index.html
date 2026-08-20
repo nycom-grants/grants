@@ -1016,6 +1016,26 @@ function toggleCFA() {
 }
 
 // ── RENDER GRANTS ─────────────────────────────────────────────
+// Single source of truth for "is this agency grant closed" — combines the
+// explicit status field with the due date, so a manually-entered grant
+// with status:"Available" still reads as Closed once its date passes,
+// instead of relying on someone remembering to edit the JSON by hand.
+function isAgencyGrantClosed(g) {
+  const s = (g.status||'').toLowerCase();
+  if (s.includes('closed') || s.includes('unavailable')) return true;
+  if (g.dueDate) {
+    const dueLower = g.dueDate.toLowerCase();
+    if (!dueLower.includes('rolling')) {
+      const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
+      const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
+      const parsed = new Date(normalized);
+      const today = new Date(); today.setHours(0,0,0,0);
+      if (!isNaN(parsed.getTime()) && parsed < today) return true;
+    }
+  }
+  return false;
+}
+
 function renderGrants() {
   const grid = document.getElementById('grants-grid');
   const filteredNYS = filterNYSByAgency(filterNYSByCategory(state.nysGrants, state.category), state.agency);
@@ -1034,7 +1054,6 @@ function renderGrants() {
     html += allManual.map(g => renderManualCard(g)).join('');
   }
 
-  const now = new Date();
   const norm25 = s => (s||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,25);
 
   const agencyVisible = (state.agencyGrants||[]).filter(g => {
@@ -1043,11 +1062,9 @@ function renderGrants() {
       const sourceEquiv = reverseMap[state.agency] || state.agency;
       if (g.source !== state.agency && g.source !== sourceEquiv) return false;
     }
-    const s = (g.status||'').toLowerCase();
-    const isClosed = s.includes('closed') || s.includes('unavailable');
+    const isClosed = isAgencyGrantClosed(g);
     if (isClosed && !state.statuses.includes('closed')) return false;
     if (!isClosed && !state.statuses.includes('posted')) return false;
-    if (!isClosed && g.dueDate) { const d = new Date(g.dueDate); if (!isNaN(d.getTime()) && d < now && !state.statuses.includes('closed')) return false; }
     return true;
   }).map(g => ({ ...g, _type: 'agency' }));
 
@@ -1144,8 +1161,7 @@ function renderManualCard(g) {
 }
 
 function renderAgencyCard(g) {
-  const statusLower = (g.status||'').toLowerCase();
-  const isClosed = statusLower.includes('closed') || statusLower.includes('unavailable');
+  const isClosed = isAgencyGrantClosed(g);
   const sc = isClosed ? 'tag-closed' : 'tag-posted';
   const sourceColors = { 'EFC':'background:#0f5132;color:#fff;','NYS Parks':'background:#14532d;color:#fff;','HCR':'background:#1e3a5f;color:#fff;','DASNY':'background:#3b0764;color:#fff;' };
   const sourceStyle = sourceColors[g.source] || 'background:var(--text-mid);color:#fff;';
