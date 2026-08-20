@@ -15,7 +15,7 @@
       "title": "Municipal Waste Reduction, Recycling",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "Rolling",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/waste-management/grants",
       "source": "DEC"
@@ -25,7 +25,7 @@
       "title": "Household Hazardous Waste Disposal",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "Rolling",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/household-hazardous-waste-programs-grants",
       "source": "DEC"
@@ -35,7 +35,7 @@
       "title": "Solid Waste Municipal Landfill Closure",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "Rolling",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/municipal-landfill-closure-projects",
       "source": "DEC"
@@ -45,7 +45,7 @@
       "title": "Municipal Landfill Gas Management",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "Rolling",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/municipal-landfill-gas-management-projects",
       "source": "DEC"
@@ -95,7 +95,7 @@
       "title": "Brownfield Opportunity Areas - DOS",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "Rolling",
       "eligibility": "MUNI, NFP",
       "link": "https://dos.ny.gov/brownfield-redevelopment",
       "source": "DEC"
@@ -266,7 +266,7 @@
       "manual": true
     }
   ],
-  "fetched": "2026-08-17T09:37:32.653Z",
+  "fetched": "2026-08-20T17:30:35.936Z",
   "count": 26,
   "sources": {
     "efc": 1,
@@ -274,5 +274,5 @@
     "dec": 20,
     "manual": 5
   },
-  "_manualEntriesNote": "Grants 22-26 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run \u2014 not scraped."
+  "_manualEntriesNote": "Grants 22-26 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped."
 }
