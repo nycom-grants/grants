@@ -11,136 +11,6 @@
       "source": "EFC"
     },
     {
-      "id": "parks-environmental-protection-fund",
-      "title": "Environmental Protection Fund",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/environmental-protection-fund",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-municipal-parks-and-recreation-grant",
-      "title": "Municipal Parks and Recreation Grant",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Available",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/municipal-parks-recreation-grant",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-recreational-trails-program",
-      "title": "Recreational Trails Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Available",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/recreational-trails-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-african-american-heritage-grant",
-      "title": "African American Heritage Grant",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/african-american-heritage-grant",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-lwcf-outdoor-recreation-legacy-partnersh",
-      "title": "LWCF Outdoor Recreation Legacy Partnership Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-boating-infrastructure-grant-program",
-      "title": "Boating Infrastructure Grant Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/boating-infrastructure-grant-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-maritime-heritage-subgrant-program",
-      "title": "Maritime Heritage Subgrant Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/maritime-heritage-subgrant-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-zbga-capital-grant-program",
-      "title": "ZBGA Capital Grant Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/zbga-capital-grant-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-zbga-operational-support-grant-program",
-      "title": "ZBGA Operational Support Grant Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Closed",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "parks-snowmobile-trail-grant-program",
-      "title": "Snowmobile Trail Grant Program",
-      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
-      "status": "Available",
-      "dueDate": "",
-      "link": "https://parks.ny.gov/activities/snowmobiling/snowmobile-grant-program",
-      "source": "NYS Parks"
-    },
-    {
-      "id": "hcr-community-development-block-gr",
-      "title": "Community Development Block Grant (CDBG)",
-      "agency": "NYS Homes & Community Renewal",
-      "status": "Available",
-      "dueDate": "",
-      "description": "Federal funding for cities, towns, villages and counties to assist low- and moderate-income communities.",
-      "link": "https://hcr.ny.gov/community-development-block-grant",
-      "source": "HCR"
-    },
-    {
-      "id": "hcr-nys-home-program",
-      "title": "NYS HOME Program",
-      "agency": "NYS Homes & Community Renewal",
-      "status": "Available",
-      "dueDate": "",
-      "description": "Funding for affordable housing development, down payment assistance, and rehabilitation for municipalities and nonprofits.",
-      "link": "https://hcr.ny.gov/nys-home-program",
-      "source": "HCR"
-    },
-    {
-      "id": "hcr-pro-housing-community-program",
-      "title": "Pro-Housing Community Program",
-      "agency": "NYS Homes & Community Renewal",
-      "status": "Available",
-      "dueDate": "",
-      "description": "Certified localities gain exclusive access to up to $750 million in discretionary State funding.",
-      "link": "https://hcr.ny.gov/pro-housing-community-program",
-      "source": "HCR"
-    },
-    {
-      "id": "hcr-vacant-rental-program--vrp-",
-      "title": "Vacant Rental Program (VRP)",
-      "agency": "NYS Homes & Community Renewal",
-      "status": "Available",
-      "dueDate": "",
-      "description": "Grants to rehabilitate vacant and unusable housing units into quality affordable rental units.",
-      "link": "https://hcr.ny.gov/vrp",
-      "source": "HCR"
-    },
-    {
       "id": "dec-municipal-waste-reduction--recycling",
       "title": "Municipal Waste Reduction, Recycling",
       "agency": "NYS Department of Environmental Conservation",
@@ -339,15 +209,70 @@
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action",
       "source": "DEC"
+    },
+    {
+      "id": "parks-connect-kids-to-parks-field-trip",
+      "title": "Connect Kids to Parks Field Trip Grant Program",
+      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "description": "Reimburses transportation costs for school field trips to eligible locations. Applications accepted on a rolling basis.",
+      "link": "https://parks.ny.gov/get-involved/connect-kids",
+      "source": "NYS Parks",
+      "manual": true
+    },
+    {
+      "id": "parks-connect-kids-to-swimming",
+      "title": "Connect Kids to Swimming Instruction Transportation Grant Program",
+      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "description": "Reimburses transportation costs to swim-instruction facilities. Applications accepted on a rolling basis.",
+      "link": "https://parks.ny.gov/get-involved/connect-kids",
+      "source": "NYS Parks",
+      "manual": true
+    },
+    {
+      "id": "parks-zbga-operational-support",
+      "title": "ZBGA Operational Support Grant",
+      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
+      "status": "Closed",
+      "dueDate": "July 17, 2026",
+      "description": "Funding for collections care or special projects at municipal or not-for-profit zoos, botanical gardens, and aquaria.",
+      "link": "https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program",
+      "source": "NYS Parks",
+      "manual": true
+    },
+    {
+      "id": "parks-lwcf-orlp",
+      "title": "LWCF Outdoor Recreation Legacy Partnership Program",
+      "agency": "NYS Office of Parks, Recreation & Historic Preservation",
+      "status": "Available",
+      "dueDate": "October 1, 2026",
+      "description": "Federal, nation-wide, urban-focused grant program targeted at creating or reinvigorating parks and outdoor recreation spaces.",
+      "link": "https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program",
+      "source": "NYS Parks",
+      "manual": true
+    },
+    {
+      "id": "hcr-nys-home",
+      "title": "NYS HOME Program",
+      "agency": "NYS Homes & Community Renewal",
+      "status": "Available",
+      "dueDate": "September 17, 2026 4:00 PM",
+      "description": "Funding for affordable housing development, down payment assistance, and rehabilitation for municipalities and nonprofits. 2026 Local Funding Round is open via CDOL.",
+      "link": "https://hcr.ny.gov/community-development-block-grant#funding-round-materials",
+      "source": "HCR",
+      "manual": true
     }
   ],
-  "fetched": "2026-08-20T09:24:21.934Z",
-  "count": 35,
+  "fetched": "2026-08-17T09:37:32.653Z",
+  "count": 26,
   "sources": {
     "efc": 1,
-    "parks": 10,
-    "hcr": 4,
     "dasny": 0,
-    "dec": 20
-  }
+    "dec": 20,
+    "manual": 5
+  },
+  "_manualEntriesNote": "Grants 22-26 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run \u2014 not scraped."
 }
