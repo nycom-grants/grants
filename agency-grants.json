@@ -1,6 +1,215 @@
 {
-  "_comment": "Paste these objects into the 'grants' array in agency-grants.json (or run scrape-agency.js once with these already in place). Each has manual: true so scrape-agency.js will preserve it on every future run. Status/dates below reflect what was on the live pages as of 2026-08-19 \u2014 verify and update before committing, especially dueDate values. CDBG and Pro-Housing Community Program are intentionally NOT included here \u2014 their real status/deadline couldn't be confirmed, so they're being left off the dashboard entirely rather than shown with a misleading status. Snowmobile Trail Grant is also intentionally excluded.",
   "grants": [
+    {
+      "id": "efc-clean-vessel-assistance-progra",
+      "title": "Clean Vessel Assistance Program",
+      "agency": "NYS Environmental Facilities Corporation",
+      "status": "Available",
+      "dueDate": "",
+      "description": "Reimbursement grants to marinas for the installation, renovation & replacement of pumpout stations.",
+      "link": "https://efc.ny.gov/clean-vessel",
+      "source": "EFC"
+    },
+    {
+      "id": "dec-municipal-waste-reduction--recycling",
+      "title": "Municipal Waste Reduction, Recycling",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-household-hazardous-waste-disposal",
+      "title": "Household Hazardous Waste Disposal",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/household-hazardous-waste-programs-grants",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-solid-waste-municipal-landfill-closure",
+      "title": "Solid Waste Municipal Landfill Closure",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/municipal-landfill-closure-projects",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-municipal-landfill-gas-management",
+      "title": "Municipal Landfill Gas Management",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants/municipal-landfill-gas-management-projects",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-municipal-funding-for-food-scraps-recycl",
+      "title": "Municipal Funding for Food Scraps Recycling Initiatives",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/recycling-composting/organic-materials-management/funding-opportunities-for-organics-management",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-water-quality-improvement-project--wqip-",
+      "title": "Water Quality Improvement Project (WQIP) Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "July 31, 2026",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/get-involved/grant-applications/wqip-program",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-non-agricultural-nonpoint-source-and-ms4",
+      "title": "Non-Agricultural Nonpoint Source and MS4 Planning Grant (NPG)",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, OT",
+      "link": "https://dec.ny.gov/get-involved/grant-applications/non-agricultural-nonpoint-source-planning-ms4-mapping-grant",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-the-hudson-river-estuary",
+      "title": "The Hudson River Estuary",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/waterbodies/oceans-estuaries/hudson-river-estuary-program/grants-funding-opportunities",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-brownfield-opportunity-areas---dos",
+      "title": "Brownfield Opportunity Areas - DOS",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "Rolling",
+      "eligibility": "MUNI, NFP",
+      "link": "https://dos.ny.gov/brownfield-redevelopment",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-invasive-species-grant-program",
+      "title": "Invasive Species Grant Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/invasive-species/invasive-species-grant-program",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-community-reforestation--core--grant",
+      "title": "Community Reforestation (CoRe) Grant",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/forests-trees/urban-and-community-forestry/urban-and-community-forestry-grants",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-community-forest-conservation-grants",
+      "title": "Community Forest Conservation Grants",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/nature/open-space/community-forest-conservation-grant-program",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-adirondack-and-catskill-parks-community-",
+      "title": "Adirondack and Catskill Parks Community Smart Growth",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP",
+      "link": "https://dec.ny.gov/nature/open-space/smart-growth-in-adirondack-park-catskill-park",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-urban-and-community-forestry",
+      "title": "Urban and Community Forestry",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/forests-trees/urban-and-community-forestry/managing-your-community-forest/urban-community-forestry-grants",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-volunteer-fire-assistance",
+      "title": "Volunteer Fire Assistance",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/environmental-protection/public-safety/volunteer-fire-capacity-grants",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-open-space-conservation-grant-program",
+      "title": "Open Space Conservation Grant Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "April 15",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/open-space/open-space-conservation-grant",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-establishing-large-forests-reimbursement",
+      "title": "Establishing Large Forests Reimbursement Grant Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI, NFP, OT",
+      "link": "https://dec.ny.gov/nature/forests-trees/private-forest-management/establishing-large-forests-grant-program",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-municipal-zero-emission-vehicle--zev--cl",
+      "title": "Municipal Zero-Emission Vehicle (ZEV) Clean Vehicle Rebate Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action#Municipal",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-municipal-zero-emission-vehicle--zev--in",
+      "title": "Municipal Zero-Emission Vehicle (ZEV) Infrastructure Grant Program",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action#Municipal",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-climate-smart-communities-grants",
+      "title": "Climate Smart Communities Grants",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Closed",
+      "dueDate": "",
+      "eligibility": "MUNI",
+      "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action",
+      "source": "DEC"
+    },
     {
       "id": "parks-connect-kids-to-parks-field-trip",
       "title": "Connect Kids to Parks Field Trip Grant Program",
@@ -73,18 +282,18 @@
       "agency": "NYSERDA",
       "status": "Available",
       "dueDate": "12/31/2026 3:00 PM",
-      "description": "$12 million available. Incentives for installing Level 2 EV charging equipment at workplaces and multi-unit dwellings \u2014 $3,000 per port ($4,000 in Disadvantaged Communities). Municipalities, school districts, and other local government entities are eligible Equipment Owners. First-come, first-served; closes when funds are exhausted or by the deadline, whichever comes first.",
+      "description": "$12 million available. Incentives for installing Level 2 EV charging equipment at workplaces and multi-unit dwellings — $3,000 per port ($4,000 in Disadvantaged Communities). Municipalities, school districts, and other local government entities are eligible Equipment Owners. First-come, first-served; closes when funds are exhausted or by the deadline, whichever comes first.",
       "link": "https://portal.nyserda.ny.gov/CORE_Solicitation_Detail_Page?SolicitationId=a0r8z000000CVOdAAO",
       "source": "NYSERDA",
       "manual": true
     },
     {
       "id": "nyserda-charge-ready-large-public-sector",
-      "title": "Charge Ready NY \u2013 Large Public Sector Project Program (PON 6141)",
+      "title": "Charge Ready NY – Large Public Sector Project Program (PON 6141)",
       "agency": "NYSERDA",
       "status": "Available",
       "dueDate": "10/20/2026 3:00 PM",
-      "description": "$35 million available ($1M\u2013$15M per award). Competitive proposal program for public sector and government entities to develop large portfolios of public Level 2 EV charging sites. Requires minimum 20% cost share. Unlike the other Charge Ready programs, this is a competitive proposal with a hard deadline, not first-come-first-served.",
+      "description": "$35 million available ($1M–$15M per award). Competitive proposal program for public sector and government entities to develop large portfolios of public Level 2 EV charging sites. Requires minimum 20% cost share. Unlike the other Charge Ready programs, this is a competitive proposal with a hard deadline, not first-come-first-served.",
       "link": "https://portal.nyserda.ny.gov/CORE_Solicitation_Detail_Page?SolicitationId=a0rcr00001AchJOAAZ",
       "source": "NYSERDA",
       "manual": true
@@ -95,7 +304,7 @@
       "agency": "NYS Homes & Community Renewal",
       "status": "Available",
       "dueDate": "09/03/2026",
-      "description": "$12 million available. Grants to units of local government or non-profit housing organizations to administer local Accessory Dwelling Unit (ADU) creation/improvement programs for low- and moderate-income homeowners. Up to $125,000/unit ($175,000 in NYC). Applications are actually accepted on a rolling basis until funds are committed \u2014 09/03/2026 is the priority-consideration cutoff, not a hard close, shown here as the practical deadline for now. Update this entry when a later round replaces Round 4.",
+      "description": "$12 million available. Grants to units of local government or non-profit housing organizations to administer local Accessory Dwelling Unit (ADU) creation/improvement programs for low- and moderate-income homeowners. Up to $125,000/unit ($175,000 in NYC). Applications are actually accepted on a rolling basis until funds are committed — 09/03/2026 is the priority-consideration cutoff, not a hard close, shown here as the practical deadline for now. Update this entry when a later round replaces Round 4.",
       "link": "https://hcr.ny.gov/plus-one-adu-rfp-rd-4",
       "source": "HCR",
       "manual": true
@@ -135,11 +344,11 @@
     },
     {
       "id": "hcr-ahc-ahod-2026-27",
-      "title": "Affordable Housing Corporation \u2013 AHOD Program (2026-2027)",
+      "title": "Affordable Housing Corporation – AHOD Program (2026-2027)",
       "agency": "NYS Homes & Community Renewal",
       "status": "Available",
       "dueDate": "Rolling",
-      "description": "Grants up to $75,000/unit for construction, acquisition/rehabilitation, or improvement of 1-4 family owner-occupied housing. Eligible applicants: municipalities (including municipal housing authorities and HDFCs) and qualifying not-for-profits. NOFA/RFP jointly released 07/16/2026 for the 2026-2027 round; accepted until AHC's appropriated funds are exhausted \u2014 no fixed closing date given. Covers three RFP tracks: Acquisition & Rehabilitation, Home Improvement, and New Construction.",
+      "description": "Grants up to $75,000/unit for construction, acquisition/rehabilitation, or improvement of 1-4 family owner-occupied housing. Eligible applicants: municipalities (including municipal housing authorities and HDFCs) and qualifying not-for-profits. NOFA/RFP jointly released 07/16/2026 for the 2026-2027 round; accepted until AHC's appropriated funds are exhausted — no fixed closing date given. Covers three RFP tracks: Acquisition & Rehabilitation, Home Improvement, and New Construction.",
       "link": "https://hcr.ny.gov/ahcnofa2026-2027",
       "source": "HCR",
       "manual": true
@@ -150,10 +359,19 @@
       "agency": "NYS Homes & Community Renewal",
       "status": "Available",
       "dueDate": "09/03/2026 4:00 PM",
-      "description": "$4 million available. Grants to units of local government and not-for-profits (1+ year serving the community) to act as Local Program Administrators providing emergency repair grants (up to $20,000/building) to homeowners age 60+ whose homes have hazardous conditions. Firm deadline \u2014 late applications are rejected outright, not just deprioritized.",
+      "description": "$4 million available. Grants to units of local government and not-for-profits (1+ year serving the community) to act as Local Program Administrators providing emergency repair grants (up to $20,000/building) to homeowners age 60+ whose homes have hazardous conditions. Firm deadline — late applications are rejected outright, not just deprioritized.",
       "link": "https://hcr.ny.gov/restore-program",
       "source": "HCR",
       "manual": true
     }
-  ]
+  ],
+  "fetched": "2026-08-25T20:38:41.528Z",
+  "count": 35,
+  "sources": {
+    "efc": 1,
+    "dasny": 0,
+    "dec": 20,
+    "manual": 14
+  },
+  "_manualEntriesNote": "Grants 22-35 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped."
 }
