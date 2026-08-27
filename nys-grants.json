@@ -78,17 +78,6 @@
       "source": "NYS"
     },
     {
-      "id": "ACTCCA2028",
-      "agency": "DOH01",
-      "title": "Assets Coming Together for Youth, Center for Commu",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "08/26/2026 4:00PM EDT",
-      "link": "https://https//www.health.ny.gov/funding/",
-      "serviceArea": "https://https://www.health.ny.gov/funding/",
-      "source": "NYS"
-    },
-    {
       "id": "DWFRFA2028",
       "agency": "DOH01",
       "title": "Drinking Water Fluoridation RFA",
@@ -122,6 +111,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-08-24T08:42:00.100Z",
-  "count": 11
+  "fetched": "2026-08-27T18:43:17.091Z",
+  "count": 10
 }
