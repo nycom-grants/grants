@@ -1237,35 +1237,54 @@ async function openModal(id) {
   const mc = document.getElementById('modal-content');
   mc.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:40px 0;justify-content:center;"><div class="loading-spinner"></div></div>`;
   try {
-    const r = await fetch(`https://api.grants.gov/v1/api/fetchOpportunity?oppId=${id}`);
-    const d = await r.json(); const opp = d.data?.opportunityDetails||{};
-    const g = state.grants.find(x=>String(x.id)===String(id))||{};
+    const r = await fetch(GRANTS_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ opportunityId: Number(id) })
+    });
+    const d = await r.json();
+    if (d.errorcode !== 0) throw new Error(d.msg || 'fetchOpportunity failed');
+    const opp = d.data || {};
+    const syn = opp.synopsis || {};
+    const g = (fed.grants||[]).find(x=>String(x.id)===String(id))
+           || (state.grants||[]).find(x=>String(x.id)===String(id))
+           || {};
     const title=opp.opportunityTitle||g.title||'Grant Details';
-    const agency=opp.agencyName||g.agencyName||'';
+    const agency=syn.agencyName||g.agencyName||'';
     const num=opp.opportunityNumber||g.number||id;
-    const status=opp.opportunityStatus||g.oppStatus||'';
-    const openDate=opp.postDate||g.openDate||'';
-    const closeDate=opp.closeDate||g.closeDate||'Rolling';
-    const cfda=opp.cfdaNumbers?.join(', ')||(g.alnist||[]).join(', ')||'—';
-    const desc=opp.synopsis?.synopsis||'';
-    const cats=opp.fundingCategories?.map(c=>CAT[c]||c).join(', ')||'';
+    const status=g.oppStatus||'';
+    const openDate=fmtDateStr(syn.postingDateStr)||g.openDate||'';
+    const closeDate=fmtDateStr(syn.responseDateStr)||g.closeDate||'Rolling';
+    const cfda=(opp.cfdas||[]).map(c=>c.cfdaNumber).join(', ')||(g.alnist||[]).join(', ')||'—';
+    const estFunding=syn.estimatedFundingFormatted?`$${syn.estimatedFundingFormatted}`:'';
+    const fundingInstrument=(syn.fundingInstruments||[]).map(f=>f.description).join(', ');
+    const awardCeiling=syn.awardCeilingFormatted?`$${syn.awardCeilingFormatted}`:'';
+    const awardFloor=syn.awardFloorFormatted?`$${syn.awardFloorFormatted}`:'';
+    const desc=syn.synopsisDesc||'';
+    const catList=(syn.fundingActivityCategories||[]).map(c=>CAT[c.id]||c.description);
+    const catTags=catList.map(c=>`<span class="tag" style="background:var(--surface-alt);color:var(--text-mid);border:1px solid var(--border);">${esc(c)}</span>`).join('');
+    const eligText=(syn.applicantTypes||[]).map(a=>a.description).join(', ')||'—';
+    const costSharing=syn.costSharing===true?'Yes':syn.costSharing===false?'No':'';
     const sc=status==='posted'?'tag-posted':status==='forecasted'?'tag-forecasted':'tag-closed';
     mc.innerHTML=`
-      <div class="modal-tag-row"><span class="tag tag-federal">${esc((opp.agencyCode||g.agencyCode||'FEDERAL').split('-')[0])}</span><span class="tag ${sc}">${esc(status)}</span>${cats?`<span class="tag" style="background:var(--surface-alt);color:var(--text-mid);border:1px solid var(--border);">${esc(cats)}</span>`:''}</div>
-      <div class="modal-title">${esc(title)}</div>
+      <div class="modal-tag-row"><span class="tag tag-federal">${esc((opp.owningAgencyCode||g.agencyCode||'FEDERAL').split('-')[0])}</span>${status?`<span class="tag ${sc}">${esc(status)}</span>`:''}${catTags}</div>
+      <div class="modal-title">${esc(cleanTitle(title))}</div>
       <div class="modal-agency">${esc(agency)} · ID ${esc(String(num))}</div>
       <div class="modal-grid">
-        <div class="modal-section"><div class="modal-section-title">At a glance</div>
+        <div class="modal-section" style="grid-column:1/-1;"><div class="modal-section-title">At a glance</div>
           <div class="modal-row"><span class="modal-key">Status</span><span class="modal-val">${esc(status)||'—'}</span></div>
           <div class="modal-row"><span class="modal-key">Posted</span><span class="modal-val">${esc(openDate)||'—'}</span></div>
           <div class="modal-row"><span class="modal-key">Closes</span><span class="modal-val">${esc(closeDate)||'Rolling'}</span></div>
+          ${awardFloor?`<div class="modal-row"><span class="modal-key">Award floor</span><span class="modal-val">${esc(awardFloor)}</span></div>`:''}
+          ${awardCeiling?`<div class="modal-row"><span class="modal-key">Award ceiling</span><span class="modal-val">${esc(awardCeiling)}</span></div>`:''}
+          ${estFunding?`<div class="modal-row"><span class="modal-key">Est. total funding</span><span class="modal-val">${esc(estFunding)}</span></div>`:''}
+          ${costSharing?`<div class="modal-row"><span class="modal-key">Cost sharing / match required</span><span class="modal-val">${esc(costSharing)}</span></div>`:''}
+          ${fundingInstrument?`<div class="modal-row"><span class="modal-key">Funding instrument</span><span class="modal-val">${esc(fundingInstrument)}</span></div>`:''}
           <div class="modal-row"><span class="modal-key">ALN / CFDA</span><span class="modal-val">${esc(cfda)}</span></div>
         </div>
-        <div class="modal-section"><div class="modal-section-title">Eligibility</div>
-          <div class="modal-row"><span class="modal-key">Applicant types</span><span class="modal-val" style="font-size:11px;">${esc(fmtElig(opp.eligibleApplicants))}</span></div>
-        </div>
       </div>
-      ${desc?`<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Description</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;max-height:160px;overflow-y:auto;">${esc(desc).replace(/\n/g,'<br>')}</div></div>`:''}
+      ${desc?`<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Description</div><div class="modal-desc-body" style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;max-height:160px;overflow-y:auto;">${sanitizeDesc(desc)}</div></div>`:''}
+      <div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Eligibility</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;">${esc(eligText)}</div></div>
       <div class="modal-actions">
         <a class="btn-primary" href="https://grants.gov/search-results-detail/${esc(String(id))}" target="_blank">View on Grants.gov →</a>
       </div>`;
@@ -1298,6 +1317,20 @@ function toggleSaveModal(id) {
 
 // ── HELPERS ───────────────────────────────────────────────────
 function daysUntil(s) { if(!s)return null; const[m,d,y]=s.split('/'); if(!y)return null; const c=new Date(y,m-1,d),n=new Date(); n.setHours(0,0,0,0); return Math.round((c-n)/86400000); }
+function fmtDateStr(s) { if(!s) return ''; const parts=s.split('-'); if(parts.length<3) return ''; const [y,m,d]=parts; return `${m}/${d}/${y}`; }
+function sanitizeDesc(html) {
+  if (!html) return '';
+  const ALLOWED = new Set(['p','ul','ol','li','br','strong','em','b','i','u']);
+  // strip script/style blocks (and their contents) entirely
+  let s = String(html).replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '');
+  // for every tag: keep it (no attributes) if it's in the allow-list, else drop the tag but keep inner text
+  s = s.replace(/<\/?([a-zA-Z0-9]+)([^>]*)>/g, (m, tag) => {
+    tag = tag.toLowerCase();
+    if (!ALLOWED.has(tag)) return '';
+    return m.startsWith('</') ? `</${tag}>` : `<${tag}>`;
+  });
+  return s;
+}
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function cleanTitle(s) {
   return (s||'').replace(/(&nbsp;|\u00a0)+/g,' ').replace(/&ldquo;/g,'\u201c').replace(/&rdquo;/g,'\u201d')
