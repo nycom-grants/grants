@@ -23,14 +23,14 @@
       "source": "NYS"
     },
     {
-      "id": "EVT0000009",
-      "agency": "DCJ01",
-      "title": "2026-2027 Law Enforcement Technology (LETech) RFA",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "Governmental Entity",
-      "dueDate": "09/02/2026 12:00PM EDT",
-      "link": "https://criminaljustice.ny.gov/ofpa/index.htm",
-      "serviceArea": "Government Supports, Justice Services, Public Safety Supports",
+      "id": "CDD-AGC-26",
+      "agency": "DDP01",
+      "title": "Supporting Aging Caregivers 2026",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "10/02/2026 11:59PM EDT",
+      "link": "https://cdd.ny.gov/funding",
+      "serviceArea": "Family Supports, Government Supports, Health Services, Housing and Shelter Services, Public Safety Supports",
       "source": "NYS"
     },
     {
@@ -111,6 +111,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-08-31T15:46:03.600Z",
+  "fetched": "2026-09-03T12:27:46.568Z",
   "count": 10
 }
