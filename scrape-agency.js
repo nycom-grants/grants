@@ -249,7 +249,7 @@ async function scrapeParks() {
     { title: 'ZBGA Capital Grant Program', link: 'https://parks.ny.gov/grants/zbga-capital-grant-program' },
     { title: 'ZBGA Operational Support Grant Program', link: 'https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program' },
     { title: 'Snowmobile Trail Grant Program', link: 'https://parks.ny.gov/activities/snowmobiling/snowmobile-grant-program' },
-    // NY PLAYS is listed under DASNY with deadline — skip here to avoid duplicate
+    // NY PLAYS isn't included here — it's a DASNY program, and DASNY isn't scraped
   ];
 
   // Programs confirmed closed — Puppeteer will override to Available if they reopen
@@ -274,110 +274,13 @@ async function scrapeParks() {
   }));
 }
 
-// ── DASNY ─────────────────────────────────────────────────────
-async function scrapeDASNY(page) {
-  console.log('Scraping DASNY...');
-  try {
-    await page.goto('https://www.dasny.org/about/what-we-do/grants-administration', {
-      waitUntil: 'networkidle0', timeout: 30000
-    });
-    await new Promise(r => setTimeout(r, 3000));
-
-    // Log raw headings for debugging
-    const debug = await page.evaluate(() => {
-      const hs = Array.from(document.querySelectorAll('h2, h3'));
-      return hs.map(h => h.innerText.trim()).filter(t => t.length > 2);
-    });
-    console.log('  DASNY headings found: ' + JSON.stringify(debug));
-
-    const grants = await page.evaluate((NAV_JUNK) => {
-      function isJunk(title) {
-        if (!title || title.length < 5) return true;
-        const t = title.toLowerCase().trim();
-        return NAV_JUNK.some(j => t === j || t.startsWith(j));
-      }
-
-      const results = [];
-      const seen = new Set();
-      const main = document.querySelector('main, .main-content, #main-content, [role="main"], article') || document.body;
-      const headings = Array.from(main.querySelectorAll('h3'));
-
-      // Deadline-keyword-anchored date patterns, same spirit as
-      // checkGrantStatus()'s deadlinePatterns. A bare "first date in the
-      // section" grab (the old approach) picks up announcement dates like
-      // "On August 31, 2026, Governor Hochul announced..." instead of the
-      // real deadline that shows up later, e.g. "must be submitted by...
-      // Dec. 7, 2026." Abbreviated months (with or without a period) are
-      // included since DASNY mixes both styles across programs.
-      const MONTH = '(?:jan\\.?|feb\\.?|mar\\.?|apr\\.?|may|jun\\.?|jul\\.?|aug\\.?|sep\\.?|sept\\.?|oct\\.?|nov\\.?|dec\\.?|january|february|march|april|june|july|august|september|october|november|december)';
-      const deadlinePatterns = [
-        new RegExp('(?:must be submitted by|deadline|due date|applications? due|apply by|submit(?:ted)? by|close[sd]?)[^\\n]{0,60}(' + MONTH + '\\.?\\s+\\d{1,2},?\\s+\\d{4})', 'i'),
-      ];
-
-      for (const h of headings) {
-        const title = (h.innerText || '').trim();
-        if (isJunk(title) || seen.has(title)) continue;
-        seen.add(title);
-
-        let dueDate = '';
-        let link = 'https://www.dasny.org/about/what-we-do/grants-administration';
-        let el = h.nextElementSibling;
-
-        for (let i = 0; i < 8 && el; i++) {
-          const text = el.innerText || '';
-          if (!dueDate) {
-            for (const re of deadlinePatterns) {
-              const m = text.match(re);
-              if (m) { dueDate = m[1].trim(); break; }
-            }
-          }
-          // Deliberately no fallback to "first date-shaped string in the
-          // section" — per the show-less-rather-than-wrong principle, no
-          // dueDate is safer than a wrong one (e.g. an announcement date).
-
-          const anchors = Array.from(el.querySelectorAll('a[href]'));
-          for (const a of anchors) {
-            if (a.href && a.href.startsWith('http') &&
-                !a.href.includes('javascript') &&
-                !a.href.includes('/about/what-we-do') &&
-                !a.href.includes('/opportunities') &&
-                !a.href.includes('/news') &&
-                !a.href.includes('grantsmanagement.ny.gov/register') &&
-                link.includes('/grants-administration')) {
-              link = a.href;
-            }
-          }
-          el = el.nextElementSibling;
-        }
-        results.push({ title, dueDate, link });
-      }
-      return results;
-    }, NAV_JUNK);
-
-    const now = new Date();
-    const formatted = grants
-      .filter(g => !isJunk(g.title))
-      .filter(g => {
-        if (!g.dueDate) return true;
-        const d = new Date(g.dueDate);
-        if (isNaN(d.getTime())) return true;
-        if (d < now) { console.log('  DASNY SKIP past: ' + g.title + ' (' + g.dueDate + ')'); return false; }
-        return true;
-      })
-      .map(g => ({
-        id: 'dasny-' + g.title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30),
-        title: g.title, agency: 'DASNY',
-        status: 'Available', dueDate: g.dueDate,
-        link: g.link, source: 'DASNY',
-      }));
-
-    console.log('  DASNY: ' + formatted.length + ' grants');
-    return formatted;
-  } catch (e) {
-    console.log('  DASNY error: ' + e.message);
-    return [];
-  }
-}
+// DASNY is NOT scraped. Unlike DEC, DASNY's page has no eligibility column
+// to filter on, so scraping every program heading pulled in non-municipal
+// programs too (e.g. VNCP — nonprofit veterans orgs, not municipalities;
+// 4CFP — child care providers). One program's "link" also resolved to an
+// Outlook safelink wrapping a YouTube video rather than a real program
+// page. DASNY grants are entered manually instead — see NY BRICKS in
+// agency-grants.json as the current example.
 
 // ── DEC ──────────────────────────────────────────────────────
 async function scrapeDEC() {
@@ -485,7 +388,6 @@ async function scrapeDEC() {
   // old manual entry for that title is still there and takes over
   // automatically — no code change needed to fall back.
   const [efc, parks, dec] = await Promise.all([scrapeEFC(), scrapeParks(), scrapeDEC()]);
-  const dasny = await scrapeDASNY(page);
 
   // Deduplicate across all sources by title
   const seenTitles = new Set();
@@ -498,8 +400,6 @@ async function scrapeDEC() {
   const efcDeduped = dedupe(efc);
   const parksDeduped = dedupe(parks);
   const decDeduped = dedupe(dec);
-  // Add dasny titles to seen so NY PLAYS/BRICKS/SWIMS don't duplicate DASNY's
-  dasny.forEach(g => seenTitles.add(g.title.toLowerCase().trim()));
 
   // Check status of EFC grants using Puppeteer (JS-rendered pages).
   // EFC grants with dedicated pages (like WIIA) have their deadlines there, not on /apply.
@@ -545,7 +445,7 @@ async function scrapeDEC() {
 
   await browser.close();
 
-  const scraped = [...efcChecked, ...parksChecked, ...dasny, ...decDeduped];
+  const scraped = [...efcChecked, ...parksChecked, ...decDeduped];
   console.log('\nTotal agency grants: ' + scraped.length);
   scraped.forEach(g => console.log(' [' + g.source + '] ' + g.title + (g.dueDate ? ' · ' + g.dueDate : '')));
 
@@ -580,7 +480,7 @@ async function scrapeDEC() {
   const allGrants = [...scraped, ...manualGrants];
   const output = {
     grants: allGrants, fetched: new Date().toISOString(), count: allGrants.length,
-    sources: { efc: efcChecked.length, parks: parksChecked.length, dasny: dasny.length, dec: dec.length, manual: manualGrants.length },
+    sources: { efc: efcChecked.length, parks: parksChecked.length, dec: dec.length, manual: manualGrants.length },
     // Plain metadata field, not part of "grants" — purely so it's obvious when
     // scanning the raw file in GitHub where hand-maintained entries start.
     // Lives outside the array on purpose: nothing reads or renders this key,
