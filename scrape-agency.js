@@ -475,13 +475,15 @@ async function scrapeDEC() {
   // municipal officials. HCR grants are maintained entirely by hand as
   // manual: true entries in agency-grants.json (see below).
   //
-  // Parks IS scraped below via scrapeParks() + the Puppeteer status-check
-  // pass, but this is DIAGNOSTIC ONLY: the results are logged (reachable/
-  // unreachable, status, dueDate) but deliberately excluded from `scraped`
-  // and never written to agency-grants.json. This lets a run tell us
-  // whether Cloudflare is still blocking the runner IP without risking
-  // wrong or duplicate data reaching the dashboard. Parks continues to be
-  // served from the hand-maintained manual: true entries, same as HCR.
+  // Parks IS scraped and now goes LIVE into the dashboard (previously
+  // diagnostic-only while we confirmed Cloudflare wasn't blocking the
+  // runner IP). Manual entries are still preserved from agency-grants.json
+  // as a safety net, but any manual entry whose title matches a freshly
+  // scraped title is SUPERSEDED (dropped) further down — the scraper wins
+  // when it succeeds. If Cloudflare blocks Parks again on some future run
+  // and scrapeParks() comes back empty/incomplete for a given program, the
+  // old manual entry for that title is still there and takes over
+  // automatically — no code change needed to fall back.
   const [efc, parks, dec] = await Promise.all([scrapeEFC(), scrapeParks(), scrapeDEC()]);
   const dasny = await scrapeDASNY(page);
 
@@ -517,10 +519,10 @@ async function scrapeDEC() {
       ? 'Closed' : checked.status || g.status;
     return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
   });
-  // DIAGNOSTIC ONLY — logged, never merged into the dashboard output.
-  // Tells us whether Cloudflare is still blocking this runner's IP for
-  // parks.ny.gov without risking wrong/duplicate grants reaching the site.
-  console.log('\nParks reachability (diagnostic only — not written to dashboard):');
+  // Reachability log — kept from the diagnostic-only period since it's
+  // still useful signal each run, even though Parks now feeds the
+  // dashboard live below.
+  console.log('\nParks reachability:');
   let parksReachableCount = 0;
   parksDeduped.forEach(g => {
     const checked = statusMap[g.id];
@@ -533,9 +535,17 @@ async function scrapeDEC() {
   });
   console.log('Parks: ' + parksReachableCount + '/' + parksDeduped.length + ' pages reachable');
 
+  const parksChecked = parksDeduped.map(g => {
+    const checked = statusMap[g.id] || {};
+    // Only override a known-closed status if Puppeteer explicitly found it open
+    const raw = g.status === 'Closed' && checked.status !== 'Open'
+      ? 'Closed' : checked.status || g.status;
+    return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
+  });
+
   await browser.close();
 
-  const scraped = [...efcChecked, ...dasny, ...decDeduped];
+  const scraped = [...efcChecked, ...parksChecked, ...dasny, ...decDeduped];
   console.log('\nTotal agency grants: ' + scraped.length);
   scraped.forEach(g => console.log(' [' + g.source + '] ' + g.title + (g.dueDate ? ' · ' + g.dueDate : '')));
 
@@ -544,22 +554,40 @@ async function scrapeDEC() {
   if (fs.existsSync(outputPath)) {
     try {
       const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
-      manualGrants = (existing.grants || []).filter(g => g.manual === true);
-      console.log('Preserving ' + manualGrants.length + ' manual entries (includes NYS Parks & HCR)');
+      const allManual = (existing.grants || []).filter(g => g.manual === true);
+
+      // A manual entry is a fallback, not a permanent fixture. If this run's
+      // scraper produced a grant with the exact same title, the scraped
+      // version is fresher (live status/dueDate) and wins — the manual
+      // entry is superseded and dropped for this run. If the scraper
+      // didn't produce that title (site down, Cloudflare block, page
+      // structure changed, or it's an HCR/other title that was never
+      // scraped in the first place), the manual entry survives untouched.
+      // This is what lets Parks run live without deleting the old manual
+      // rows by hand: overlap resolves itself automatically, every run.
+      const scrapedTitles = new Set(scraped.map(g => g.title.toLowerCase().trim()));
+      manualGrants = allManual.filter(g => !scrapedTitles.has(g.title.toLowerCase().trim()));
+      const superseded = allManual.filter(g => scrapedTitles.has(g.title.toLowerCase().trim()));
+
+      console.log('Preserving ' + manualGrants.length + ' manual entries (no matching scraped title this run)');
+      if (superseded.length) {
+        console.log('Superseded ' + superseded.length + ' manual entries with fresher scraped data:');
+        superseded.forEach(g => console.log('  - ' + g.title));
+      }
     } catch(e) { console.log('Could not read existing file:', e.message); }
   }
 
   const allGrants = [...scraped, ...manualGrants];
   const output = {
     grants: allGrants, fetched: new Date().toISOString(), count: allGrants.length,
-    sources: { efc: efcChecked.length, dasny: dasny.length, dec: dec.length, manual: manualGrants.length },
+    sources: { efc: efcChecked.length, parks: parksChecked.length, dasny: dasny.length, dec: dec.length, manual: manualGrants.length },
     // Plain metadata field, not part of "grants" — purely so it's obvious when
     // scanning the raw file in GitHub where hand-maintained entries start.
     // Lives outside the array on purpose: nothing reads or renders this key,
     // so it needs zero filtering in index.html and can't ever show up on the
     // dashboard by accident.
     _manualEntriesNote: manualGrants.length
-      ? `Grants ${allGrants.length - manualGrants.length + 1}-${allGrants.length} in the array above (marked "manual": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped.`
+      ? `Grants ${allGrants.length - manualGrants.length + 1}-${allGrants.length} in the array above (marked "manual": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh.`
       : 'No manual entries currently present.',
   };
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
