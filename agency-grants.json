@@ -11,6 +11,51 @@
       "source": "EFC"
     },
     {
+      "id": "dasny-new-york-building-recreational",
+      "title": "New York Building Recreational Infrastructure for Communities, Kids and Seniors - (NY BRICKS)",
+      "agency": "DASNY",
+      "status": "Available",
+      "dueDate": "Dec. 7, 2026",
+      "link": "https://www.dasny.org/about/what-we-do/grants-administration",
+      "source": "DASNY"
+    },
+    {
+      "id": "dasny-new-york-places-for-learning--",
+      "title": "New York Places for Learning, Activity and Youth Socialization - (NY PLAYS)",
+      "agency": "DASNY",
+      "status": "Available",
+      "dueDate": "",
+      "link": "https://www.dasny.org/sites/default/files/inline-files/NY%20PLAYS%20RFA.pdf",
+      "source": "DASNY"
+    },
+    {
+      "id": "dasny-new-york-statewide-investment-",
+      "title": "New York Statewide Investment in More Swimming - (NY SWIMS)",
+      "agency": "DASNY",
+      "status": "Available",
+      "dueDate": "",
+      "link": "https://www.governor.ny.gov/sites/default/files/2024-08/NY-SWIMS_Awards_08-2024.pdf",
+      "source": "DASNY"
+    },
+    {
+      "id": "dasny-child-care-capital-constructio",
+      "title": "Child Care Capital Construction Funding Program (4CFP)",
+      "agency": "DASNY",
+      "status": "Available",
+      "dueDate": "",
+      "link": "https://www.dasny.org/sites/default/files/inline-files/4CFP%20RFA%20Final%2012-1-2025.JV_.edits_.2.0.pdf",
+      "source": "DASNY"
+    },
+    {
+      "id": "dasny-veterans-nonprofit-capital-pro",
+      "title": "Veterans Nonprofit Capital Program (VNCP) (NYS Division of Veterans’ Services)",
+      "agency": "DASNY",
+      "status": "Available",
+      "dueDate": "",
+      "link": "https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DBa_cuVo_f4o&data=05%7C02%7CBKennedy%40dasny.org%7C75c34044e9924ae6fc3408dd779d188c%7C886b09f58d684ba88fafccc214b01239%7C0%7C0%7C638798238788007565%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=etgXZbhaVzp8AKOO7qFlSCDJE2roLeTJlaHgMCu3fxo%3D&reserved=0",
+      "source": "DASNY"
+    },
+    {
       "id": "dec-municipal-waste-reduction--recycling",
       "title": "Municipal Waste Reduction, Recycling",
       "agency": "NYS Department of Environmental Conservation",
@@ -365,13 +410,13 @@
       "manual": true
     }
   ],
-  "fetched": "2026-09-08T17:18:25.010Z",
-  "count": 35,
+  "fetched": "2026-09-08T17:44:08.091Z",
+  "count": 40,
   "sources": {
     "efc": 1,
-    "dasny": 0,
+    "dasny": 5,
     "dec": 20,
     "manual": 14
   },
-  "_manualEntriesNote": "Grants 22-35 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped."
+  "_manualEntriesNote": "Grants 27-40 in the array above (marked \"manual\": true) are NYS Parks & HCR entries, hand-maintained and preserved across every scraper run — not scraped."
 }
