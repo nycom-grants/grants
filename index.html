@@ -779,6 +779,7 @@ async function fetchFedGrants(append) {
     let g = d.oppHits || d.data?.oppHits || [];
     const rawCount = d.hitCount || d.data?.hitCount || g.length;
     g = filterLocal(g);
+    g = g.filter(o => !(o.title||'').toUpperCase().includes('FY 2021'));
     fed.grants = append ? [...fed.grants, ...g] : g;
     fed.totalHits = rawCount;
     fed.loading = false;
