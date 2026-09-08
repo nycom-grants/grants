@@ -99,7 +99,7 @@
       "dueDate": "",
       "link": "https://parks.ny.gov/activities/snowmobiling/snowmobile-grant-program",
       "source": "NYS Parks"
-    }, 
+    },
     {
       "id": "dec-municipal-waste-reduction--recycling",
       "title": "Municipal Waste Reduction, Recycling",
@@ -443,7 +443,7 @@
       "source": "HCR",
       "manual": true
     },
-        {
+    {
       "id": "dasny-new-york-building-recreational",
       "title": "New York Building Recreational Infrastructure for Communities, Kids and Seniors - (NY BRICKS)",
       "agency": "DASNY",
@@ -451,17 +451,16 @@
       "dueDate": "Dec. 7, 2026",
       "link": "https://www.dasny.org/about/what-we-do/grants-administration",
       "source": "DASNY",
-      "manual": true  
+      "manual": true
     }
   ],
-  "fetched": "2026-09-08T19:59:26.813Z",
-  "count": 49,
+  "fetched": "2026-09-08T20:23:33.180Z",
+  "count": 45,
   "sources": {
     "efc": 1,
     "parks": 10,
-    "dasny": 5,
     "dec": 20,
-    "manual": 13
+    "manual": 14
   },
-  "_manualEntriesNote": "Grants 37-49 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
+  "_manualEntriesNote": "Grants 32-45 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
 }
