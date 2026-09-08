@@ -93,10 +93,11 @@ async function checkGrantStatus(browserPage, url) {
       return { status, dueDate };
     });
 
-    console.log('  [' + url.split('/').pop() + '] status=' + result.status + (result.dueDate ? ' due=' + result.dueDate : ''));
-    return result;
+    console.log('  [REACHABLE] ' + url + ' status=' + result.status + (result.dueDate ? ' due=' + result.dueDate : ''));
+    return { ...result, reachable: true };
   } catch(e) {
-    return { status: 'Available', dueDate: '' };
+    console.log('  [UNREACHABLE] ' + url + ' — ' + e.message);
+    return { status: 'Available', dueDate: '', reachable: false };
   }
 }
 
@@ -191,7 +192,7 @@ async function scrapeEFC() {
       const dueLower = dueDate.toLowerCase();
       const efcStatus = (dueLower.includes('closed') || dueLower.includes('not available') || dueLower.includes('not accepting')) ? 'Closed' : 'Available';
       // Only keep dueDate if it contains an actual date value
-      const hasDate = /\d{1,2}[\/.\-]\d{1,2}|(january|february|march|april|may|june|july|august|september|october|november|december)/i.test(dueDate);
+      const hasDate = /\d{1,2}[\/.\-]\d{1,2}|(january|february|march|april|may|june|july|august|september|october|november|december)/i.test(dueDate);
       grants.push({
         id: 'efc-' + title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 30),
         title, agency: 'NYS Environmental Facilities Corporation',
@@ -225,6 +226,54 @@ async function scrapeEFC() {
   }
 }
 
+// ── NYS PARKS ────────────────────────────────────────────────
+// Hardcoded to known open programs — Parks pages require heavy JS rendering
+// and their closed language varies too much for reliable keyword detection.
+// Status is still verified via Puppeteer on each run (checkGrantStatus, in
+// the MAIN block below) — same as EFC's dedicated-page pass. NOTE: this
+// Puppeteer pass hits parks.ny.gov directly, which is the same request path
+// that's been getting blocked by Cloudflare bot-protection on GitHub Actions
+// runner IPs. Restoring this function does not fix that; it re-exposes the
+// scraper to it. If you re-enable this, remove the corresponding manual
+// Parks entries from agency-grants.json first to avoid duplicate cards.
+async function scrapeParks() {
+  console.log('Scraping NYS Parks...');
+  const known = [
+    { title: 'Environmental Protection Fund', link: 'https://parks.ny.gov/grants/environmental-protection-fund' },
+    { title: 'Municipal Parks and Recreation Grant', link: 'https://parks.ny.gov/grants/municipal-parks-recreation-grant' },
+    { title: 'Recreational Trails Program', link: 'https://parks.ny.gov/grants/recreational-trails-program' },
+    { title: 'African American Heritage Grant', link: 'https://parks.ny.gov/grants/african-american-heritage-grant' },
+    { title: 'LWCF Outdoor Recreation Legacy Partnership Program', link: 'https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program' },
+    { title: 'Boating Infrastructure Grant Program', link: 'https://parks.ny.gov/grants/boating-infrastructure-grant-program' },
+    { title: 'Maritime Heritage Subgrant Program', link: 'https://parks.ny.gov/grants/maritime-heritage-subgrant-program' },
+    { title: 'ZBGA Capital Grant Program', link: 'https://parks.ny.gov/grants/zbga-capital-grant-program' },
+    { title: 'ZBGA Operational Support Grant Program', link: 'https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program' },
+    { title: 'Snowmobile Trail Grant Program', link: 'https://parks.ny.gov/activities/snowmobiling/snowmobile-grant-program' },
+    // NY PLAYS is listed under DASNY with deadline — skip here to avoid duplicate
+  ];
+
+  // Programs confirmed closed — Puppeteer will override to Available if they reopen
+  const knownClosed = new Set([
+    'https://parks.ny.gov/grants/environmental-protection-fund',
+    'https://parks.ny.gov/grants/lwcf-outdoor-recreation-legacy-partnership-program',
+    'https://parks.ny.gov/grants/boating-infrastructure-grant-program',
+    'https://parks.ny.gov/grants/zbga-capital-grant-program',
+    'https://parks.ny.gov/grants/zoos-botanical-gardens-aquaria-operational-support-grant-program',
+    'https://parks.ny.gov/grants/african-american-heritage-grant',
+    'https://parks.ny.gov/grants/maritime-heritage-subgrant-program',
+  ]);
+
+  return known.map(k => ({
+    id: 'parks-' + k.title.toLowerCase().replace(/[^a-z0-9]/g, '-').slice(0, 40),
+    title: k.title,
+    agency: 'NYS Office of Parks, Recreation & Historic Preservation',
+    status: knownClosed.has(k.link) ? 'Closed' : 'Available',
+    dueDate: '',
+    link: k.link,
+    source: 'NYS Parks',
+  }));
+}
+
 // ── DASNY ─────────────────────────────────────────────────────
 async function scrapeDASNY(page) {
   console.log('Scraping DASNY...');
@@ -253,6 +302,18 @@ async function scrapeDASNY(page) {
       const main = document.querySelector('main, .main-content, #main-content, [role="main"], article') || document.body;
       const headings = Array.from(main.querySelectorAll('h3'));
 
+      // Deadline-keyword-anchored date patterns, same spirit as
+      // checkGrantStatus()'s deadlinePatterns. A bare "first date in the
+      // section" grab (the old approach) picks up announcement dates like
+      // "On August 31, 2026, Governor Hochul announced..." instead of the
+      // real deadline that shows up later, e.g. "must be submitted by...
+      // Dec. 7, 2026." Abbreviated months (with or without a period) are
+      // included since DASNY mixes both styles across programs.
+      const MONTH = '(?:jan\\.?|feb\\.?|mar\\.?|apr\\.?|may|jun\\.?|jul\\.?|aug\\.?|sep\\.?|sept\\.?|oct\\.?|nov\\.?|dec\\.?|january|february|march|april|june|july|august|september|october|november|december)';
+      const deadlinePatterns = [
+        new RegExp('(?:must be submitted by|deadline|due date|applications? due|apply by|submit(?:ted)? by|close[sd]?)[^\\n]{0,60}(' + MONTH + '\\.?\\s+\\d{1,2},?\\s+\\d{4})', 'i'),
+      ];
+
       for (const h of headings) {
         const title = (h.innerText || '').trim();
         if (isJunk(title) || seen.has(title)) continue;
@@ -264,8 +325,15 @@ async function scrapeDASNY(page) {
 
         for (let i = 0; i < 8 && el; i++) {
           const text = el.innerText || '';
-          const dateMatch = text.match(/([A-Z][a-z]+ \d{1,2},? \d{4})/);
-          if (dateMatch && !dueDate) dueDate = dateMatch[1];
+          if (!dueDate) {
+            for (const re of deadlinePatterns) {
+              const m = text.match(re);
+              if (m) { dueDate = m[1].trim(); break; }
+            }
+          }
+          // Deliberately no fallback to "first date-shaped string in the
+          // section" — per the show-less-rather-than-wrong principle, no
+          // dueDate is safer than a wrong one (e.g. an announcement date).
 
           const anchors = Array.from(el.querySelectorAll('a[href]'));
           for (const a of anchors) {
@@ -400,14 +468,21 @@ async function scrapeDEC() {
   await page.setViewport({ width: 1280, height: 900 });
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
 
-  // NYS Parks and HCR are NOT scraped. Both sites sit behind Cloudflare's
-  // bot challenge on GitHub Actions runners, so any automated attempt either
+  // HCR is NOT scraped — hcr.ny.gov sits behind the same Cloudflare bot
+  // challenge on GitHub Actions runners, so any automated attempt either
   // gets nothing or silently returns a generic "Available" for everything —
   // exactly the kind of confidently-wrong data we don't want to show
-  // municipal officials. Parks and HCR grants are maintained entirely by
-  // hand as manual: true entries in agency-grants.json (see below) — the
-  // same mechanism already used for one-off manual additions.
-  const [efc, dec] = await Promise.all([scrapeEFC(), scrapeDEC()]);
+  // municipal officials. HCR grants are maintained entirely by hand as
+  // manual: true entries in agency-grants.json (see below).
+  //
+  // Parks IS scraped below via scrapeParks() + the Puppeteer status-check
+  // pass, but this is DIAGNOSTIC ONLY: the results are logged (reachable/
+  // unreachable, status, dueDate) but deliberately excluded from `scraped`
+  // and never written to agency-grants.json. This lets a run tell us
+  // whether Cloudflare is still blocking the runner IP without risking
+  // wrong or duplicate data reaching the dashboard. Parks continues to be
+  // served from the hand-maintained manual: true entries, same as HCR.
+  const [efc, parks, dec] = await Promise.all([scrapeEFC(), scrapeParks(), scrapeDEC()]);
   const dasny = await scrapeDASNY(page);
 
   // Deduplicate across all sources by title
@@ -419,6 +494,7 @@ async function scrapeDEC() {
     return true;
   });
   const efcDeduped = dedupe(efc);
+  const parksDeduped = dedupe(parks);
   const decDeduped = dedupe(dec);
   // Add dasny titles to seen so NY PLAYS/BRICKS/SWIMS don't duplicate DASNY's
   dasny.forEach(g => seenTitles.add(g.title.toLowerCase().trim()));
@@ -427,9 +503,10 @@ async function scrapeDEC() {
   // EFC grants with dedicated pages (like WIIA) have their deadlines there, not on /apply.
   // Skip the generic /apply page itself since it won't have per-grant deadline info.
   const efcNeedsCheck = efcDeduped.filter(g => g.link && g.link.startsWith('http') && g.link !== 'https://efc.ny.gov/apply');
-  console.log('\nChecking status of ' + efcNeedsCheck.length + ' EFC grants...');
+  const needsCheck = [...efcNeedsCheck, ...parksDeduped].filter(g => g.link && g.link.startsWith('http'));
+  console.log('\nChecking status of ' + needsCheck.length + ' EFC/Parks grants...');
   const statusMap = {};
-  for (const g of efcNeedsCheck) {
+  for (const g of needsCheck) {
     const result = await checkGrantStatus(page, g.link);
     statusMap[g.id] = result;
     if (result.status === 'Closed') console.log('  CLOSED: [' + g.source + '] ' + g.title);
@@ -440,6 +517,21 @@ async function scrapeDEC() {
       ? 'Closed' : checked.status || g.status;
     return { ...g, status: raw === 'Open' ? 'Available' : raw, dueDate: checked.dueDate || g.dueDate };
   });
+  // DIAGNOSTIC ONLY — logged, never merged into the dashboard output.
+  // Tells us whether Cloudflare is still blocking this runner's IP for
+  // parks.ny.gov without risking wrong/duplicate grants reaching the site.
+  console.log('\nParks reachability (diagnostic only — not written to dashboard):');
+  let parksReachableCount = 0;
+  parksDeduped.forEach(g => {
+    const checked = statusMap[g.id];
+    if (checked && checked.reachable) {
+      parksReachableCount++;
+      console.log('  [REACHABLE] ' + g.title + ' -> status=' + checked.status + (checked.dueDate ? ' due=' + checked.dueDate : ''));
+    } else {
+      console.log('  [UNREACHABLE] ' + g.title + ' (' + g.link + ')');
+    }
+  });
+  console.log('Parks: ' + parksReachableCount + '/' + parksDeduped.length + ' pages reachable');
 
   await browser.close();
 
