@@ -708,8 +708,8 @@ function switchTab(tab, el) {
 // ── NON-LOCAL FILTER ─────────────────────────────────────────
 const NON_LOCAL = [
   "DOD","AF","NAVY","ARMY","DARPA","DTRA","DIA","NRO","AFRL","AFOSR","ONR","ARO",
-  "NASA","NSF","NIST","NOAA","DOE-SC", "DOS",
-  "NIH","HHS","CDC","HRSA","SAMHSA","AHRQ","ACF","ACL","ASPR","IHS","OASH", "AC",
+  "NASA","NSF","NIST","NOAA","DOE-SC",
+  "NIH","HHS","CDC","HRSA","SAMHSA","AHRQ","ACF","ACL","ASPR","IHS","OASH",
   "NCI","NHLBI","NIMH","NIAID","NEI","NIA","NICHD","NIDDK","NIGMS","NINDS",
   "NIDCD","NIAAA","NIDA","NIMHD","NHGRI","NIBIB","NINR","NLM","FIC","NCATS","NCCIH",
 ];
@@ -718,6 +718,12 @@ function filterLocal(grants) {
     const c=(g.agencyCode||'').toUpperCase(), r=c.split('-')[0];
     return !NON_LOCAL.some(a=>c.startsWith(a)||r===a);
   });
+}
+
+// ── TITLE KEYWORD BLOCKLIST ──────────────────────────────────
+const TITLE_BLOCKLIST = ['FY 2021', 'FY 2023', 'ALASKA'];
+function filterBlockedTitles(grants) {
+  return grants.filter(o => !TITLE_BLOCKLIST.some(kw => (o.title||'').toUpperCase().includes(kw)));
 }
 
 // ── AGENCY FILTER ─────────────────────────────────────────────
@@ -782,7 +788,7 @@ async function fetchFedGrants(append) {
     let g = d.oppHits || d.data?.oppHits || [];
     const rawCount = d.hitCount || d.data?.hitCount || g.length;
     g = filterLocal(g);
-    g = g.filter(o => !(o.title||'').toUpperCase().includes('FY 2021'));
+    g = filterBlockedTitles(g);
     fed.grants = append ? [...fed.grants, ...g] : g;
     fed.totalHits = rawCount;
     fed.loading = false;
