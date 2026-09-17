@@ -23,6 +23,17 @@
       "source": "NYS"
     },
     {
+      "id": "RSFI26",
+      "agency": "AGM01",
+      "title": "Regional School Food Infrastructure Grant Program",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "01/22/2027 3:00PM EST",
+      "link": "https://agriculture.ny.gov/rfp-0423-new-york-state-regional-school-food-infrastructure-grant-program",
+      "serviceArea": "Agricultural Supports",
+      "source": "NYS"
+    },
+    {
       "id": "CDD-AGC-26",
       "agency": "DDP01",
       "title": "Supporting Aging Caregivers 2026",
@@ -41,17 +52,6 @@
       "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
       "dueDate": "11/04/2026 2:00PM EST",
       "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
-      "serviceArea": "Environmental Supports",
-      "source": "NYS"
-    },
-    {
-      "id": "HAB 2026",
-      "agency": "DEC01",
-      "title": "Harmful Algal Bloom Research Grant Program 2026",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "09/15/2026 3:00PM EDT",
-      "link": "https://dec.ny.gov/environmental-protection/water/water-quality/harmful-algal-blooms",
       "serviceArea": "Environmental Supports",
       "source": "NYS"
     },
@@ -111,6 +111,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-09-14T14:39:12.422Z",
+  "fetched": "2026-09-17T12:58:08.637Z",
   "count": 10
 }
