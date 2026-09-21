@@ -1,17 +1,6 @@
 {
   "grants": [
     {
-      "id": "AGM-DPO27",
-      "agency": "AGM01",
-      "title": "Dairy Promotion or Research Program 2027",
-      "status": "Advertised Only - Not in SFS",
-      "eligibility": "For Profit, Governmental Entity, Individual, Not-For-Profit",
-      "dueDate": "09/18/2026 4:00PM EDT",
-      "link": "https://agriculture.ny.gov/funding-opportunities",
-      "serviceArea": "Agricultural Supports, Education Supports, Environmental Supports, Health Services",
-      "source": "NYS"
-    },
-    {
       "id": "FPIG20",
       "agency": "AGM01",
       "title": "Round 20 Farmland Protection Implementation Grants",
@@ -111,6 +100,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-09-17T12:58:08.637Z",
-  "count": 10
+  "fetched": "2026-09-21T14:46:09.302Z",
+  "count": 9
 }
