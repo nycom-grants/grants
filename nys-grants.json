@@ -45,6 +45,50 @@
       "source": "NYS"
     },
     {
+      "id": "HRE50 2026",
+      "agency": "DEC01",
+      "title": "HRE Round 50 Tributary Restoration and Resiliency",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/17/2026 3:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "HRER49",
+      "agency": "DEC01",
+      "title": "HRE Round 49 River Access",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/17/2026 3:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "HRER51",
+      "agency": "DEC01",
+      "title": "HRE Round 51 Local Stewardship Planning",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/17/2026 3:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "HRER52",
+      "agency": "DEC01",
+      "title": "HRE Round 52 Grants for River Education",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/17/2026 3:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
       "id": "MWRC 2026",
       "agency": "DEC01",
       "title": "Municipal Waste Reduction Recycling Coordination",
@@ -100,6 +144,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-09-24T13:06:13.297Z",
-  "count": 9
+  "fetched": "2026-09-28T16:22:19.157Z",
+  "count": 13
 }
