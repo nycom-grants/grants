@@ -23,17 +23,6 @@
       "source": "NYS"
     },
     {
-      "id": "CDD-AGC-26",
-      "agency": "DDP01",
-      "title": "Supporting Aging Caregivers 2026",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
-      "dueDate": "10/02/2026 11:59PM EDT",
-      "link": "https://cdd.ny.gov/funding",
-      "serviceArea": "Family Supports, Government Supports, Health Services, Housing and Shelter Services, Public Safety Supports",
-      "source": "NYS"
-    },
-    {
       "id": "CORE 2026",
       "agency": "DEC01",
       "title": "CoRe 2026",
@@ -133,6 +122,17 @@
       "source": "NYS"
     },
     {
+      "id": "MH263037",
+      "agency": "OMH01",
+      "title": "Health-led Community Behavioral Health Crisis",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "11/19/2026 2:00PM EST",
+      "link": "https://omh.ny.gov/omhweb/rfp/",
+      "serviceArea": "Health Services, Public Safety Supports",
+      "source": "NYS"
+    },
+    {
       "id": "VENTURE_VI",
       "agency": "TDA01",
       "title": "Venture VI Program for SNAP Participants",
@@ -144,6 +144,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-10-01T15:01:49.729Z",
+  "fetched": "2026-10-05T16:43:11.242Z",
   "count": 13
 }
