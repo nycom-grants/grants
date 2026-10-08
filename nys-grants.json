@@ -1,6 +1,17 @@
 {
   "grants": [
     {
+      "id": "AFTYP3",
+      "agency": "AGM01",
+      "title": "2027 TYCLF",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/01/2026 4:00PM EST",
+      "link": "https://agriculture.ny.gov/funding-opportunities",
+      "serviceArea": "Agricultural Supports, Education Supports, Family Supports, Public Transportation Services",
+      "source": "NYS"
+    },
+    {
       "id": "FPIG20",
       "agency": "AGM01",
       "title": "Round 20 Farmland Protection Implementation Grants",
@@ -20,6 +31,17 @@
       "dueDate": "01/22/2027 3:00PM EST",
       "link": "https://agriculture.ny.gov/rfp-0423-new-york-state-regional-school-food-infrastructure-grant-program",
       "serviceArea": "Agricultural Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "EVT0000010",
+      "agency": "DCJ01",
+      "title": "ERPO Infrastructure and Implementation",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity",
+      "dueDate": "12/02/2026 12:00PM EST",
+      "link": "https://criminaljustice.ny.gov/ofpa/index.htm",
+      "serviceArea": "Justice Services, Public Safety Supports",
       "source": "NYS"
     },
     {
@@ -144,6 +166,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-10-05T16:43:11.242Z",
-  "count": 13
+  "fetched": "2026-10-08T15:09:59.903Z",
+  "count": 15
 }
