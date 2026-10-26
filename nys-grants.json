@@ -45,6 +45,28 @@
       "source": "NYS"
     },
     {
+      "id": "CDD-HA-27",
+      "agency": "DDP01",
+      "title": "Health Advocate Training",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/04/2026 11:59PM EST",
+      "link": "https://cdd.ny.gov/funding",
+      "serviceArea": "Health Services",
+      "source": "NYS"
+    },
+    {
+      "id": "CDD_INN_26",
+      "agency": "DDP01",
+      "title": "Innovations Grant Improving Cross-Systems Collab",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "11/30/2026 11:59PM EST",
+      "link": "https://cdd.ny.gov/funding",
+      "serviceArea": "Agricultural Supports, Education Supports, Environmental Supports, Family Supports, Government Supports, Health Services, Housing and Shelter Services, Justice Services, Public Safety Supports, Public Transportation Services, Workforce Development",
+      "source": "NYS"
+    },
+    {
       "id": "CFCR4",
       "agency": "DEC01",
       "title": "Community Forest Conservation Round 4",
@@ -188,6 +210,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-10-22T13:25:31.788Z",
-  "count": 17
+  "fetched": "2026-10-26T14:48:34.778Z",
+  "count": 19
 }
