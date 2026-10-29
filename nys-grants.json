@@ -45,6 +45,17 @@
       "source": "NYS"
     },
     {
+      "id": "CDD-FEN-27",
+      "agency": "DDP01",
+      "title": "Fatherhood Engagement Network RFP",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "12/11/2026 11:59PM EST",
+      "link": "https://cdd.ny.gov/funding",
+      "serviceArea": "Education Supports, Family Supports",
+      "source": "NYS"
+    },
+    {
       "id": "CDD-HA-27",
       "agency": "DDP01",
       "title": "Health Advocate Training",
@@ -182,7 +193,7 @@
       "title": "Crisis Stabilization Centers",
       "status": "Available",
       "eligibility": "For Profit, Governmental Entity, Not-For-Profit",
-      "dueDate": "12/15/2026 2:00PM EST",
+      "dueDate": "12/29/2026 2:00PM EST",
       "link": "https://omh.ny.gov/omhweb/rfp/",
       "serviceArea": "Health Services",
       "source": "NYS"
@@ -210,6 +221,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-10-26T14:48:34.778Z",
-  "count": 19
+  "fetched": "2026-10-29T14:56:23.602Z",
+  "count": 20
 }
