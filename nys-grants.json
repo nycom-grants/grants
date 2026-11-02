@@ -56,6 +56,17 @@
       "source": "NYS"
     },
     {
+      "id": "CDD-GST-27",
+      "agency": "DDP01",
+      "title": "Grief Support Toolkit for People with Developmenta",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Tribal Organization",
+      "dueDate": "12/18/2026 11:59PM EST",
+      "link": "https://https//cdd.ny.gov/grant-opportunity-announcement-grief-support-toolkit-people-developmental-disabilities",
+      "serviceArea": "Family Supports, Health Services",
+      "source": "NYS"
+    },
+    {
       "id": "CDD-HA-27",
       "agency": "DDP01",
       "title": "Health Advocate Training",
@@ -95,6 +106,28 @@
       "status": "Available",
       "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
       "dueDate": "11/04/2026 2:00PM EST",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "FRI 2026",
+      "agency": "DEC01",
+      "title": "Food Recovery Initiatives Grant Program - 2026",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "11/02/2028 3:00PM EDT",
+      "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
+      "serviceArea": "Environmental Supports",
+      "source": "NYS"
+    },
+    {
+      "id": "FSR 2026",
+      "agency": "DEC01",
+      "title": "FSR 2026 Grant Program",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "11/02/2028 3:00PM EDT",
       "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
       "serviceArea": "Environmental Supports",
       "source": "NYS"
@@ -141,17 +174,6 @@
       "dueDate": "12/17/2026 3:00PM EST",
       "link": "https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL",
       "serviceArea": "Environmental Supports",
-      "source": "NYS"
-    },
-    {
-      "id": "MWRC 2026",
-      "agency": "DEC01",
-      "title": "Municipal Waste Reduction Recycling Coordination",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Tribal Organization",
-      "dueDate": "10/30/2026 3:00PM EDT",
-      "link": "https://dec.ny.gov/environmental-protection/waste-management/grants",
-      "serviceArea": "Environmental Supports, Government Supports",
       "source": "NYS"
     },
     {
@@ -210,6 +232,28 @@
       "source": "NYS"
     },
     {
+      "id": "MHEDU27",
+      "agency": "PRK01",
+      "title": "NYS Maritime Heritage 2027 Education",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "01/15/2027 4:00PM EST",
+      "link": "https://parks.ny.gov/grants/maritime-heritage-subgrant-program",
+      "serviceArea": "Education Supports, Environmental Supports, Government Supports, Housing and Shelter Services, Public Safety Supports, Public Transportation Services",
+      "source": "NYS"
+    },
+    {
+      "id": "MHPRES27",
+      "agency": "PRK01",
+      "title": "NYS Maritime Heritage 2027 Preservation",
+      "status": "Available",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "01/15/2027 4:00PM EST",
+      "link": "https://parks.ny.gov/grants/maritime-heritage-subgrant-program",
+      "serviceArea": "Education Supports, Environmental Supports, Government Supports, Housing and Shelter Services, Public Safety Supports, Public Transportation Services",
+      "source": "NYS"
+    },
+    {
       "id": "VENTURE_VI",
       "agency": "TDA01",
       "title": "Venture VI Program for SNAP Participants",
@@ -221,6 +265,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-10-29T14:56:23.602Z",
-  "count": 20
+  "fetched": "2026-11-02T17:44:29.327Z",
+  "count": 24
 }
