@@ -1,10 +1,74 @@
-const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
 const NYS_URL = 'https://esupplier.sfs.ny.gov/psc/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL?PortalActualURL=https%3a%2f%2fesupplier.sfs.ny.gov%2fpsc%2ffscm%2fSUPPLIER%2fERP%2fc%2fNY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL&PortalContentURL=https%3a%2f%2fesupplier.sfs.ny.gov%2fpsc%2ffscm%2fSUPPLIER%2fERP%2fc%2fNY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL&PortalContentProvider=ERP&PortalCRefLabel=Search%20for%20Grant%20Opportunities&PortalRegistryName=SUPPLIER&PortalServletURI=https%3a%2f%2fesupplier.sfs.ny.gov%2fpsp%2ffscm%2f&PortalURI=https%3a%2f%2fesupplier.sfs.ny.gov%2fpsc%2ffscm%2f&PortalHostNode=ERP&NoCrumbs=yes&PortalKeyStruct=yes';
 
 const SFS_FALLBACK = 'https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL';
+
+// ── DETAIL-PAGE FIELDS ───────────────────────────────────────
+// Runs inside the browser on an SFS "Full Announcement Details" page. Each field is found by its
+// exact label text, so a layout change leaves a field blank instead of filling it with the wrong value.
+// Kept free of outside variables because Puppeteer serializes it into the page.
+function readDetailFields() {
+  const norm = s => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const squash = s => (s || '').replace(/\s+/g, ' ').trim();
+  const LABELS = {
+    award:        t => t === 'totalfundingavailable',
+    awardDate:    t => t === 'anticipatedawarddate',
+    questionsDue: t => t === 'questionsduedate',
+    loi:          t => t === 'letterofintentdue',
+    conference:   t => t.startsWith('bidder') && t.includes('conference'),
+  };
+  const isAnyLabel = text => { const t = norm(text); return t && Object.values(LABELS).some(f => f(t)); };
+  const els = Array.from(document.querySelectorAll('td, th, label, span, div, b, strong, p'));
+  const out = {};
+  for (const [key, test] of Object.entries(LABELS)) {
+    out[key] = '';
+    // Elements whose whole text is the label; take the innermost one.
+    const hits = els.filter(el => test(norm(el.innerText)));
+    const label = hits.find(el => !hits.some(o => o !== el && el.contains(o)));
+    if (!label) continue;
+    let value = '';
+    const cell = label.closest('td, th') || label;
+    for (let s = cell.nextElementSibling; s && !value; s = s.nextElementSibling) value = squash(s.innerText);
+    if (!value && cell !== label) {
+      for (let s = label.nextElementSibling; s && !value; s = s.nextElementSibling) value = squash(s.innerText);
+    }
+    if (value && !isAnyLabel(value)) out[key] = value;
+  }
+  return out;
+}
+
+const MONTHS = { january:1, february:2, march:3, april:4, may:5, june:6, july:7, august:8, september:9, october:10, november:11, december:12 };
+// "Thursday, January 14, 2027" -> "01/14/2027". Anything that isn't a clear date is returned as written.
+function cleanDate(v) {
+  v = (v || '').trim();
+  const m = v.match(/(?:[A-Za-z]+,\s*)?([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})/);
+  if (m && MONTHS[m[1].toLowerCase()]) return String(MONTHS[m[1].toLowerCase()]).padStart(2, '0') + '/' + m[2].padStart(2, '0') + '/' + m[3];
+  const n = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (n) return n[1].padStart(2, '0') + '/' + n[2].padStart(2, '0') + '/' + n[3];
+  return v;
+}
+// "$8,000,000.000" -> "$8,000,000"
+function cleanMoney(v) {
+  v = (v || '').trim();
+  const num = parseFloat(v.replace(/[$,\s]/g, ''));
+  if (!v || !isFinite(num) || !/^\$?[\d,]+(\.\d+)?$/.test(v)) return v;
+  const cents = Math.round(num * 100) % 100 !== 0;
+  return '$' + num.toLocaleString('en-US', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: 2 });
+}
+const isEmptyish = v => !v || /^(n\/?a|none|null|-+)$/i.test(v.trim());
+function cleanDetail(raw) {
+  raw = raw || {};
+  const pick = k => (isEmptyish(raw[k]) ? '' : raw[k].trim());
+  return {
+    award: cleanMoney(pick('award')),
+    awardDate: cleanDate(pick('awardDate')),
+    questionsDue: cleanDate(pick('questionsDue')),
+    conference: pick('conference').slice(0, 500),
+    loi: cleanDate(pick('loi')),
+  };
+}
 
 async function loadSearchResults(page) {
   try {
@@ -22,7 +86,8 @@ async function loadSearchResults(page) {
   await new Promise(r => setTimeout(r, 7000));
 }
 
-(async () => {
+async function main() {
+  const puppeteer = require('puppeteer');
   console.log('Launching browser...');
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
@@ -161,6 +226,17 @@ async function loadSearchResults(page) {
           console.log('  -> Service Area: ' + found.serviceArea);
         }
 
+        // Extra detail fields (funding, award date, questions due, bidder's conference, letter of intent).
+        // Separate try so a problem here can never lose the link or service area above.
+        try {
+          const details = cleanDetail(await page.evaluate(readDetailFields));
+          Object.assign(g, details);
+          const got = Object.entries(details).filter(([, v]) => v).map(([k]) => k);
+          console.log('  -> Details: ' + (got.length ? got.join(', ') : 'none found'));
+        } catch (e) {
+          console.log('  -> Detail fields skipped: ' + e.message);
+        }
+
         // Go back to search results for next iteration
         console.log('  Returning to search results...');
         await loadSearchResults(page);
@@ -183,6 +259,11 @@ async function loadSearchResults(page) {
       dueDate: g.dueDate,
       link: announcementLink,
       serviceArea: g.serviceArea || null,
+      award: g.award || '',
+      awardDate: g.awardDate || '',
+      questionsDue: g.questionsDue || '',
+      conference: g.conference || '',
+      loi: g.loi || '',
       source: 'NYS',
     });
   }
@@ -208,4 +289,9 @@ async function loadSearchResults(page) {
   const output = { grants: allGrants, fetched: new Date().toISOString(), count: allGrants.length };
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
   console.log('Saved.');
-})();
+}
+
+if (require.main === module) {
+  main().catch(e => { console.error(e); process.exit(1); });
+}
+module.exports = { readDetailFields, cleanDetail, cleanDate, cleanMoney };
