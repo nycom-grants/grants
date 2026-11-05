@@ -11,14 +11,37 @@
       "source": "EFC"
     },
     {
+      "id": "efc-water-infrastructure-improveme",
+      "title": "Water Infrastructure Improvement and Intermunicipal Grants",
+      "agency": "NYS Environmental Facilities Corporation",
+      "status": "Closed",
+      "dueDate": "July 27",
+      "description": "Competitive grants that empower municipalities to undertake water quality projects crucial to safeguarding public health, protecting the environment, bolstering climate readiness, and promoting economic development.",
+      "link": "https://efc.ny.gov/wiia",
+      "source": "EFC",
+      "noYear": true
+    },
+    {
       "id": "efc-green-resiliency-grants-and-gr",
       "title": "Green Resiliency Grants and Green Innovation Grant Program",
       "agency": "NYS Environmental Facilities Corporation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "January 29",
       "description": "Grants for implementing green infrastructure projects including stormwater management, water efficiency, and energy efficiency.",
       "link": "https://efc.ny.gov/grg",
-      "source": "EFC"
+      "source": "EFC",
+      "noYear": true
+    },
+    {
+      "id": "efc-wastewater-infrastructure-engi",
+      "title": "Wastewater Infrastructure Engineering Planning Grants",
+      "agency": "NYS Environmental Facilities Corporation",
+      "status": "Closed",
+      "dueDate": "June 12",
+      "description": "Planning grants help communities prepare to apply for grants and financing through the CWSRF. Planning grants help fund the development of an engineering report, which is required in the EFC financing application process. EPGs help municipalities advance fiscally sound and well-designed projects to ",
+      "link": "https://efc.ny.gov/epg",
+      "source": "EFC",
+      "noYear": true
     },
     {
       "id": "efc-clean-vessel-assistance-progra",
@@ -165,7 +188,7 @@
       "title": "Wasted Food Reduction and Food Scraps Recycling Initiative",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "November 2, 2028",
       "eligibility": "MUNI.NFP",
       "link": "https://dec.ny.gov/environmental-protection/recycling-composting/organic-materials-management/funding-opportunities-for-organics-management",
       "source": "DEC"
@@ -175,7 +198,7 @@
       "title": "Food Recovery Initiatives",
       "agency": "NYS Department of Environmental Conservation",
       "status": "Available",
-      "dueDate": "",
+      "dueDate": "November 2, 2028",
       "eligibility": "MUNI.NFP",
       "link": "https://dec.ny.gov/environmental-protection/recycling-composting/organic-materials-management/funding-opportunities-for-organics-management",
       "source": "DEC"
@@ -284,11 +307,12 @@
       "id": "dec-open-space-conservation-grant-program",
       "title": "Open Space Conservation Grant Program",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Closed",
+      "status": "Available",
       "dueDate": "April 15",
       "eligibility": "MUNI, NFP, OT",
       "link": "https://dec.ny.gov/nature/open-space/open-space-conservation-grant",
-      "source": "DEC"
+      "source": "DEC",
+      "noYear": true
     },
     {
       "id": "dec-establishing-large-forests-reimbursement",
@@ -484,13 +508,13 @@
       "manual": true
     }
   ],
-  "fetched": "2026-11-05T16:56:46.524Z",
-  "count": 48,
+  "fetched": "2026-11-05T21:17:49.263Z",
+  "count": 50,
   "sources": {
-    "efc": 3,
+    "efc": 5,
     "parks": 10,
     "dec": 21,
     "manual": 14
   },
-  "_manualEntriesNote": "Grants 35-48 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
+  "_manualEntriesNote": "Grants 37-50 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
 }
