@@ -161,12 +161,22 @@
       "source": "DEC"
     },
     {
-      "id": "dec-municipal-funding-for-food-scraps-recycl",
-      "title": "Municipal Funding for Food Scraps Recycling Initiatives",
+      "id": "dec-wasted-food-reduction-and-food-scraps-re",
+      "title": "Wasted Food Reduction and Food Scraps Recycling Initiative",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Closed",
+      "status": "Available",
       "dueDate": "",
-      "eligibility": "MUNI",
+      "eligibility": "MUNI.NFP",
+      "link": "https://dec.ny.gov/environmental-protection/recycling-composting/organic-materials-management/funding-opportunities-for-organics-management",
+      "source": "DEC"
+    },
+    {
+      "id": "dec-food-recovery-initiatives",
+      "title": "Food Recovery Initiatives",
+      "agency": "NYS Department of Environmental Conservation",
+      "status": "Available",
+      "dueDate": "",
+      "eligibility": "MUNI.NFP",
       "link": "https://dec.ny.gov/environmental-protection/recycling-composting/organic-materials-management/funding-opportunities-for-organics-management",
       "source": "DEC"
     },
@@ -224,7 +234,7 @@
       "id": "dec-community-reforestation--core--grant",
       "title": "Community Reforestation (CoRe) Grant",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Available",
+      "status": "Closed",
       "dueDate": "November 4, 2026",
       "eligibility": "MUNI, NFP, OT",
       "link": "https://dec.ny.gov/nature/forests-trees/urban-and-community-forestry/urban-and-community-forestry-grants",
@@ -474,13 +484,13 @@
       "manual": true
     }
   ],
-  "fetched": "2026-11-02T18:58:21.408Z",
-  "count": 47,
+  "fetched": "2026-11-05T16:56:46.524Z",
+  "count": 48,
   "sources": {
     "efc": 3,
     "parks": 10,
-    "dec": 20,
+    "dec": 21,
     "manual": 14
   },
-  "_manualEntriesNote": "Grants 34-47 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
+  "_manualEntriesNote": "Grants 35-48 in the array above (marked \"manual\": true) are hand-maintained entries (HCR always; Parks only when this run's scraper didn't return a matching title) — preserved as a fallback, superseded automatically whenever the scraper produces the same title fresh."
 }
