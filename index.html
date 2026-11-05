@@ -245,7 +245,8 @@
   <nav class="nav-tabs">
     <div class="nav-tab active" onclick="switchTab('browse',this)">State Grants</div>
     <div class="nav-tab" onclick="switchTab('federal',this)">Federal Grants</div>
-    <div class="nav-tab" onclick="switchTab('resources',this)">Other Resources</div>
+    <div class="nav-tab" id="nav-other" onclick="switchTab('other',this)">Other Grants</div>
+    <div class="nav-tab" id="nav-resources" onclick="switchTab('resources',this)">Other Resources</div>
     <div class="nav-tab" onclick="switchTab('howto',this)">How to Use</div>
   </nav>
   <div class="topbar-right">
@@ -261,6 +262,12 @@
         <h4>Agency</h4>
         <select class="select-filter" id="filter-agency">
           <option value="">All agencies</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <h4>Category</h4>
+        <select class="select-filter" id="filter-category">
+          <option value="">All categories</option>
         </select>
       </div>
       <div class="filter-group">
@@ -289,6 +296,9 @@
         <select class="mobile-cat-select" id="mobile-filter-agency" onchange="mobileAgency(this.value)">
           <option value="">All agencies</option>
         </select>
+        <select class="mobile-cat-select" id="mobile-filter-category" onchange="mobileCategory(this.value)">
+          <option value="">All categories</option>
+        </select>
       </div>
       <div class="toolbar"><span id="active-tags"></span></div>
       <div class="grants-grid" id="grants-grid">
@@ -303,6 +313,12 @@
 <div id="tab-federal" style="display:none;">
   <div class="layout">
     <aside class="sidebar">
+      <div class="filter-group">
+        <h4>Agency</h4>
+        <select class="select-filter" id="fed-filter-agency">
+          <option value="">All agencies</option><option value="USDA">Agriculture (USDA)</option><option value="DOC">Commerce (DOC)</option><option value="DOE">Energy (DOE)</option><option value="ED">Education (ED)</option><option value="EPA">Environmental Protection (EPA)</option><option value="DHS">Homeland Security / FEMA (DHS)</option><option value="HUD">Housing &amp; Urban Development (HUD)</option><option value="DOI">Interior (DOI)</option><option value="DOJ">Justice (DOJ)</option><option value="DOL">Labor (DOL)</option><option value="DOT">Transportation (DOT)</option><option value="VA">Veterans Affairs (VA)</option><option value="SBA">Small Business Administration (SBA)</option><option value="IMLS">Museum &amp; Library Services (IMLS)</option><option value="NEA">Arts (NEA)</option><option value="NEH">Humanities (NEH)</option>
+        </select>
+      </div>
       <div class="filter-group">
         <h4>Category</h4>
         <select class="select-filter" id="fed-filter-category">
@@ -348,6 +364,9 @@
         <button class="mobile-filter-btn active" onclick="mobileFedStatus('posted',this)">Open</button>
         <button class="mobile-filter-btn" onclick="mobileFedStatus('forecasted',this)">Forecasted</button>
         <button class="mobile-filter-btn" onclick="mobileFedStatus('closed',this)">Closed</button>
+        <select class="mobile-cat-select" id="mobile-fed-agency" onchange="mobileFedAgency(this.value)">
+          <option value="">All agencies</option><option value="USDA">Agriculture (USDA)</option><option value="DOC">Commerce (DOC)</option><option value="DOE">Energy (DOE)</option><option value="ED">Education (ED)</option><option value="EPA">Environmental Protection (EPA)</option><option value="DHS">Homeland Security / FEMA (DHS)</option><option value="HUD">Housing &amp; Urban Development (HUD)</option><option value="DOI">Interior (DOI)</option><option value="DOJ">Justice (DOJ)</option><option value="DOL">Labor (DOL)</option><option value="DOT">Transportation (DOT)</option><option value="VA">Veterans Affairs (VA)</option><option value="SBA">Small Business Administration (SBA)</option><option value="IMLS">Museum &amp; Library Services (IMLS)</option><option value="NEA">Arts (NEA)</option><option value="NEH">Humanities (NEH)</option>
+        </select>
         <select class="mobile-cat-select" onchange="mobileFedCategory(this.value)">
           <option value="">All categories</option>
           <option value="AG">Agriculture</option>
@@ -374,6 +393,57 @@
       </div>
       <div class="split-load-more" id="fed-load-more" style="display:none;">
         <button onclick="loadMoreFed()">Load more</button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══ OTHER GRANTS TAB (regional, nonprofit, private, commission...) ══ -->
+<div id="tab-other" style="display:none;">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="filter-group">
+        <h4>Type</h4>
+        <select class="select-filter" id="og-type" onchange="ogApply()">
+          <option value="">All types</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <h4>Region</h4>
+        <select class="select-filter" id="og-region" onchange="ogApply()">
+          <option value="">All regions</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <h4>Status</h4>
+        <div class="filter-item"><input type="checkbox" id="og-posted" checked onchange="ogApply()"><label for="og-posted">Posted / Open</label></div>
+        <div class="filter-item"><input type="checkbox" id="og-closed" onchange="ogApply()"><label for="og-closed">Closed</label></div>
+      </div>
+      <div class="filter-group">
+        <h4>Sort</h4>
+        <select class="select-filter" id="og-sort" onchange="ogApply()">
+          <option value="closeDate|asc" selected>Deadline soonest</option>
+          <option value="closeDate|desc">Deadline latest</option>
+          <option value="title|asc">Name A–Z</option>
+        </select>
+      </div>
+      <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius);padding:7px 10px;margin-top:14px;font-size:11px;color:var(--blue-dark);line-height:1.4;">
+        <strong>Disclaimer:</strong> Regional, nonprofit, foundation and corporate funders set their own rules and eligibility. Please verify all information with the funder before applying.
+      </div>
+    </aside>
+    <main class="main">
+      <div class="mobile-filter-bar" style="display:none;" id="mobile-og-filter-bar">
+        <button class="mobile-filter-btn active" onclick="ogMobileStatus('posted',this)">Open</button>
+        <button class="mobile-filter-btn" onclick="ogMobileStatus('closed',this)">Closed</button>
+        <select class="mobile-cat-select" id="mobile-og-type" onchange="ogMobileType(this.value)">
+          <option value="">All types</option>
+        </select>
+        <select class="mobile-cat-select" id="mobile-og-region" onchange="ogMobileRegion(this.value)">
+          <option value="">All regions</option>
+        </select>
+      </div>
+      <div class="grants-grid" id="og-grid">
+        <div class="loading-state"><div class="loading-spinner"></div><div class="loading-label">Loading grants…</div></div>
       </div>
     </main>
   </div>
@@ -502,7 +572,7 @@
           <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Federal Grants</div>
           <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">Live results from Grants.gov filtered to opportunities available for municipal governments. Updated each time you visit the tab.</p>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #0891b2;border-radius:var(--radius-lg);padding:14px 18px;">
+        <div id="howto-resources" style="background:var(--surface);border:1px solid var(--border);border-left:4px solid #0891b2;border-radius:var(--radius-lg);padding:14px 18px;">
           <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Other Resources</div>
           <p style="font-size:12.5px;color:var(--text-mid);line-height:1.6;">A curated directory of grant portals, federal and state agency programs, regional funding sources, and technical assistance resources for NYS municipalities. Use this tab to find programs not covered by the State or Federal tabs, explore agency-specific grant pages, or find technical assistance for the application process.</p>
         </div>
@@ -642,19 +712,26 @@
 </div>
 
 <script>
+  // Load config.js with a changing address so a browser or GitHub Pages never serves a stale copy of it
+  // (this is what makes a change to config.js show up right away, even inside the test site's iframe).
+  document.write('<script src="config.js?_=' + Date.now() + '"><\/script>');
+</script>
+<script>
 const GRANTS_API = 'https://nycom-grants-proxy.grants-aa8.workers.dev';
 const PAGE_SIZE = 12;
 const FED_PAGE_SIZE = 100;
+// Grants.gov agency code prefixes for the Federal Agency dropdown (the dropdown value -> codes to match).
+const FED_AGENCY_PREFIXES = { DOJ: ['USDOJ', 'DOJ'] };
 
 let state = {
-  keyword:'', category:'', agency:'', eligibility:'02',
+  keyword:'', category:'', cat:'', agency:'', eligibility:'02',
   statuses:['posted'], sort:'closeDate|asc',
   page:0, totalHits:0, grants:[], nysGrants:[], saved:new Set(), loading:false,
   manualGrants: JSON.parse(localStorage.getItem('manualGrants')||'[]'),
   jsonManualGrants: [], agencyGrants: [],
 };
 let fed = {
-  keyword:'', category:'', eligibility:'02',
+  keyword:'', category:'', agency:'', eligibility:'02',
   statuses:['posted'], sort:'closeDate|asc',
   page:0, totalHits:0, grants:[], loading:false, loaded:false,
 };
@@ -674,24 +751,25 @@ const NYS_AGENCY_COLORS = {
   'DCJ01':'background:#1e3a5f;color:#fff;','DED01':'background:#164e63;color:#fff;',
   'DOL01':'background:#1e3a5f;color:#fff;','OAS01':'background:#3b0764;color:#fff;',
   'OMH01':'background:#3b0764;color:#fff;','TDA01':'background:#1e3a5f;color:#fff;',
+  'DDP01':'background:#7c2d12;color:#fff;',
 };
 const NYS_AGENCY_LABELS = {
   'AGM01':'Ag & Markets','DCJ01':'DCJS','DEC01':'DEC','DED01':'ESD','DOH01':'DOH',
-  'DOL01':'DOL','OAS01':'OAS','OMH01':'OMH','PRK01':'NYS Parks','TDA01':'OTDA',
+  'DOL01':'DOL','OAS01':'OAS','OMH01':'OMH','PRK01':'NYS Parks','TDA01':'OTDA','DDP01':'CDD',
 };
 const NYS_AGENCY_NAMES = {
   'AGM01':'NYS Department of Agriculture & Markets','DCJ01':'NYS Division of Criminal Justice Services',
   'DEC01':'NYS Department of Environmental Conservation','DED01':'Empire State Development',
   'DOH01':'NYS Department of Health','DOL01':'NYS Department of Labor',
   'OAS01':'NYS Office of Addiction Services & Supports','OMH01':'NYS Office of Mental Health',
-  'PRK01':'NYS Office of Parks, Recreation & Historic Preservation','TDA01':'NYS Office of Temporary & Disability Assistance',
+  'PRK01':'NYS Office of Parks, Recreation & Historic Preservation','TDA01':'NYS Office of Temporary & Disability Assistance','DDP01':'NYS Council on Developmental Disabilities',
 };
 
 // ── TABS ─────────────────────────────────────────────────────
 function switchTab(tab, el) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   if (el.classList.contains('nav-tab')) el.classList.add('active');
-  ['browse','federal','resources','howto'].forEach(t =>
+  ['browse','federal','other','resources','howto'].forEach(t =>
     document.getElementById('tab-'+t).style.display = t===tab ? '' : 'none'
   );
   const searchEl = document.getElementById('keyword-input');
@@ -742,7 +820,7 @@ const SOURCE_DISPLAY_NAMES = {
 function buildAgencyFilter() {
   const agencies = new Map();
   (state.agencyGrants||[]).forEach(g => {
-    if (!g.source) return;
+    if (!g.source || g.source === 'Manual') return;   // hand-added rows are listed by agency name below
     const mapped = SOURCE_TO_AGENCY[g.source];
     if (mapped && NYS_AGENCY_NAMES[mapped]) {
       agencies.set(mapped, NYS_AGENCY_NAMES[mapped]);
@@ -751,6 +829,11 @@ function buildAgencyFilter() {
     }
   });
   (state.nysGrants||[]).forEach(g => { if (g.agency) agencies.set(g.agency, NYS_AGENCY_NAMES[g.agency]||g.agency); });
+  // Hand-added grants join the agency they name; an agency not listed yet gets its own entry.
+  (state.agencyGrants||[]).forEach(g => {
+    if (g.source !== 'Manual' || !g.agency) return;
+    if (![...agencies.values()].includes(g.agency)) agencies.set(g.agency, g.agency);
+  });
   const opts = '<option value="">All agencies</option>' +
     [...agencies.entries()].sort((a,b)=>a[1].localeCompare(b[1])).map(([val,label])=>`<option value="${esc(val)}">${esc(label)}</option>`).join('');
   ['filter-agency','mobile-filter-agency'].forEach(id => {
@@ -759,6 +842,20 @@ function buildAgencyFilter() {
     const cur = sel.value;
     sel.innerHTML = opts;
     if (cur) sel.value = cur;
+  });
+  buildCategoryFilter();
+}
+// State-tab Category dropdown. A grant's categories live in one cell ("Education Supports, Family Supports"),
+// so a grant matches when ANY of its categories equals the one picked.
+const grantAreas = g => (g.serviceArea || '').split(',').map(x => x.trim()).filter(Boolean);
+const matchesArea = (g, cat) => !cat || grantAreas(g).some(a => a.toLowerCase() === cat.toLowerCase());
+function buildCategoryFilter() {
+  const set = new Set();
+  [...(state.nysGrants || []), ...(state.agencyGrants || [])].forEach(g => grantAreas(g).forEach(a => set.add(a)));
+  const opts = '<option value="">All categories</option>' + [...set].sort((a, b) => a.localeCompare(b)).map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  ['filter-category', 'mobile-filter-category'].forEach(id => {
+    const sel = document.getElementById(id); if (!sel) return;
+    const cur = sel.value; sel.innerHTML = opts; if (cur && set.has(cur)) sel.value = cur;
   });
 }
 function filterNYSByAgency(grants, agency) {
@@ -782,14 +879,34 @@ async function fetchFedGrants(append) {
   if (fed.category) body.fundingCategories = fed.category;
   if (fed.eligibility) body.eligibilities = fed.eligibility;
   try {
-    const r = await fetch(GRANTS_API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    let g = d.oppHits || d.data?.oppHits || [];
-    const rawCount = d.hitCount || d.data?.hitCount || g.length;
-    g = filterLocal(g);
-    g = filterBlockedTitles(g);
-    fed.grants = append ? [...fed.grants, ...g] : g;
+    const post = async b => {
+      const r = await fetch(GRANTS_API, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(b) });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const d = await r.json();
+      return { hits: d.oppHits || d.data?.oppHits || [], total: d.hitCount || d.data?.hitCount || 0 };
+    };
+    let g, rawCount;
+    if (fed.agency) {
+      // Agency filter runs in the browser: read through the result pages and keep the opportunities whose
+      // agency code starts with the chosen agency (e.g. DOT-FHWA counts as DOT). Capped at 10 pages.
+      const prefixes = (FED_AGENCY_PREFIXES[fed.agency] || [fed.agency]).map(x => x.toUpperCase());
+      const first = await post({ ...body, startRecordNum: 0 });
+      let all = first.hits;
+      const pages = Math.min(Math.ceil(first.total / FED_PAGE_SIZE), 10);
+      if (pages > 1) {
+        const rest = await Promise.all(Array.from({ length: pages - 1 }, (_, i) => post({ ...body, startRecordNum: (i + 1) * FED_PAGE_SIZE })));
+        rest.forEach(x => { all = all.concat(x.hits); });
+      }
+      g = filterBlockedTitles(filterLocal(all)).filter(o => prefixes.includes((o.agencyCode || '').toUpperCase().split('-')[0]));
+      rawCount = 0;            // everything is already on screen, so no "load more"
+      fed.grants = g;
+    } else {
+      const res = await post(body);
+      g = res.hits; rawCount = res.total || g.length;
+      g = filterLocal(g);
+      g = filterBlockedTitles(g);
+      fed.grants = append ? [...fed.grants, ...g] : g;
+    }
     fed.totalHits = rawCount;
     fed.loading = false;
     renderFedGrants();
@@ -802,6 +919,7 @@ async function fetchFedGrants(append) {
 function applyFedFilters() {
   fed.keyword = document.getElementById('keyword-input').value.trim();
   fed.category = document.getElementById('fed-filter-category').value;
+  fed.agency = document.getElementById('fed-filter-agency').value;
   fed.eligibility = document.getElementById('fed-filter-eligibility').value;
   fed.sort = document.getElementById('fed-filter-sort').value;
   fed.statuses = [];
@@ -832,6 +950,7 @@ function renderFedGrants() {
   const tags = [];
   if (fed.keyword) tags.push(`keyword: "${fed.keyword}"`);
   if (fed.category) tags.push(`category: ${CAT[fed.category]||fed.category}`);
+  if (fed.agency) tags.push(`agency: ${fed.agency}`);
   document.getElementById('fed-active-tags').innerHTML = tags.map(t=>`<span class="active-tag">${t}</span>`).join('');
 }
 
@@ -877,6 +996,7 @@ function applyFilters() {
   state.keyword = '';
   state.category = '';
   state.agency = document.getElementById('filter-agency').value;
+  state.cat = (document.getElementById('filter-category') || {}).value || '';
   state.eligibility = document.getElementById('filter-eligibility').value;
   state.sort = document.getElementById('filter-sort').value;
   state.statuses = [];
@@ -1037,28 +1157,60 @@ function toggleCFA() {
 // explicit status field with the due date, so a manually-entered grant
 // with status:"Available" still reads as Closed once its date passes,
 // instead of relying on someone remembering to edit the JSON by hand.
+// Due date -> local-midnight Date, or null if it isn't a clear date with a year (e.g. "Rolling", "April 15").
+function parseDueLocal(raw) {
+  if (!raw || /rolling/i.test(raw)) return null;
+  const cleaned = raw.replace(/(\s+at)?\s+\d{1,2}:\d{2}.*$/i, '').trim();
+  const m = cleaned.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m) return new Date(+m[3], +m[1] - 1, +m[2]);
+  const iso = cleaned.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (iso) return new Date(+iso[1], +iso[2] - 1, +iso[3]);
+  if (!/\d{4}/.test(cleaned)) return null;
+  const d = new Date(cleaned);
+  return isNaN(d.getTime()) ? null : new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+// Any due date -> MM/DD/YYYY (1/1/2027, 2027-01-01 and "January 1, 2027" all become 01/01/2027).
+// Text with no year ("April 15", "Rolling") comes back unchanged.
+function fmtDueDate(raw) {
+  const d = parseDueLocal(raw);
+  if (!d) return (raw || '').replace(/(\s+at)?\s+\d{1,2}:\d{2}.*$/i, '').trim();
+  return String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0') + '/' + d.getFullYear();
+}
+// Whole days from today until the due date (0 = today, negative = past), or null if not a clear date.
+function daysLeft(raw) {
+  const d = parseDueLocal(raw);
+  if (!d) return null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return Math.round((d - today) / 86400000);
+}
+// The countdown line shared by every card: "Closes in 12 days · 11/09/2026".
+function deadlineHTML(raw, who = 'agency') {
+  if (/rolling/i.test(raw || '')) return `<span class="deadline-row rolling">⟳ Rolling — check with ${who} for funding availability</span>`;
+  const days = daysLeft(raw);
+  if (days === null) return `<span class="deadline-row">⏱ ${esc((raw || '').slice(0, 80))}</span>`;
+  const shown = fmtDueDate(raw);
+  const label = days < 0 ? 'Closed · ' + shown : days === 0 ? 'Closes today' : days === 1 ? 'Closes tomorrow' : 'Closes in ' + days + ' days · ' + shown;
+  return `<span class="deadline-row ${days >= 0 && days <= 14 ? 'urgent' : ''}">⏱ ${esc(label)}</span>`;
+}
+// True once the due date is before today (the due date itself still counts as open).
+function dueDatePassed(g) {
+  const d = parseDueLocal(g.dueDate);
+  const today = new Date(); today.setHours(0,0,0,0);
+  return !!d && d < today;
+}
 function isAgencyGrantClosed(g) {
   const s = (g.status||'').toLowerCase();
   if (s.includes('closed') || s.includes('unavailable')) return true;
-  if (g.dueDate) {
-    const dueLower = g.dueDate.toLowerCase();
-    if (!dueLower.includes('rolling')) {
-      const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
-      const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
-      const parsed = new Date(normalized);
-      const today = new Date(); today.setHours(0,0,0,0);
-      if (!isNaN(parsed.getTime()) && parsed < today) return true;
-    }
-  }
-  return false;
+  return dueDatePassed(g);
 }
 
 function renderGrants() {
   const grid = document.getElementById('grants-grid');
-  const filteredNYS = filterNYSByAgency(filterNYSByCategory(state.nysGrants, state.category), state.agency);
+  const filteredNYS = filterNYSByAgency((state.nysGrants||[]).filter(g => matchesArea(g, state.cat)), state.agency);
+  const agencyInCat = (state.agencyGrants||[]).filter(g => matchesArea(g, state.cat));
   const allManual = [...(state.jsonManualGrants||[]), ...state.manualGrants];
   const hasManual = allManual.length > 0;
-  const hasAnything = filteredNYS.length > 0 || hasManual || (state.agencyGrants||[]).length > 0;
+  const hasAnything = filteredNYS.length > 0 || hasManual || agencyInCat.length > 0;
   if (!hasAnything && !state.loading) {
     grid.innerHTML=`<div class="empty-state"><div style="font-size:28px;">🔍</div><div style="font-size:13px;color:var(--text-mid);">No grants found.</div></div>`;
     return;
@@ -1073,11 +1225,12 @@ function renderGrants() {
 
   const norm25 = s => (s||'').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,25);
 
-  const agencyVisible = (state.agencyGrants||[]).filter(g => {
+  const agencyVisible = agencyInCat.filter(g => {
     if (state.agency) {
       const reverseMap = Object.fromEntries(Object.entries(SOURCE_TO_AGENCY).map(([src,code])=>[code,src]));
       const sourceEquiv = reverseMap[state.agency] || state.agency;
-      if (g.source !== state.agency && g.source !== sourceEquiv) return false;
+      const manualMatch = g.source === 'Manual' && g.agency && g.agency === (NYS_AGENCY_NAMES[state.agency] || SOURCE_DISPLAY_NAMES[state.agency] || state.agency);
+      if (g.source !== state.agency && g.source !== sourceEquiv && !manualMatch) return false;
     }
     const isClosed = isAgencyGrantClosed(g);
     if (isClosed && !state.statuses.includes('closed')) return false;
@@ -1087,9 +1240,10 @@ function renderGrants() {
 
   const nysVisible = filteredNYS.filter(g => {
     const s = (g.status||'').toLowerCase();
-    const isOpen = s.includes('available') || s.includes('open');
-    const isAdvertised = s.includes('advertised');
-    const isClosed = s.includes('closed');
+    const past = dueDatePassed(g);   // SFS grants close automatically once the due date passes
+    const isOpen = !past && (s.includes('available') || s.includes('open'));
+    const isAdvertised = !past && s.includes('advertised');
+    const isClosed = past || s.includes('closed');
     if (isClosed && !state.statuses.includes('closed')) return false;
     if (isAdvertised && !state.statuses.includes('posted')) return false;
     if (isOpen && !state.statuses.includes('posted')) return false;
@@ -1117,7 +1271,7 @@ function renderGrants() {
   function parseCombinedDate(g) {
     const raw = g.dueDate || g.closeDate || '';
     if (!raw) return null;
-    const cleaned = raw.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
+    const cleaned = raw.replace(/(\s+at)?\s+\d{1,2}:\d{2}.*$/i, '').trim();
     const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
     const d = new Date(normalized);
     return isNaN(d.getTime()) ? null : d;
@@ -1143,6 +1297,8 @@ function renderGrants() {
   <span class="tag" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">SFS Only</span>
   <span>= no direct announcement link available — copy the <strong>ID</strong> first, then click <strong>View ↗</strong> to open the SFS portal and paste it into the EVENT ID field and click search to find the listing.</span>
 </div>`;
+    stateIndex.length = 0;
+    combined.forEach((g, i) => { g._i = i; stateIndex[i] = g; });
     html += combined.map(g => g._type === 'agency' ? renderAgencyCard(g) : renderNYSCard(g)).join('');
   }
 
@@ -1177,56 +1333,47 @@ function renderManualCard(g) {
   </div>`;
 }
 
+// Badge text for agency cards: the funder (DEC, NYS Parks, HCR, NYSERDA...) read from the agency name,
+// so hand-added rows look like scraped ones. Other Grants cards keep their type (Regional, Nonprofit...).
+function fundingBadge(g) {
+  if (g._other) return g.source || 'Other';
+  const a = (g.agency || '').trim();
+  for (const [code, name] of Object.entries(NYS_AGENCY_NAMES)) if (name === a) return NYS_AGENCY_LABELS[code] || code;
+  for (const [src, name] of Object.entries(SOURCE_DISPLAY_NAMES)) if (name === a) return src;
+  if (a && a.length <= 14) return a;
+  return g.source && g.source !== 'Manual' ? g.source : (a || 'Agency');
+}
 function renderAgencyCard(g) {
   const isClosed = isAgencyGrantClosed(g);
   const sc = isClosed ? 'tag-closed' : 'tag-posted';
-  const sourceColors = { 'EFC':'background:#0f5132;color:#fff;','NYS Parks':'background:#14532d;color:#fff;','HCR':'background:#1e3a5f;color:#fff;','DASNY':'background:#3b0764;color:#fff;' };
-  const sourceStyle = sourceColors[g.source] || 'background:var(--text-mid);color:#fff;';
+  const sourceColors = { 'DEC':'background:#0f5132;color:#fff;','NYSERDA':'background:#0e7490;color:#fff;','EFC':'background:#0f5132;color:#fff;','NYS Parks':'background:#14532d;color:#fff;','HCR':'background:#1e3a5f;color:#fff;','DASNY':'background:#3b0764;color:#fff;', ...OG_TYPE_COLORS };
+  const badge = fundingBadge(g);
+  const sourceStyle = sourceColors[badge] || sourceColors[g.source] || 'background:var(--text-mid);color:#fff;';
   let dl = '';
-  if (g.dueDate) {
-    const dueLower = g.dueDate.toLowerCase();
-    if (dueLower.includes('rolling')) { dl = `<span class="deadline-row rolling">⟳ Rolling — check with agency for funding availability</span>`; }
-    else {
-      const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
-      const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
-      const parsed = new Date(normalized); const today = new Date(); today.setHours(0,0,0,0);
-      if (!isNaN(parsed.getTime())) {
-        const days = Math.round((parsed - today) / 86400000);
-        const cls = days < 0 ? '' : days <= 14 ? 'urgent' : '';
-        const label = days < 0 ? 'Closed · ' + cleaned : days === 0 ? 'Closes today' : days === 1 ? 'Closes tomorrow' : 'Closes in ' + days + ' days · ' + cleaned;
-        dl = `<span class="deadline-row ${cls}">⏱ ${esc(label)}</span>`;
-      } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
-    }
-  } else if (isClosed) { dl = `<span class="deadline-row">⏱ Closed · no fixed deadline listed</span>`; }
-  else { dl = `<span class="deadline-row rolling">⟳ No deadline listed — check with agency</span>`; }
-  return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}">
-    <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${sourceStyle}">${esc(g.source||'Agency')}</span><span class="tag ${sc}">${esc(isClosed?'Closed':g.status||'Available')}</span></div></div>
+  const who = g._other ? 'organization' : 'agency';   // Other Grants come from funders that aren't agencies
+  if (g.dueDate) { dl = deadlineHTML(g.dueDate, who); }
+  else if (isClosed) { dl = `<span class="deadline-row">⏱ Closed · no fixed deadline listed</span>`; }
+  else { dl = `<span class="deadline-row rolling">⟳ No deadline listed — check with ${who}</span>`; }
+  return `<div class="grant-card" style="${isClosed?'opacity:0.55;':''}" onclick="${g._onclick || `openStateModal(${g._i})`}">
+    <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${sourceStyle}">${esc(badge)}</span><span class="tag ${sc}">${esc(isClosed?'Closed':g.status||'Available')}</span></div></div>
     <div class="card-title">${esc(g.title)}</div>
     <div class="card-agency">${esc(g.agency||'')}</div>
     <div class="card-mid"><span></span></div>
     ${dl}
-    <div class="card-bottom"><div class="card-id">${esc(g.source||'')}</div><a class="view-btn" href="${esc(g.link||'#')}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View ↗</a></div>
+    <div class="card-bottom"><div class="card-id">${esc(badge)}</div><a class="view-btn" href="${esc(g.link||'#')}" target="_blank" rel="noopener" onclick="event.stopPropagation()">View ↗</a></div>
   </div>`;
 }
 
 function renderNYSCard(g) {
   const statusLower = (g.status||'').toLowerCase();
-  const isAdvertised = statusLower.includes('advertised');
-  const isAvailable  = statusLower.includes('available') || statusLower.includes('open');
+  const isPast = dueDatePassed(g);
+  const isAdvertised = !isPast && statusLower.includes('advertised');
+  const isAvailable  = !isPast && (statusLower.includes('available') || statusLower.includes('open'));
   const sc = isAdvertised ? 'tag-advertised' : isAvailable ? 'tag-posted' : 'tag-closed';
-  const statusLabel = isAdvertised ? 'Advertised in SFS' : isAvailable ? (g.status || 'Available') : (g.status || 'Closed');
+  const statusLabel = isAdvertised ? 'Advertised in SFS' : isAvailable ? (g.status || 'Available') : (isPast ? 'Closed' : (g.status || 'Closed'));
   let dl = '';
-  if (g.dueDate) {
-    const cleaned = g.dueDate.replace(/\s+\d{1,2}:\d{2}.*$/, '').trim();
-    const normalized = cleaned.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/, '$3-$1-$2');
-    const parsed = new Date(normalized); const today = new Date(); today.setHours(0,0,0,0);
-    if (!isNaN(parsed.getTime())) {
-      const days = Math.round((parsed - today) / 86400000);
-      const cls = days < 0 ? '' : days <= 14 ? 'urgent' : '';
-      const label = days < 0 ? 'Closed · ' + cleaned : days === 0 ? 'Closes today' : days === 1 ? 'Closes tomorrow' : 'Closes in ' + days + ' days · ' + cleaned;
-      dl = `<span class="deadline-row ${cls}">⏱ ${esc(label)}</span>`;
-    } else { dl = `<span class="deadline-row">⏱ ${esc(g.dueDate.slice(0, 80))}</span>`; }
-  } else if (g.award) { dl = `<span class="deadline-row rolling">◈ ${esc(g.award)}</span>`; }
+  if (g.dueDate) { dl = deadlineHTML(g.dueDate); }
+  else if (g.award) { dl = `<span class="deadline-row rolling">◈ ${esc(g.award)}</span>`; }
   else { dl = `<span class="deadline-row" style="color:var(--text-faint);">— See program page</span>`; }
   const hasId = g.id && !String(g.id).startsWith('nys-');
   const rawLink = g.link || g.url || '';
@@ -1235,7 +1382,7 @@ function renderNYSCard(g) {
   const agencyBadge = NYS_AGENCY_LABELS[g.agency] || g.agency || 'NYS';
   const agencyFull  = NYS_AGENCY_NAMES[g.agency]  || g.agency || 'New York State';
   const agencyStyle = NYS_AGENCY_COLORS[g.agency]  || 'background:var(--nys);color:#fff;';
-  return `<div class="grant-card">
+  return `<div class="grant-card" onclick="openStateModal(${g._i})">
     <div class="card-top"><div style="display:flex;gap:5px;flex-wrap:wrap;"><span class="tag" style="${agencyStyle}">${esc(agencyBadge)}</span><span class="tag ${sc}">${esc(statusLabel)}</span>${isSfsOnly?`<span class="tag" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);" title="No direct announcement link — copy the ID and search it on the SFS portal">SFS Only</span>`:''}</div></div>
     <div class="card-title">${esc(cleanNYSTitle(g.title))}</div>
     <div class="card-agency">${esc(agencyFull)}</div>
@@ -1325,6 +1472,89 @@ async function openModal(id) {
       </div>`;
   }
 }
+
+// ── STATE GRANT PREVIEW ───────────────────────────────────────
+const stateIndex = [];
+function fmtStateDue(raw) {
+  if (!raw) return '';
+  const time = (raw.match(/\s+(\d{1,2}:\d{2}.*)$/) || [])[1] || '';
+  const cleaned = raw.replace(/(\s+at)?\s+\d{1,2}:\d{2}.*$/i, '').trim();
+  const shown = fmtDueDate(raw);
+  return time ? shown + ' · ' + time : shown;
+}
+// "special" column: one detail per line (Alt+Enter in the cell) or separated by |. Each is "Label: value".
+function parseSpecial(s) {
+  return (s || '').split(/\r?\n|\s*\|\s*/).map(x => x.trim()).filter(Boolean).map(line => {
+    const i = line.indexOf(':');
+    if (i > 0 && i < 60 && !/^https?:/i.test(line) && !/[\/]/.test(line.slice(0, i))) {
+      const k = line.slice(0, i).trim();
+      return { k: k.charAt(0).toUpperCase() + k.slice(1), v: line.slice(i + 1).trim() };
+    }
+    return { k: 'Note', v: line };
+  }).filter(x => x.v);
+}
+// Escapes text, then turns [words](https://link) into a real link. Only http(s) links are allowed.
+function linkify(s) {
+  return esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:var(--blue);">$1</a>');
+}
+function fmtStateElig(s) {
+  const L = { MUNI:'Municipalities', NFP:'Not-for-profits', OT:'Other entities' };
+  return (s || '').split(',').map(x => x.trim()).filter(Boolean).map(x => L[x] || x).join(', ');
+}
+function openStateModal(i, list) {
+  const g = (list || stateIndex)[i]; if (!g) return;
+  const isAgency = g._type === 'agency';
+  const closed = isAgency ? isAgencyGrantClosed(g) : (dueDatePassed(g) || /closed/i.test(g.status || ''));
+  const advertised = !closed && /advertised/i.test(g.status || '');
+  const sc = advertised ? 'tag-advertised' : closed ? 'tag-closed' : 'tag-posted';
+  const statusText = closed ? 'Closed' : (g.status || 'Available');
+  let badge, badgeStyle, agencyFull, idText;
+  if (isAgency) {
+    badge = fundingBadge(g); badgeStyle = ({ 'DEC':'background:#0f5132;color:#fff;','NYSERDA':'background:#0e7490;color:#fff;','NYS Parks':'background:#14532d;color:#fff;','EFC':'background:#0f5132;color:#fff;','NYS Parks':'background:#14532d;color:#fff;','HCR':'background:#1e3a5f;color:#fff;','DASNY':'background:#3b0764;color:#fff;','Manual':'background:var(--manual);color:#fff;', ...OG_TYPE_COLORS })[badge] || 'background:var(--text-mid);color:#fff;';
+    agencyFull = g.agency || ''; idText = '';
+  } else {
+    badge = NYS_AGENCY_LABELS[g.agency] || g.agency || 'NYS'; badgeStyle = NYS_AGENCY_COLORS[g.agency] || 'background:var(--nys);color:#fff;';
+    agencyFull = NYS_AGENCY_NAMES[g.agency] || g.agency || 'New York State';
+    idText = g.id && !String(g.id).startsWith('nys-') ? String(g.id) : '';
+  }
+  const rawLink = g.link || g.url || '';
+  const sfsOnly = !isAgency && (!rawLink || rawLink.includes('esupplier.sfs.ny.gov') || rawLink.includes('nyscr.ny.gov'));
+  const href = rawLink.includes('nyscr.ny.gov') ? 'https://esupplier.sfs.ny.gov/psp/fscm/SUPPLIER/ERP/c/NY_SUPPUB_FL.AUC_RESP_INQ_AUC.GBL' : (rawLink || 'https://grantsmanagement.ny.gov/search-funding-sfs');
+  const due = /rolling/i.test(g.dueDate || '') ? 'Rolling' : (fmtStateDue(g.dueDate) || (closed ? 'No fixed deadline listed' : 'Rolling / no deadline listed'));
+  const areas = (g.serviceArea || '').split(',').map(s => s.trim()).filter(Boolean);
+  const elig = isAgency ? fmtStateElig(g.eligibility) : (g.eligibility || '');
+  const special = parseSpecial(g.special);
+  const row = (k, v) => `<div class="modal-row"><span class="modal-key">${k}</span><span class="modal-val">${esc(v)}</span></div>`;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-tag-row"><span class="tag" style="${badgeStyle}">${esc(badge)}</span><span class="tag ${sc}">${esc(advertised ? 'Advertised in SFS' : statusText)}</span>${sfsOnly ? '<span class="tag" style="background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);">SFS Only</span>' : ''}</div>
+    <div class="modal-title">${esc(isAgency ? g.title : cleanNYSTitle(g.title))}</div>
+    <div class="modal-agency">${esc(agencyFull)}${idText ? ' · ID ' + esc(idText) : ''}</div>
+    <div class="modal-grid">
+      <div class="modal-section" style="grid-column:1/-1;"><div class="modal-section-title">At a glance</div>
+        ${row('Status', advertised ? 'Advertised in SFS' : statusText)}
+        ${row('Closes', due)}
+        ${g.region ? row('Region', g.region) : ''}
+        ${g.award ? row('Total funding available', g.award) : ''}
+        ${g.awardDate ? row('Anticipated award date', g.awardDate) : ''}
+        ${g.questionsDue ? row('Questions due', g.questionsDue) : ''}
+        ${g.loi ? row('Letter of intent due', g.loi) : ''}
+        ${special.filter(x => x.v.length <= 70).map(x => `<div class="modal-row"><span class="modal-key">${esc(x.k)}</span><span class="modal-val">${linkify(x.v)}</span></div>`).join('')}
+        ${!isAgency && idText ? row('SFS ID', idText) : ''}
+      </div>
+    </div>
+    ${g.description ? `<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Description</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;max-height:160px;overflow-y:auto;">${esc(g.description)}</div></div>` : ''}
+    ${special.filter(x => x.v.length > 70).map(x => `<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">${esc(x.k)}</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;">${linkify(x.v)}</div></div>`).join('')}
+    ${g.conference ? `<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Bidder's conference / workshop</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;">${esc(g.conference)}</div></div>` : ''}
+    ${areas.length ? `<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Service areas</div><div class="modal-tag-row" style="margin:6px 0 0;">${areas.map(a => `<span class="tag" style="background:var(--surface-alt);color:var(--text-mid);border:1px solid var(--border);">${esc(a)}</span>`).join('')}</div></div>` : ''}
+    ${elig ? `<div class="modal-section" style="margin-bottom:14px;"><div class="modal-section-title">Eligibility</div><div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:6px;">${esc(elig)}</div></div>` : ''}
+    ${sfsOnly ? `<div style="font-size:11.5px;color:var(--text-mid);margin-bottom:12px;">No direct announcement link is available. Copy the ID, open the SFS portal, paste it into the EVENT ID field and search.</div>` : ''}
+    <div class="modal-actions">
+      <a class="btn-primary" href="${esc(href)}" target="_blank" rel="noopener">${sfsOnly ? 'Open SFS portal' : 'View program page'} →</a>
+      ${sfsOnly && idText ? `<button class="btn-primary" style="background:var(--surface-alt);color:var(--text-mid);border:1px solid var(--border);" onclick="copyId('${esc(idText)}',this)">Copy ID</button>` : ''}
+    </div>`;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
 function closeModal(e) { if (e.target===document.getElementById('modal-overlay')) closeModalDirect(); }
 function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); }
 function toggleSaveModal(id) {
@@ -1394,13 +1624,95 @@ function showLoading(){document.getElementById('grants-grid').innerHTML=`<div cl
 function showError(msg){document.getElementById('grants-grid').innerHTML=`<div class="error-state"><div style="font-size:24px;">⚠️</div><div class="error-msg">Could not connect to Grants.gov API.<br><small>${esc(msg)}</small></div><button class="retry-btn" onclick="fetchGrants()">Retry</button></div>`;}
 
 // ── DATA FETCHING ─────────────────────────────────────────────
+// ── GOOGLE SHEET (PRIMARY DATA SOURCE) ──────────────────────────────────────
+// The sheet's "Publish to web > CSV" link is set in config.js (next to this file). The sheet is the source of truth;
+// while this is empty (or the sheet is unreachable) the dashboard falls back to the JSON files.
+const SHEET_CSV_URL = (window.NYCOM_CONFIG || {}).SHEET_CSV_URL || '';   // set in config.js
+let sheetRows = null;   // null = no sheet; otherwise array of row objects keyed by header
+
+function parseCSV(text) {
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i+1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else if (c !== '\r') cur += c;
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  const head = (rows.shift() || []).map(h => h.trim());
+  return rows.filter(r => r.some(v => v !== '')).map(r => Object.fromEntries(head.map((h, i) => [h, (r[i] || '').trim()])));
+}
+const sheetPromise = (async () => {
+  if (!SHEET_CSV_URL) return;
+  try {
+    const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 6000);
+    const r = await fetch(SHEET_CSV_URL + (SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now(), { signal: ctl.signal });
+    clearTimeout(timer);
+    if (!r.ok) return;
+    const rows = parseCSV(await r.text());
+    if (rows.length && 'id' in rows[0] && 'title' in rows[0]) sheetRows = rows;
+  } catch (e) { console.log('Sheet not available, using JSON only:', e.message); }
+})();
+
+// Turn sheet rows back into the objects the cards and filters already understand.
+function sheetToGrants() {
+  const yes = v => /^(yes|y|true|x|hide|hidden|1|✓)$/i.test((v || '').trim());
+  const codeByName = Object.fromEntries(Object.entries(NYS_AGENCY_NAMES).map(([c, n]) => [n, c]));
+  const nys = [], agency = [];
+  sheetRows.forEach(r => {
+    if (!r.id || !r.title || yes(r.hide)) return;
+    const base = { id: r.id, title: r.title, link: r.link, dueDate: r.dueDate, status: r.status, eligibility: r.eligibility,
+      award: r.award, awardDate: r.awardDate, questionsDue: r.questionsDue, conference: r.conference, loi: r.loi, special: r.special };
+    if (r.source === 'SFS' || r.source === 'NYS') {
+      nys.push({ ...base, agency: codeByName[r.agency] || r.agency, serviceArea: r.category, source: 'NYS' });
+      return;
+    }
+    // Agency scrapers and hand-typed rows. A Manual row whose agency matches a known source
+    // takes that source, so it files under the same agency filter entry and tag.
+    let src = r.source;
+    if (!src || src === 'Manual') {
+      src = Object.keys(SOURCE_TO_AGENCY).find(k => (SOURCE_DISPLAY_NAMES[k] || NYS_AGENCY_NAMES[SOURCE_TO_AGENCY[k]] || k) === r.agency) || 'Manual';
+    }
+    agency.push({ ...base, agency: r.agency, description: r.description, serviceArea: r.category, source: src, manual: r.source === 'Manual' || undefined });
+  });
+  state.nysGrants = nys; state.jsonManualGrants = []; state.agencyGrants = agency;
+}
+
+// The sheet is the source of truth. The JSON files are only used if the sheet can't be read.
+async function loadGrantData() {
+  await sheetPromise;
+  if (sheetRows) { sheetToGrants(); buildAgencyFilter(); renderGrants(); return; }
+  await Promise.all([fetchNYSGrants(), fetchAgencyGrants()]);
+  if (!(state.nysGrants||[]).length && !(state.agencyGrants||[]).length && !state.jsonManualGrants.length) {
+    // Details for whoever maintains the site go to the browser console, not onto the page.
+    console.warn(SHEET_CSV_URL ? 'Grants data: the sheet link could not be read and the JSON files were not found.'
+                               : 'Grants data: no SHEET_CSV_URL is set in config.js and the JSON files were not found.');
+    document.getElementById('grants-grid').innerHTML = `<div class="error-state"><div style="font-size:24px;">⚠️</div><div class="error-msg">Could not load grants.<br><small>Please try again in a few minutes.</small></div></div>`;
+  }
+}
+
+// Fallback data. The scrapers save the JSON files in the repo's main folder, which is not always the folder this page
+// sits in (a test site keeps the dashboard in /grants/), so look next to the page first and then one folder up.
+async function fetchJsonFile(name){
+  for (const base of ['./', '../']) {
+    try { const r = await fetch(base + name + '?_=' + Date.now()); if (r.ok) return await r.json(); } catch (e) { /* try the next folder */ }
+  }
+  console.log(name + ' not found next to the page or one folder up');
+  return null;
+}
 async function fetchNYSGrants(){
-  try{const r=await fetch('./nys-grants.json?_='+Date.now());if(!r.ok)return;const d=await r.json();const all=d.grants||[];state.jsonManualGrants=all.filter(g=>g.manual===true);state.nysGrants=all.filter(g=>g.manual!==true);buildAgencyFilter();renderGrants();}
-  catch(e){console.log('NYS grants not available:',e.message);}
+  const d = await fetchJsonFile('nys-grants.json'); if (!d) return;
+  const all = d.grants || [];
+  state.jsonManualGrants = all.filter(g => g.manual === true);
+  state.nysGrants = all.filter(g => g.manual !== true && !g.noYear);
+  buildAgencyFilter(); renderGrants();
 }
 async function fetchAgencyGrants(){
-  try{const r=await fetch('./agency-grants.json?_='+Date.now());if(!r.ok)return;const d=await r.json();state.agencyGrants=d.grants||[];buildAgencyFilter();renderGrants();}
-  catch(e){console.log('Agency grants not available:',e.message);}
+  const d = await fetchJsonFile('agency-grants.json'); if (!d) return;
+  state.agencyGrants = (d.grants || []).filter(g => !g.noYear);   // deadline has no year: held back until verified in the sheet
+  buildAgencyFilter(); renderGrants();
 }
 
 document.getElementById('keyword-input').addEventListener('keydown',e=>{
@@ -1415,9 +1727,17 @@ function mobileStatus(status, btn) {
   state.statuses = status === 'closed' ? ['closed'] : ['posted'];
   renderGrants();
 }
+function mobileCategory(cat) {
+  state.cat = cat;
+  renderGrants();
+}
 function mobileAgency(agency) {
   state.agency = agency;
   renderGrants();
+}
+function mobileFedAgency(agency) {
+  fed.agency = agency;
+  fed.page = 0; fed.grants = []; fetchFedGrants();
 }
 function mobileFedCategory(category) {
   fed.category = category;
@@ -1430,8 +1750,103 @@ function mobileFedStatus(status, btn) {
   fed.page = 0; fed.grants = []; fetchFedGrants();
 }
 
-fetchNYSGrants();
-fetchAgencyGrants();
+
+// ── OTHER GRANTS TAB (regional, nonprofit, private foundations, commissions...) ──
+// Everything here is typed by hand into the "Other Grants" tab of the sheet. Publish THAT tab as CSV
+// (File > Share > Publish to web) and put its link in config.js. Empty = the tab shows a short notice.
+const OTHER_GRANTS_CSV_URL = (window.NYCOM_CONFIG || {}).OTHER_GRANTS_CSV_URL || '';   // set in config.js
+const OG_TYPE_ORDER = ['Regional', 'Nonprofit', 'Private foundation', 'Corporate', 'Commission', 'Other'];
+const OG_TYPE_COLORS = {
+  'Regional':'background:#0f766e;color:#fff;', 'Nonprofit':'background:#6d28d9;color:#fff;',
+  'Private foundation':'background:#b45309;color:#fff;', 'Corporate':'background:#334155;color:#fff;',
+  'Commission':'background:#9d174d;color:#fff;',
+};
+const ogIndex = [];
+let ogAll = [], ogLoaded = false;
+const og = { type: '', region: '', statuses: ['posted'], sort: 'closeDate|asc' };
+// A grant can list several regions in one cell, separated by commas or semicolons.
+const ogRegions = g => (g.region || '').split(/[,;]/).map(s => s.trim()).filter(Boolean);
+
+async function loadOtherGrants() {
+  if (OTHER_GRANTS_CSV_URL) {
+    try {
+      const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 8000);
+      const r = await fetch(OTHER_GRANTS_CSV_URL + (OTHER_GRANTS_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now(), { signal: ctl.signal });
+      clearTimeout(timer);
+      if (r.ok) {
+        const yes = v => /^(yes|y|true|x|hide|hidden|1|✓)$/i.test((v || '').trim());
+        ogAll = parseCSV(await r.text()).filter(r => r.title && !yes(r.hide)).map(r => ({
+          id: r.id || r.title, title: r.title, agency: r.funder, link: r.link, dueDate: r.dueDate, status: r.status,
+          description: r.description, eligibility: r.eligibility, award: r.amount, region: r.region, special: r.special,
+          source: r.type || 'Other', _type: 'agency', _other: true,
+        }));
+      }
+    } catch (e) { console.log('Other grants not available:', e.message); }
+  }
+  ogLoaded = true;
+  ogBuildTypes();
+  renderOtherGrants();
+}
+function ogBuildTypes() {
+  const present = [...new Set(ogAll.map(g => g.source))];
+  const ordered = [...OG_TYPE_ORDER.filter(x => present.includes(x)), ...present.filter(x => !OG_TYPE_ORDER.includes(x)).sort()];
+  const opts = '<option value="">All types</option>' + ordered.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  ['og-type', 'mobile-og-type'].forEach(id => { const el = document.getElementById(id); if (el) { const cur = el.value; el.innerHTML = opts; if (cur) el.value = cur; } });
+  const regions = [...new Set(ogAll.flatMap(ogRegions))].sort((a, b) => (a === 'Statewide' ? -1 : b === 'Statewide' ? 1 : a.localeCompare(b)));
+  const ropts = '<option value="">All regions</option>' + regions.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  ['og-region', 'mobile-og-region'].forEach(id => { const el = document.getElementById(id); if (el) { const cur = el.value; el.innerHTML = ropts; if (cur) el.value = cur; } });
+}
+function renderOtherGrants() {
+  const grid = document.getElementById('og-grid');
+  if (!grid || !ogLoaded) return;
+  const msg = text => { grid.innerHTML = `<div class="empty-state"><div style="font-size:28px;">🔍</div><div style="font-size:13px;color:var(--text-mid);">${esc(text)}</div></div>`; };
+  if (!ogAll.length) return msg(OTHER_GRANTS_CSV_URL ? 'No other grants are listed yet.' : 'Other Grants is not set up yet (no sheet link).');
+  let list = ogAll.filter(g => {
+    if (og.type && g.source !== og.type) return false;
+    if (og.region && !ogRegions(g).includes(og.region)) return false;
+    return isAgencyGrantClosed(g) ? og.statuses.includes('closed') : og.statuses.includes('posted');
+  });
+  const [field, dir] = og.sort.split('|');
+  list.sort((a, b) => {
+    if (field === 'title') return a.title.localeCompare(b.title);
+    const da = parseDueLocal(a.dueDate), db = parseDueLocal(b.dueDate);
+    if (!da && !db) return a.title.localeCompare(b.title); if (!da) return 1; if (!db) return -1;
+    return dir === 'asc' ? da - db : db - da;
+  });
+  if (!list.length) return msg('No grants match these filters.');
+  ogIndex.length = 0;
+  list = list.map((g, i) => { const o = { ...g, _i: i, _onclick: `openStateModal(${i},ogIndex)` }; ogIndex[i] = o; return o; });
+  grid.innerHTML = `<div style="grid-column:1/-1;padding:6px 0 10px;border-bottom:1.5px solid var(--border);margin-bottom:2px;font-family:'Inter',sans-serif;"><span style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);">Other Grants <span style="font-weight:400;color:var(--text-faint);font-size:11px;">(${list.length} opportunit${list.length === 1 ? 'y' : 'ies'})</span></span></div>`
+    + list.map(renderAgencyCard).join('');
+}
+function ogApply() {
+  og.type = document.getElementById('og-type').value;
+  og.region = document.getElementById('og-region').value;
+  og.sort = document.getElementById('og-sort').value;
+  og.statuses = [];
+  if (document.getElementById('og-posted').checked) og.statuses.push('posted');
+  if (document.getElementById('og-closed').checked) og.statuses.push('closed');
+  if (!og.statuses.length) og.statuses = ['posted'];
+  renderOtherGrants();
+}
+function ogMobileStatus(status, btn) {
+  document.querySelectorAll('#mobile-og-filter-bar .mobile-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  og.statuses = status === 'closed' ? ['closed'] : ['posted'];
+  renderOtherGrants();
+}
+function ogMobileType(v) { og.type = v; renderOtherGrants(); }
+function ogMobileRegion(v) { og.region = v; renderOtherGrants(); }
+
+// config.js: SHOW_OTHER_RESOURCES: false hides the Other Resources tab (and its line on How to Use) until you're ready.
+if ((window.NYCOM_CONFIG || {}).SHOW_OTHER_RESOURCES === false) {
+  ['nav-resources', 'howto-resources', 'tab-resources'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+}
+// config.js: SHOW_OTHER_GRANTS: false hides the Other Grants tab and never requests its sheet.
+const showOtherGrants = (window.NYCOM_CONFIG || {}).SHOW_OTHER_GRANTS !== false;
+if (!showOtherGrants) ['nav-other', 'tab-other'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+loadGrantData();
+if (showOtherGrants) loadOtherGrants();
 </script>
 </body>
 </html>
