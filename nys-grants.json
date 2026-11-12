@@ -321,6 +321,22 @@
       "source": "NYS"
     },
     {
+      "id": "EVT0000013",
+      "agency": "OAS01",
+      "title": "SETT 26024 - Non-Medical Transportation",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit",
+      "dueDate": "12/03/2026 4:00PM EST",
+      "link": "https://www.nyscr.ny.gov/Ads/Details/2140604?crumbs=%5B%7B%22Url%22%3A%22%2FAds%2FMyAds%3FGovernmentId%3D999%5Cu0026Status%3DOpen%22,%22Title%22%3A%22Open%20Ads%22%7D%5D",
+      "serviceArea": "Health Services",
+      "award": "$600,000",
+      "awardDate": "01/01/2027",
+      "questionsDue": "12/02/2026",
+      "conference": "",
+      "loi": "",
+      "source": "NYS"
+    },
+    {
       "id": "MH253021",
       "agency": "OMH01",
       "title": "Crisis Stabilization Centers",
@@ -401,6 +417,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-11-09T18:10:08.114Z",
-  "count": 25
+  "fetched": "2026-11-12T16:36:03.769Z",
+  "count": 26
 }
