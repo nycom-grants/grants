@@ -353,18 +353,18 @@
       "source": "NYS"
     },
     {
-      "id": "MH263037",
-      "agency": "OMH01",
-      "title": "Health-led Community Behavioral Health Crisis",
-      "status": "Available",
-      "eligibility": "Governmental Entity, Not-For-Profit",
-      "dueDate": "11/19/2026 2:00PM EST",
-      "link": "https://omh.ny.gov/omhweb/rfp/",
-      "serviceArea": "Health Services, Public Safety Supports",
-      "award": "$8,000,000",
-      "awardDate": "01/14/2027",
-      "questionsDue": "10/08/2026",
-      "conference": "A bidder's conference will be held on September 28th at 3:00 PM. Please see the link in the RFP to join the webex.",
+      "id": "OPDFSS2675",
+      "agency": "OPD01",
+      "title": "FSS RFA 2027 Region 5",
+      "status": "Advertised Only - Not in SFS",
+      "eligibility": "Governmental Entity, Not-For-Profit, Tribal Organization",
+      "dueDate": "01/05/2027 4:00PM EST",
+      "link": "https://opwdd.ny.gov/procurement-opportunities",
+      "serviceArea": "Family Supports",
+      "award": "$943,345",
+      "awardDate": "03/22/2027",
+      "questionsDue": "12/03/2026",
+      "conference": "FSS RFA 2027 Region 5",
       "loi": "",
       "source": "NYS"
     },
@@ -417,6 +417,6 @@
       "source": "NYS"
     }
   ],
-  "fetched": "2026-11-19T17:05:35.312Z",
+  "fetched": "2026-11-23T19:49:12.810Z",
   "count": 26
 }
