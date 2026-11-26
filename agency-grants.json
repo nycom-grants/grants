@@ -328,8 +328,8 @@
       "id": "dec-municipal-zero-emission-vehicle--zev--cl",
       "title": "Municipal Zero-Emission Vehicle (ZEV) Clean Vehicle Rebate Program",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Closed",
-      "dueDate": "",
+      "status": "Available",
+      "dueDate": "February 26, 2027",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action#Municipal",
       "source": "DEC"
@@ -338,8 +338,8 @@
       "id": "dec-municipal-zero-emission-vehicle--zev--in",
       "title": "Municipal Zero-Emission Vehicle (ZEV) Infrastructure Grant Program",
       "agency": "NYS Department of Environmental Conservation",
-      "status": "Closed",
-      "dueDate": "",
+      "status": "Available",
+      "dueDate": "February 26, 2027",
       "eligibility": "MUNI",
       "link": "https://dec.ny.gov/environmental-protection/climate-change/resources-for-local-governments/grants-for-climate-action#Municipal",
       "source": "DEC"
@@ -508,7 +508,7 @@
       "manual": true
     }
   ],
-  "fetched": "2026-11-23T20:42:53.116Z",
+  "fetched": "2026-11-26T18:44:12.172Z",
   "count": 50,
   "sources": {
     "efc": 5,
